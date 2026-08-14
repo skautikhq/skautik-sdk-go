@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the ImportPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ImportPage{}
+// checks if the WebhookList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebhookList{}
 
-// ImportPage A page of Import records, with the cursor for the next one.
-type ImportPage struct {
-	Data []Import `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// WebhookList Every Webhook record.
+type WebhookList struct {
+	Data []Webhook `json:"data"`
 }
 
-type _ImportPage ImportPage
+type _WebhookList WebhookList
 
-// NewImportPage instantiates a new ImportPage object
+// NewWebhookList instantiates a new WebhookList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportPage(data []Import) *ImportPage {
-	this := ImportPage{}
+func NewWebhookList(data []Webhook) *WebhookList {
+	this := WebhookList{}
 	this.Data = data
 	return &this
 }
 
-// NewImportPageWithDefaults instantiates a new ImportPage object
+// NewWebhookListWithDefaults instantiates a new WebhookList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewImportPageWithDefaults() *ImportPage {
-	this := ImportPage{}
+func NewWebhookListWithDefaults() *WebhookList {
+	this := WebhookList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *ImportPage) GetData() []Import {
+func (o *WebhookList) GetData() []Webhook {
 	if o == nil {
-		var ret []Import
+		var ret []Webhook
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *ImportPage) GetData() []Import {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ImportPage) GetDataOk() ([]Import, bool) {
+func (o *WebhookList) GetDataOk() ([]Webhook, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *ImportPage) GetDataOk() ([]Import, bool) {
 }
 
 // SetData sets field value
-func (o *ImportPage) SetData(v []Import) {
+func (o *WebhookList) SetData(v []Webhook) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *ImportPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *ImportPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *ImportPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o ImportPage) MarshalJSON() ([]byte, error) {
+func (o WebhookList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o ImportPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ImportPage) ToMap() (map[string]interface{}, error) {
+func (o WebhookList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *ImportPage) UnmarshalJSON(data []byte) (err error) {
+func (o *WebhookList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *ImportPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varImportPage := _ImportPage{}
+	varWebhookList := _WebhookList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImportPage)
+	err = decoder.Decode(&varWebhookList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ImportPage(varImportPage)
+	*o = WebhookList(varWebhookList)
 
 	return err
 }
 
-type NullableImportPage struct {
-	value *ImportPage
+type NullableWebhookList struct {
+	value *WebhookList
 	isSet bool
 }
 
-func (v NullableImportPage) Get() *ImportPage {
+func (v NullableWebhookList) Get() *WebhookList {
 	return v.value
 }
 
-func (v *NullableImportPage) Set(val *ImportPage) {
+func (v *NullableWebhookList) Set(val *WebhookList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableImportPage) IsSet() bool {
+func (v NullableWebhookList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableImportPage) Unset() {
+func (v *NullableWebhookList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableImportPage(val *ImportPage) *NullableImportPage {
-	return &NullableImportPage{value: val, isSet: true}
+func NewNullableWebhookList(val *WebhookList) *NullableWebhookList {
+	return &NullableWebhookList{value: val, isSet: true}
 }
 
-func (v NullableImportPage) MarshalJSON() ([]byte, error) {
+func (v NullableWebhookList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableImportPage) UnmarshalJSON(src []byte) error {
+func (v *NullableWebhookList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

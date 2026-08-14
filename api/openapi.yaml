@@ -76,12 +76,8 @@ paths:
                   format: ndjson
                   created_at: 2026-08-12T10:04:00Z
                   expires_at: 0001-01-01T00:00:00Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/ExportPage"
+                $ref: "#/components/schemas/ExportList"
           description: The request succeeded.
         "401":
           content:
@@ -275,12 +271,8 @@ paths:
                   property_id: prop_8f2a41c9d0
                   source_image_id: img_2b7d4f1908
                   created_at: 0001-01-01T00:00:00Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/GenerationPage"
+                $ref: "#/components/schemas/GenerationList"
           description: The request succeeded.
         "401":
           content:
@@ -573,12 +565,8 @@ paths:
                   next_expected_at: 2026-08-14T03:15:00Z
                   created_at: 0001-01-01T00:00:00Z
                   updated_at: 0001-01-01T00:00:00Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/ImportSourcePage"
+                $ref: "#/components/schemas/ImportSourceList"
           description: The request succeeded.
         "401":
           content:
@@ -953,12 +941,8 @@ paths:
                     unchanged: 0
                     failed: 0
                   created_at: 0001-01-01T00:00:00Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/ImportPage"
+                $ref: "#/components/schemas/ImportList"
           description: The request succeeded.
         "401":
           content:
@@ -1042,10 +1026,6 @@ paths:
                 $ref: "#/components/schemas/ImportResponse"
           description: The request succeeded.
         "202":
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
           description: Accepted for processing. Poll or await import.completed.
         "401":
           content:
@@ -1309,12 +1289,8 @@ paths:
                   outcome: rejected
                   errors:
                   - price must be a positive number
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/ImportRecordPage"
+                $ref: "#/components/schemas/ImportRecordList"
           description: The request succeeded.
         "401":
           content:
@@ -1710,12 +1686,8 @@ paths:
                   - 2026-07
                   - 2026-06
                   - 2026-05
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/CityPage"
+                $ref: "#/components/schemas/CityList"
           description: The request succeeded.
         "401":
           content:
@@ -1860,12 +1832,8 @@ paths:
                   listing_count: 1482
                 - district: Neukölln
                   listing_count: 1197
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/DistrictPage"
+                $ref: "#/components/schemas/DistrictList"
           description: The request succeeded.
         "401":
           content:
@@ -2111,9 +2079,22 @@ paths:
       responses:
         "200":
           content:
-            application/problem+json:
+            application/json:
+              example:
+                data:
+                  api_key_id: key_7b7d501a194845f9b6a9cd0162c5b8c5
+                  organization_id: org_67c6bc5cf2a74bc1a8d18656db5a2dba
+                  quota:
+                    burst_per_second: 3
+                    limit: 100000
+                    metered: true
+                    remaining: 99988
+                    resets_at: 2026-09-12T15:12:56Z
+                    used: 12
+                  scopes:
+                  - properties:read
               schema:
-                $ref: "#/components/schemas/Problem"
+                $ref: "#/components/schemas/Envelope"
           description: "An organisation on a negotiated plan reports quota as { \"\
             metered\": false } rather than a limit of zero, which would read as an\
             \ allowance of nothing."
@@ -2510,9 +2491,53 @@ paths:
       responses:
         "201":
           content:
-            application/problem+json:
+            application/json:
+              example:
+                data:
+                  id: prop_8f2a41c9d0
+                  type: apartment
+                  title: Top-floor apartment with a south-facing balcony
+                  description: "Altbau flat on a quiet side street, two minutes from\
+                    \ Görlitzer Park."
+                  listing:
+                    transaction_type: sale
+                    status: active
+                    price: 429000
+                    currency: EUR
+                    price_per_sqm: 5797.3
+                    published_at: 2026-07-28T09:12:00Z
+                  size:
+                    living_area_sqm: 74
+                  rooms:
+                    bedrooms: 2
+                    bathrooms: 1
+                    total_rooms: 3
+                    floor: 4
+                    floors_in_building: 4
+                  building:
+                    year_built: 1908
+                    construction_type: altbau
+                    condition: renovated
+                    heating_type: district
+                  address:
+                    street: Oranienstrasse
+                    number: "12"
+                    postal_code: "10999"
+                    city: Berlin
+                    district: Kreuzberg
+                    country: DE
+                  location:
+                    latitude: 52.4993
+                    longitude: 13.4184
+                    precision: street
+                  energy:
+                    label: C
+                    consumption_kwh: 112.4
+                  source: api
+                  created_at: 2026-07-28T09:12:00Z
+                  updated_at: 2026-08-11T14:03:22Z
               schema:
-                $ref: "#/components/schemas/Problem"
+                $ref: "#/components/schemas/PropertyResponse"
           description: Created. The Location header carries the new resource URL.
         "401":
           content:
@@ -2648,10 +2673,6 @@ paths:
         style: simple
       responses:
         "204":
-          content:
-            application/problem+json:
-              schema:
-                $ref: "#/components/schemas/Problem"
           description: Withdrawn. No body.
         "401":
           content:
@@ -2969,12 +2990,8 @@ paths:
                   position: 2
                   is_primary: false
                   room_type: kitchen
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/ImagePage"
+                $ref: "#/components/schemas/ImageList"
           description: The request succeeded.
         "401":
           content:
@@ -3187,12 +3204,8 @@ paths:
                   currency: EUR
                   observed_at: 2026-08-11T14:03:22Z
                   source: listing
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/PriceObservationPage"
+                $ref: "#/components/schemas/PriceObservationList"
           description: The request succeeded.
         "401":
           content:
@@ -3296,12 +3309,8 @@ paths:
                   source: import
                   created_at: 2026-06-02T08:00:00Z
                   updated_at: 2026-08-09T11:20:10Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/PropertyPage"
+                $ref: "#/components/schemas/PropertyList"
           description: The request succeeded.
         "401":
           content:
@@ -3360,12 +3369,8 @@ paths:
                   active: true
                   created_at: 2026-08-13T10:43:37Z
                   updated_at: 2026-08-13T10:43:37Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/WebhookPage"
+                $ref: "#/components/schemas/WebhookList"
           description: The request succeeded.
         "401":
           content:
@@ -3422,9 +3427,21 @@ paths:
       responses:
         "201":
           content:
-            application/problem+json:
+            application/json:
+              example:
+                data:
+                  secret: whsec_uEw7ugUA3saVyNo087Sg3XvhBnWI0txICtik-ySKD2k
+                  webhook:
+                    active: true
+                    created_at: 2026-08-13T10:43:37Z
+                    events:
+                    - property.created
+                    - property.withdrawn
+                    id: whk_1b7e6c19a139404cb173d23fcb3331c4
+                    updated_at: 2026-08-13T10:43:37Z
+                    url: https://example.com/hooks/skautik
               schema:
-                $ref: "#/components/schemas/Problem"
+                $ref: "#/components/schemas/Envelope"
           description: Created. signing_secret appears in this response only.
         "401":
           content:
@@ -3765,12 +3782,8 @@ paths:
                   response_status: 200
                   delivered_at: 2026-08-13T10:44:02Z
                   created_at: 2026-08-13T10:44:01Z
-                meta:
-                  has_more: false
-                  limit: 50
-                  next_cursor: null
               schema:
-                $ref: "#/components/schemas/DeliveryPage"
+                $ref: "#/components/schemas/DeliveryList"
           description: The request succeeded.
         "401":
           content:
@@ -3984,8 +3997,8 @@ components:
       required:
       - city
       - periods
-    CityPage:
-      description: "A page of City records, with the cursor for the next one."
+    CityList:
+      description: Every City record.
       example:
         data:
         - city: city
@@ -3996,18 +4009,12 @@ components:
           periods:
           - periods
           - periods
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/City"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     Delivery:
@@ -4050,8 +4057,8 @@ components:
       - id
       - max_attempts
       - status
-    DeliveryPage:
-      description: "A page of Delivery records, with the cursor for the next one."
+    DeliveryList:
+      description: Every Delivery record.
       example:
         data:
         - attempts: 0
@@ -4072,18 +4079,12 @@ components:
           next_retry_at: 2000-01-23T04:56:07.000+00:00
           response_status: 1
           status: status
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Delivery"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     District:
@@ -4098,26 +4099,20 @@ components:
       required:
       - district
       - listing_count
-    DistrictPage:
-      description: "A page of District records, with the cursor for the next one."
+    DistrictList:
+      description: Every District record.
       example:
         data:
         - district: district
           listing_count: 0
         - district: district
           listing_count: 0
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/District"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     Energy:
@@ -4186,8 +4181,8 @@ components:
       - format
       - id
       - status
-    ExportPage:
-      description: "A page of Export records, with the cursor for the next one."
+    ExportList:
+      description: Every Export record.
       example:
         data:
         - byte_size: 0
@@ -4210,18 +4205,12 @@ components:
           id: id
           record_count: 6
           status: status
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Export"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     ExportResponse:
@@ -4289,8 +4278,8 @@ components:
       - id
       - kind
       - status
-    GenerationPage:
-      description: "A page of Generation records, with the cursor for the next one."
+    GenerationList:
+      description: Every Generation record.
       example:
         data:
         - created_at: 2000-01-23T04:56:07.000+00:00
@@ -4317,18 +4306,12 @@ components:
           source_image_id: source_image_id
           status: status
           style: style
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Generation"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     GenerationResponse:
@@ -4375,8 +4358,8 @@ components:
       - is_primary
       - position
       - url
-    ImagePage:
-      description: "A page of Image records, with the cursor for the next one."
+    ImageList:
+      description: Every Image record.
       example:
         data:
         - id: id
@@ -4389,18 +4372,12 @@ components:
           position: 5
           room_type: room_type
           url: url
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Image"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     ImageResponse:
@@ -4504,8 +4481,8 @@ components:
       - unchanged
       - updated
       - withdrawn
-    ImportPage:
-      description: "A page of Import records, with the cursor for the next one."
+    ImportList:
+      description: Every Import record.
       example:
         data:
         - bytes: 0
@@ -4546,18 +4523,12 @@ components:
           source_id: source_id
           started_at: 2000-01-23T04:56:07.000+00:00
           status: status
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Import"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     ImportRecord:
@@ -4586,8 +4557,8 @@ components:
       required:
       - location
       - outcome
-    ImportRecordPage:
-      description: "A page of ImportRecord records, with the cursor for the next one."
+    ImportRecordList:
+      description: Every ImportRecord record.
       example:
         data:
         - errors:
@@ -4604,18 +4575,12 @@ components:
           location: location
           outcome: outcome
           property_id: property_id
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/ImportRecord"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     ImportResponse:
@@ -4703,8 +4668,8 @@ components:
       - id
       - name
       - updated_at
-    ImportSourcePage:
-      description: "A page of ImportSource records, with the cursor for the next one."
+    ImportSourceList:
+      description: Every ImportSource record.
       example:
         data:
         - active: true
@@ -4739,18 +4704,12 @@ components:
           next_expected_at: 2000-01-23T04:56:07.000+00:00
           schedule: schedule
           updated_at: 2000-01-23T04:56:07.000+00:00
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/ImportSource"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     ImportSourceResponse:
@@ -5127,9 +5086,8 @@ components:
       required:
       - currency
       - observed_at
-    PriceObservationPage:
-      description: "A page of PriceObservation records, with the cursor for the next\
-        \ one."
+    PriceObservationList:
+      description: Every PriceObservation record.
       example:
         data:
         - currency: currency
@@ -5140,18 +5098,12 @@ components:
           observed_at: 2000-01-23T04:56:07.000+00:00
           price: 4.145608029883936
           source: source
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/PriceObservation"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     Problem:
@@ -5336,6 +5288,200 @@ components:
       - title
       - type
       - updated_at
+    PropertyList:
+      description: Every Property record.
+      example:
+        data:
+        - address:
+            city: city
+            country: country
+            district: district
+            number: number
+            postal_code: postal_code
+            province: province
+            street: street
+          building:
+            condition: condition
+            construction_type: construction_type
+            heating_type: heating_type
+            year_built: 0
+            year_renovated: 6
+          created_at: 2000-01-23T04:56:07.000+00:00
+          description: description
+          energy:
+            consumption_kwh: 1.4658129805029452
+            label: label
+          external_id: external_id
+          id: id
+          images:
+          - id: id
+            is_primary: true
+            position: 5
+            room_type: room_type
+            url: url
+          - id: id
+            is_primary: true
+            position: 5
+            room_type: room_type
+            url: url
+          last_verified_at: 2000-01-23T04:56:07.000+00:00
+          listing:
+            available_from: 2000-01-23T04:56:07.000+00:00
+            currency: currency
+            deposit: 5.637376656633329
+            price: 2.3021358869347655
+            price_per_sqm: 7.061401241503109
+            price_period: price_period
+            published_at: 2000-01-23T04:56:07.000+00:00
+            service_charges: 9.301444243932576
+            status: status
+            transaction_type: transaction_type
+          location:
+            latitude: 3.616076749251911
+            longitude: 2.027123023002322
+            precision: precision
+          market:
+            city: city
+            district: district
+            metrics:
+            - change_pct: 0.8008281904610115
+              computed_at: 2000-01-23T04:56:07.000+00:00
+              currency: currency
+              name: name
+              sample_size: 6
+              unit: unit
+              value: 1.4658129805029452
+            - change_pct: 0.8008281904610115
+              computed_at: 2000-01-23T04:56:07.000+00:00
+              currency: currency
+              name: name
+              sample_size: 6
+              unit: unit
+              value: 1.4658129805029452
+            period: period
+          price_history:
+          - currency: currency
+            observed_at: 2000-01-23T04:56:07.000+00:00
+            price: 4.145608029883936
+            source: source
+          - currency: currency
+            observed_at: 2000-01-23T04:56:07.000+00:00
+            price: 4.145608029883936
+            source: source
+          rooms:
+            bathrooms: 7
+            bedrooms: 1
+            floor: 1
+            floors_in_building: 1
+            half_bathrooms: 6
+            total_rooms: 7
+          size:
+            living_area_sqm: 1.1730742509559433
+            plot_area_sqm: 4.965218492984954
+            usable_area_sqm: 5.025004791520295
+          source: source
+          title: title
+          type: type
+          updated_at: 2000-01-23T04:56:07.000+00:00
+        - address:
+            city: city
+            country: country
+            district: district
+            number: number
+            postal_code: postal_code
+            province: province
+            street: street
+          building:
+            condition: condition
+            construction_type: construction_type
+            heating_type: heating_type
+            year_built: 0
+            year_renovated: 6
+          created_at: 2000-01-23T04:56:07.000+00:00
+          description: description
+          energy:
+            consumption_kwh: 1.4658129805029452
+            label: label
+          external_id: external_id
+          id: id
+          images:
+          - id: id
+            is_primary: true
+            position: 5
+            room_type: room_type
+            url: url
+          - id: id
+            is_primary: true
+            position: 5
+            room_type: room_type
+            url: url
+          last_verified_at: 2000-01-23T04:56:07.000+00:00
+          listing:
+            available_from: 2000-01-23T04:56:07.000+00:00
+            currency: currency
+            deposit: 5.637376656633329
+            price: 2.3021358869347655
+            price_per_sqm: 7.061401241503109
+            price_period: price_period
+            published_at: 2000-01-23T04:56:07.000+00:00
+            service_charges: 9.301444243932576
+            status: status
+            transaction_type: transaction_type
+          location:
+            latitude: 3.616076749251911
+            longitude: 2.027123023002322
+            precision: precision
+          market:
+            city: city
+            district: district
+            metrics:
+            - change_pct: 0.8008281904610115
+              computed_at: 2000-01-23T04:56:07.000+00:00
+              currency: currency
+              name: name
+              sample_size: 6
+              unit: unit
+              value: 1.4658129805029452
+            - change_pct: 0.8008281904610115
+              computed_at: 2000-01-23T04:56:07.000+00:00
+              currency: currency
+              name: name
+              sample_size: 6
+              unit: unit
+              value: 1.4658129805029452
+            period: period
+          price_history:
+          - currency: currency
+            observed_at: 2000-01-23T04:56:07.000+00:00
+            price: 4.145608029883936
+            source: source
+          - currency: currency
+            observed_at: 2000-01-23T04:56:07.000+00:00
+            price: 4.145608029883936
+            source: source
+          rooms:
+            bathrooms: 7
+            bedrooms: 1
+            floor: 1
+            floors_in_building: 1
+            half_bathrooms: 6
+            total_rooms: 7
+          size:
+            living_area_sqm: 1.1730742509559433
+            plot_area_sqm: 4.965218492984954
+            usable_area_sqm: 5.025004791520295
+          source: source
+          title: title
+          type: type
+          updated_at: 2000-01-23T04:56:07.000+00:00
+      properties:
+        data:
+          items:
+            $ref: "#/components/schemas/Property"
+          type: array
+          default: null
+      required:
+      - data
     PropertyPage:
       description: "A page of Property records, with the cursor for the next one."
       example:
@@ -5798,8 +5944,8 @@ components:
       - id
       - updated_at
       - url
-    WebhookPage:
-      description: "A page of Webhook records, with the cursor for the next one."
+    WebhookList:
+      description: Every Webhook record.
       example:
         data:
         - active: true
@@ -5818,18 +5964,12 @@ components:
           id: id
           updated_at: 2000-01-23T04:56:07.000+00:00
           url: url
-        meta:
-          has_more: true
-          limit: 50
-          next_cursor: eyJpZCI6InByb3BfMWI3N2UwYTRmMiJ9
       properties:
         data:
           items:
             $ref: "#/components/schemas/Webhook"
           type: array
           default: null
-        meta:
-          $ref: "#/components/schemas/PageMeta"
       required:
       - data
     WebhookResponse:

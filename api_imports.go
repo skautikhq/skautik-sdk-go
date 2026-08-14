@@ -1081,7 +1081,7 @@ func (r ApiListImportRecordsRequest) Outcome(outcome string) ApiListImportRecord
 	return r
 }
 
-func (r ApiListImportRecordsRequest) Execute() (*ImportRecordPage, *http.Response, error) {
+func (r ApiListImportRecordsRequest) Execute() (*ImportRecordList, *http.Response, error) {
 	return r.ApiService.ListImportRecordsExecute(r)
 }
 
@@ -1107,13 +1107,13 @@ func (a *ImportsAPIService) ListImportRecords(ctx context.Context, importId stri
 }
 
 // Execute executes the request
-//  @return ImportRecordPage
-func (a *ImportsAPIService) ListImportRecordsExecute(r ApiListImportRecordsRequest) (*ImportRecordPage, *http.Response, error) {
+//  @return ImportRecordList
+func (a *ImportsAPIService) ListImportRecordsExecute(r ApiListImportRecordsRequest) (*ImportRecordList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ImportRecordPage
+		localVarReturnValue  *ImportRecordList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportRecords")
@@ -1244,7 +1244,7 @@ type ApiListImportSourcesRequest struct {
 	ApiService *ImportsAPIService
 }
 
-func (r ApiListImportSourcesRequest) Execute() (*ImportSourcePage, *http.Response, error) {
+func (r ApiListImportSourcesRequest) Execute() (*ImportSourceList, *http.Response, error) {
 	return r.ApiService.ListImportSourcesExecute(r)
 }
 
@@ -1268,13 +1268,13 @@ func (a *ImportsAPIService) ListImportSources(ctx context.Context) ApiListImport
 }
 
 // Execute executes the request
-//  @return ImportSourcePage
-func (a *ImportsAPIService) ListImportSourcesExecute(r ApiListImportSourcesRequest) (*ImportSourcePage, *http.Response, error) {
+//  @return ImportSourceList
+func (a *ImportsAPIService) ListImportSourcesExecute(r ApiListImportSourcesRequest) (*ImportSourceList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ImportSourcePage
+		localVarReturnValue  *ImportSourceList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportSources")
@@ -1415,7 +1415,7 @@ func (r ApiListImportsRequest) Status(status string) ApiListImportsRequest {
 	return r
 }
 
-func (r ApiListImportsRequest) Execute() (*ImportPage, *http.Response, error) {
+func (r ApiListImportsRequest) Execute() (*ImportList, *http.Response, error) {
 	return r.ApiService.ListImportsExecute(r)
 }
 
@@ -1437,13 +1437,13 @@ func (a *ImportsAPIService) ListImports(ctx context.Context) ApiListImportsReque
 }
 
 // Execute executes the request
-//  @return ImportPage
-func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*ImportPage, *http.Response, error) {
+//  @return ImportList
+func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*ImportList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ImportPage
+		localVarReturnValue  *ImportList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImports")

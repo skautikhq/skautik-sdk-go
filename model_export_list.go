@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the CityPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CityPage{}
+// checks if the ExportList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExportList{}
 
-// CityPage A page of City records, with the cursor for the next one.
-type CityPage struct {
-	Data []City `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// ExportList Every Export record.
+type ExportList struct {
+	Data []Export `json:"data"`
 }
 
-type _CityPage CityPage
+type _ExportList ExportList
 
-// NewCityPage instantiates a new CityPage object
+// NewExportList instantiates a new ExportList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCityPage(data []City) *CityPage {
-	this := CityPage{}
+func NewExportList(data []Export) *ExportList {
+	this := ExportList{}
 	this.Data = data
 	return &this
 }
 
-// NewCityPageWithDefaults instantiates a new CityPage object
+// NewExportListWithDefaults instantiates a new ExportList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCityPageWithDefaults() *CityPage {
-	this := CityPage{}
+func NewExportListWithDefaults() *ExportList {
+	this := ExportList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *CityPage) GetData() []City {
+func (o *ExportList) GetData() []Export {
 	if o == nil {
-		var ret []City
+		var ret []Export
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *CityPage) GetData() []City {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *CityPage) GetDataOk() ([]City, bool) {
+func (o *ExportList) GetDataOk() ([]Export, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *CityPage) GetDataOk() ([]City, bool) {
 }
 
 // SetData sets field value
-func (o *CityPage) SetData(v []City) {
+func (o *ExportList) SetData(v []Export) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *CityPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CityPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *CityPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *CityPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o CityPage) MarshalJSON() ([]byte, error) {
+func (o ExportList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o CityPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CityPage) ToMap() (map[string]interface{}, error) {
+func (o ExportList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *CityPage) UnmarshalJSON(data []byte) (err error) {
+func (o *ExportList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *CityPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varCityPage := _CityPage{}
+	varExportList := _ExportList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCityPage)
+	err = decoder.Decode(&varExportList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CityPage(varCityPage)
+	*o = ExportList(varExportList)
 
 	return err
 }
 
-type NullableCityPage struct {
-	value *CityPage
+type NullableExportList struct {
+	value *ExportList
 	isSet bool
 }
 
-func (v NullableCityPage) Get() *CityPage {
+func (v NullableExportList) Get() *ExportList {
 	return v.value
 }
 
-func (v *NullableCityPage) Set(val *CityPage) {
+func (v *NullableExportList) Set(val *ExportList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCityPage) IsSet() bool {
+func (v NullableExportList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCityPage) Unset() {
+func (v *NullableExportList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCityPage(val *CityPage) *NullableCityPage {
-	return &NullableCityPage{value: val, isSet: true}
+func NewNullableExportList(val *ExportList) *NullableExportList {
+	return &NullableExportList{value: val, isSet: true}
 }
 
-func (v NullableCityPage) MarshalJSON() ([]byte, error) {
+func (v NullableExportList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCityPage) UnmarshalJSON(src []byte) error {
+func (v *NullableExportList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

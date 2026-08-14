@@ -128,7 +128,7 @@ type ApiGetMeRequest struct {
 	ApiService *AccountAndStatusAPIService
 }
 
-func (r ApiGetMeRequest) Execute() (*Problem, *http.Response, error) {
+func (r ApiGetMeRequest) Execute() (*Envelope, *http.Response, error) {
 	return r.ApiService.GetMeExecute(r)
 }
 
@@ -152,13 +152,13 @@ func (a *AccountAndStatusAPIService) GetMe(ctx context.Context) ApiGetMeRequest 
 }
 
 // Execute executes the request
-//  @return Problem
-func (a *AccountAndStatusAPIService) GetMeExecute(r ApiGetMeRequest) (*Problem, *http.Response, error) {
+//  @return Envelope
+func (a *AccountAndStatusAPIService) GetMeExecute(r ApiGetMeRequest) (*Envelope, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Problem
+		localVarReturnValue  *Envelope
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountAndStatusAPIService.GetMe")
@@ -182,7 +182,7 @@ func (a *AccountAndStatusAPIService) GetMeExecute(r ApiGetMeRequest) (*Problem, 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

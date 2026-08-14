@@ -43,7 +43,7 @@ func (r ApiCreatePropertyRequest) IdempotencyKey(idempotencyKey string) ApiCreat
 	return r
 }
 
-func (r ApiCreatePropertyRequest) Execute() (*Problem, *http.Response, error) {
+func (r ApiCreatePropertyRequest) Execute() (*PropertyResponse, *http.Response, error) {
 	return r.ApiService.CreatePropertyExecute(r)
 }
 
@@ -67,13 +67,13 @@ func (a *PropertiesAPIService) CreateProperty(ctx context.Context) ApiCreateProp
 }
 
 // Execute executes the request
-//  @return Problem
-func (a *PropertiesAPIService) CreatePropertyExecute(r ApiCreatePropertyRequest) (*Problem, *http.Response, error) {
+//  @return PropertyResponse
+func (a *PropertiesAPIService) CreatePropertyExecute(r ApiCreatePropertyRequest) (*PropertyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Problem
+		localVarReturnValue  *PropertyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PropertiesAPIService.CreateProperty")
@@ -100,7 +100,7 @@ func (a *PropertiesAPIService) CreatePropertyExecute(r ApiCreatePropertyRequest)
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -220,7 +220,7 @@ type ApiDeletePropertyRequest struct {
 	propertyId string
 }
 
-func (r ApiDeletePropertyRequest) Execute() (*Problem, *http.Response, error) {
+func (r ApiDeletePropertyRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeletePropertyExecute(r)
 }
 
@@ -246,18 +246,16 @@ func (a *PropertiesAPIService) DeleteProperty(ctx context.Context, propertyId st
 }
 
 // Execute executes the request
-//  @return Problem
-func (a *PropertiesAPIService) DeletePropertyExecute(r ApiDeletePropertyRequest) (*Problem, *http.Response, error) {
+func (a *PropertiesAPIService) DeletePropertyExecute(r ApiDeletePropertyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Problem
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PropertiesAPIService.DeleteProperty")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/properties/{property_id}"
@@ -286,19 +284,19 @@ func (a *PropertiesAPIService) DeletePropertyExecute(r ApiDeletePropertyRequest)
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -311,79 +309,70 @@ func (a *PropertiesAPIService) DeletePropertyExecute(r ApiDeletePropertyRequest)
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiDeletePropertyImageRequest struct {
@@ -1048,7 +1037,7 @@ type ApiListPropertyImagesRequest struct {
 	propertyId string
 }
 
-func (r ApiListPropertyImagesRequest) Execute() (*ImagePage, *http.Response, error) {
+func (r ApiListPropertyImagesRequest) Execute() (*ImageList, *http.Response, error) {
 	return r.ApiService.ListPropertyImagesExecute(r)
 }
 
@@ -1072,13 +1061,13 @@ func (a *PropertiesAPIService) ListPropertyImages(ctx context.Context, propertyI
 }
 
 // Execute executes the request
-//  @return ImagePage
-func (a *PropertiesAPIService) ListPropertyImagesExecute(r ApiListPropertyImagesRequest) (*ImagePage, *http.Response, error) {
+//  @return ImageList
+func (a *PropertiesAPIService) ListPropertyImagesExecute(r ApiListPropertyImagesRequest) (*ImageList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ImagePage
+		localVarReturnValue  *ImageList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PropertiesAPIService.ListPropertyImages")
@@ -1207,7 +1196,7 @@ type ApiPropertyPriceHistoryRequest struct {
 	propertyId string
 }
 
-func (r ApiPropertyPriceHistoryRequest) Execute() (*PriceObservationPage, *http.Response, error) {
+func (r ApiPropertyPriceHistoryRequest) Execute() (*PriceObservationList, *http.Response, error) {
 	return r.ApiService.PropertyPriceHistoryExecute(r)
 }
 
@@ -1233,13 +1222,13 @@ func (a *PropertiesAPIService) PropertyPriceHistory(ctx context.Context, propert
 }
 
 // Execute executes the request
-//  @return PriceObservationPage
-func (a *PropertiesAPIService) PropertyPriceHistoryExecute(r ApiPropertyPriceHistoryRequest) (*PriceObservationPage, *http.Response, error) {
+//  @return PriceObservationList
+func (a *PropertiesAPIService) PropertyPriceHistoryExecute(r ApiPropertyPriceHistoryRequest) (*PriceObservationList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PriceObservationPage
+		localVarReturnValue  *PriceObservationList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PropertiesAPIService.PropertyPriceHistory")
@@ -1540,7 +1529,7 @@ func (r ApiSimilarPropertiesRequest) Limit(limit int32) ApiSimilarPropertiesRequ
 	return r
 }
 
-func (r ApiSimilarPropertiesRequest) Execute() (*PropertyPage, *http.Response, error) {
+func (r ApiSimilarPropertiesRequest) Execute() (*PropertyList, *http.Response, error) {
 	return r.ApiService.SimilarPropertiesExecute(r)
 }
 
@@ -1568,13 +1557,13 @@ func (a *PropertiesAPIService) SimilarProperties(ctx context.Context, propertyId
 }
 
 // Execute executes the request
-//  @return PropertyPage
-func (a *PropertiesAPIService) SimilarPropertiesExecute(r ApiSimilarPropertiesRequest) (*PropertyPage, *http.Response, error) {
+//  @return PropertyList
+func (a *PropertiesAPIService) SimilarPropertiesExecute(r ApiSimilarPropertiesRequest) (*PropertyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PropertyPage
+		localVarReturnValue  *PropertyList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PropertiesAPIService.SimilarProperties")

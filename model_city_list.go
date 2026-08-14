@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the WebhookPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &WebhookPage{}
+// checks if the CityList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CityList{}
 
-// WebhookPage A page of Webhook records, with the cursor for the next one.
-type WebhookPage struct {
-	Data []Webhook `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// CityList Every City record.
+type CityList struct {
+	Data []City `json:"data"`
 }
 
-type _WebhookPage WebhookPage
+type _CityList CityList
 
-// NewWebhookPage instantiates a new WebhookPage object
+// NewCityList instantiates a new CityList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebhookPage(data []Webhook) *WebhookPage {
-	this := WebhookPage{}
+func NewCityList(data []City) *CityList {
+	this := CityList{}
 	this.Data = data
 	return &this
 }
 
-// NewWebhookPageWithDefaults instantiates a new WebhookPage object
+// NewCityListWithDefaults instantiates a new CityList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewWebhookPageWithDefaults() *WebhookPage {
-	this := WebhookPage{}
+func NewCityListWithDefaults() *CityList {
+	this := CityList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *WebhookPage) GetData() []Webhook {
+func (o *CityList) GetData() []City {
 	if o == nil {
-		var ret []Webhook
+		var ret []City
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *WebhookPage) GetData() []Webhook {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *WebhookPage) GetDataOk() ([]Webhook, bool) {
+func (o *CityList) GetDataOk() ([]City, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *WebhookPage) GetDataOk() ([]Webhook, bool) {
 }
 
 // SetData sets field value
-func (o *WebhookPage) SetData(v []Webhook) {
+func (o *CityList) SetData(v []City) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *WebhookPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *WebhookPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *WebhookPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *WebhookPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o WebhookPage) MarshalJSON() ([]byte, error) {
+func (o CityList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o WebhookPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o WebhookPage) ToMap() (map[string]interface{}, error) {
+func (o CityList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *WebhookPage) UnmarshalJSON(data []byte) (err error) {
+func (o *CityList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *WebhookPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varWebhookPage := _WebhookPage{}
+	varCityList := _CityList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWebhookPage)
+	err = decoder.Decode(&varCityList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = WebhookPage(varWebhookPage)
+	*o = CityList(varCityList)
 
 	return err
 }
 
-type NullableWebhookPage struct {
-	value *WebhookPage
+type NullableCityList struct {
+	value *CityList
 	isSet bool
 }
 
-func (v NullableWebhookPage) Get() *WebhookPage {
+func (v NullableCityList) Get() *CityList {
 	return v.value
 }
 
-func (v *NullableWebhookPage) Set(val *WebhookPage) {
+func (v *NullableCityList) Set(val *CityList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableWebhookPage) IsSet() bool {
+func (v NullableCityList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableWebhookPage) Unset() {
+func (v *NullableCityList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableWebhookPage(val *WebhookPage) *NullableWebhookPage {
-	return &NullableWebhookPage{value: val, isSet: true}
+func NewNullableCityList(val *CityList) *NullableCityList {
+	return &NullableCityList{value: val, isSet: true}
 }
 
-func (v NullableWebhookPage) MarshalJSON() ([]byte, error) {
+func (v NullableCityList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableWebhookPage) UnmarshalJSON(src []byte) error {
+func (v *NullableCityList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

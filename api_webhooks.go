@@ -34,7 +34,7 @@ func (r ApiCreateWebhookRequest) CreateWebhookRequest(createWebhookRequest Creat
 	return r
 }
 
-func (r ApiCreateWebhookRequest) Execute() (*Problem, *http.Response, error) {
+func (r ApiCreateWebhookRequest) Execute() (*Envelope, *http.Response, error) {
 	return r.ApiService.CreateWebhookExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *WebhooksAPIService) CreateWebhook(ctx context.Context) ApiCreateWebhook
 }
 
 // Execute executes the request
-//  @return Problem
-func (a *WebhooksAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*Problem, *http.Response, error) {
+//  @return Envelope
+func (a *WebhooksAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*Envelope, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Problem
+		localVarReturnValue  *Envelope
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.CreateWebhook")
@@ -91,7 +91,7 @@ func (a *WebhooksAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*P
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -518,7 +518,7 @@ func (r ApiListDeliveriesRequest) Limit(limit int32) ApiListDeliveriesRequest {
 	return r
 }
 
-func (r ApiListDeliveriesRequest) Execute() (*DeliveryPage, *http.Response, error) {
+func (r ApiListDeliveriesRequest) Execute() (*DeliveryList, *http.Response, error) {
 	return r.ApiService.ListDeliveriesExecute(r)
 }
 
@@ -544,13 +544,13 @@ func (a *WebhooksAPIService) ListDeliveries(ctx context.Context, webhookId strin
 }
 
 // Execute executes the request
-//  @return DeliveryPage
-func (a *WebhooksAPIService) ListDeliveriesExecute(r ApiListDeliveriesRequest) (*DeliveryPage, *http.Response, error) {
+//  @return DeliveryList
+func (a *WebhooksAPIService) ListDeliveriesExecute(r ApiListDeliveriesRequest) (*DeliveryList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeliveryPage
+		localVarReturnValue  *DeliveryList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ListDeliveries")
@@ -845,7 +845,7 @@ type ApiListWebhooksRequest struct {
 	ApiService *WebhooksAPIService
 }
 
-func (r ApiListWebhooksRequest) Execute() (*WebhookPage, *http.Response, error) {
+func (r ApiListWebhooksRequest) Execute() (*WebhookList, *http.Response, error) {
 	return r.ApiService.ListWebhooksExecute(r)
 }
 
@@ -869,13 +869,13 @@ func (a *WebhooksAPIService) ListWebhooks(ctx context.Context) ApiListWebhooksRe
 }
 
 // Execute executes the request
-//  @return WebhookPage
-func (a *WebhooksAPIService) ListWebhooksExecute(r ApiListWebhooksRequest) (*WebhookPage, *http.Response, error) {
+//  @return WebhookList
+func (a *WebhooksAPIService) ListWebhooksExecute(r ApiListWebhooksRequest) (*WebhookList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WebhookPage
+		localVarReturnValue  *WebhookList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WebhooksAPIService.ListWebhooks")

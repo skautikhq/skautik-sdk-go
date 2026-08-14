@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the ExportPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExportPage{}
+// checks if the ImportSourceList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportSourceList{}
 
-// ExportPage A page of Export records, with the cursor for the next one.
-type ExportPage struct {
-	Data []Export `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// ImportSourceList Every ImportSource record.
+type ImportSourceList struct {
+	Data []ImportSource `json:"data"`
 }
 
-type _ExportPage ExportPage
+type _ImportSourceList ImportSourceList
 
-// NewExportPage instantiates a new ExportPage object
+// NewImportSourceList instantiates a new ImportSourceList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExportPage(data []Export) *ExportPage {
-	this := ExportPage{}
+func NewImportSourceList(data []ImportSource) *ImportSourceList {
+	this := ImportSourceList{}
 	this.Data = data
 	return &this
 }
 
-// NewExportPageWithDefaults instantiates a new ExportPage object
+// NewImportSourceListWithDefaults instantiates a new ImportSourceList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExportPageWithDefaults() *ExportPage {
-	this := ExportPage{}
+func NewImportSourceListWithDefaults() *ImportSourceList {
+	this := ImportSourceList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *ExportPage) GetData() []Export {
+func (o *ImportSourceList) GetData() []ImportSource {
 	if o == nil {
-		var ret []Export
+		var ret []ImportSource
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *ExportPage) GetData() []Export {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ExportPage) GetDataOk() ([]Export, bool) {
+func (o *ImportSourceList) GetDataOk() ([]ImportSource, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *ExportPage) GetDataOk() ([]Export, bool) {
 }
 
 // SetData sets field value
-func (o *ExportPage) SetData(v []Export) {
+func (o *ImportSourceList) SetData(v []ImportSource) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *ExportPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExportPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *ExportPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *ExportPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o ExportPage) MarshalJSON() ([]byte, error) {
+func (o ImportSourceList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o ExportPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ExportPage) ToMap() (map[string]interface{}, error) {
+func (o ImportSourceList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *ExportPage) UnmarshalJSON(data []byte) (err error) {
+func (o *ImportSourceList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *ExportPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varExportPage := _ExportPage{}
+	varImportSourceList := _ImportSourceList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varExportPage)
+	err = decoder.Decode(&varImportSourceList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExportPage(varExportPage)
+	*o = ImportSourceList(varImportSourceList)
 
 	return err
 }
 
-type NullableExportPage struct {
-	value *ExportPage
+type NullableImportSourceList struct {
+	value *ImportSourceList
 	isSet bool
 }
 
-func (v NullableExportPage) Get() *ExportPage {
+func (v NullableImportSourceList) Get() *ImportSourceList {
 	return v.value
 }
 
-func (v *NullableExportPage) Set(val *ExportPage) {
+func (v *NullableImportSourceList) Set(val *ImportSourceList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExportPage) IsSet() bool {
+func (v NullableImportSourceList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExportPage) Unset() {
+func (v *NullableImportSourceList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExportPage(val *ExportPage) *NullableExportPage {
-	return &NullableExportPage{value: val, isSet: true}
+func NewNullableImportSourceList(val *ImportSourceList) *NullableImportSourceList {
+	return &NullableImportSourceList{value: val, isSet: true}
 }
 
-func (v NullableExportPage) MarshalJSON() ([]byte, error) {
+func (v NullableImportSourceList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExportPage) UnmarshalJSON(src []byte) error {
+func (v *NullableImportSourceList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

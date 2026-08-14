@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the ImagePage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ImagePage{}
+// checks if the ImportList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportList{}
 
-// ImagePage A page of Image records, with the cursor for the next one.
-type ImagePage struct {
-	Data []Image `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// ImportList Every Import record.
+type ImportList struct {
+	Data []Import `json:"data"`
 }
 
-type _ImagePage ImagePage
+type _ImportList ImportList
 
-// NewImagePage instantiates a new ImagePage object
+// NewImportList instantiates a new ImportList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImagePage(data []Image) *ImagePage {
-	this := ImagePage{}
+func NewImportList(data []Import) *ImportList {
+	this := ImportList{}
 	this.Data = data
 	return &this
 }
 
-// NewImagePageWithDefaults instantiates a new ImagePage object
+// NewImportListWithDefaults instantiates a new ImportList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewImagePageWithDefaults() *ImagePage {
-	this := ImagePage{}
+func NewImportListWithDefaults() *ImportList {
+	this := ImportList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *ImagePage) GetData() []Image {
+func (o *ImportList) GetData() []Import {
 	if o == nil {
-		var ret []Image
+		var ret []Import
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *ImagePage) GetData() []Image {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *ImagePage) GetDataOk() ([]Image, bool) {
+func (o *ImportList) GetDataOk() ([]Import, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *ImagePage) GetDataOk() ([]Image, bool) {
 }
 
 // SetData sets field value
-func (o *ImagePage) SetData(v []Image) {
+func (o *ImportList) SetData(v []Import) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *ImagePage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImagePage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *ImagePage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *ImagePage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o ImagePage) MarshalJSON() ([]byte, error) {
+func (o ImportList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o ImagePage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ImagePage) ToMap() (map[string]interface{}, error) {
+func (o ImportList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *ImagePage) UnmarshalJSON(data []byte) (err error) {
+func (o *ImportList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *ImagePage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varImagePage := _ImagePage{}
+	varImportList := _ImportList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varImagePage)
+	err = decoder.Decode(&varImportList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ImagePage(varImagePage)
+	*o = ImportList(varImportList)
 
 	return err
 }
 
-type NullableImagePage struct {
-	value *ImagePage
+type NullableImportList struct {
+	value *ImportList
 	isSet bool
 }
 
-func (v NullableImagePage) Get() *ImagePage {
+func (v NullableImportList) Get() *ImportList {
 	return v.value
 }
 
-func (v *NullableImagePage) Set(val *ImagePage) {
+func (v *NullableImportList) Set(val *ImportList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableImagePage) IsSet() bool {
+func (v NullableImportList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableImagePage) Unset() {
+func (v *NullableImportList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableImagePage(val *ImagePage) *NullableImagePage {
-	return &NullableImagePage{value: val, isSet: true}
+func NewNullableImportList(val *ImportList) *NullableImportList {
+	return &NullableImportList{value: val, isSet: true}
 }
 
-func (v NullableImagePage) MarshalJSON() ([]byte, error) {
+func (v NullableImportList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableImagePage) UnmarshalJSON(src []byte) error {
+func (v *NullableImportList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the DeliveryPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DeliveryPage{}
+// checks if the GenerationList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GenerationList{}
 
-// DeliveryPage A page of Delivery records, with the cursor for the next one.
-type DeliveryPage struct {
-	Data []Delivery `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// GenerationList Every Generation record.
+type GenerationList struct {
+	Data []Generation `json:"data"`
 }
 
-type _DeliveryPage DeliveryPage
+type _GenerationList GenerationList
 
-// NewDeliveryPage instantiates a new DeliveryPage object
+// NewGenerationList instantiates a new GenerationList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeliveryPage(data []Delivery) *DeliveryPage {
-	this := DeliveryPage{}
+func NewGenerationList(data []Generation) *GenerationList {
+	this := GenerationList{}
 	this.Data = data
 	return &this
 }
 
-// NewDeliveryPageWithDefaults instantiates a new DeliveryPage object
+// NewGenerationListWithDefaults instantiates a new GenerationList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDeliveryPageWithDefaults() *DeliveryPage {
-	this := DeliveryPage{}
+func NewGenerationListWithDefaults() *GenerationList {
+	this := GenerationList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *DeliveryPage) GetData() []Delivery {
+func (o *GenerationList) GetData() []Generation {
 	if o == nil {
-		var ret []Delivery
+		var ret []Generation
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *DeliveryPage) GetData() []Delivery {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *DeliveryPage) GetDataOk() ([]Delivery, bool) {
+func (o *GenerationList) GetDataOk() ([]Generation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *DeliveryPage) GetDataOk() ([]Delivery, bool) {
 }
 
 // SetData sets field value
-func (o *DeliveryPage) SetData(v []Delivery) {
+func (o *GenerationList) SetData(v []Generation) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *DeliveryPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DeliveryPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *DeliveryPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *DeliveryPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o DeliveryPage) MarshalJSON() ([]byte, error) {
+func (o GenerationList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o DeliveryPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DeliveryPage) ToMap() (map[string]interface{}, error) {
+func (o GenerationList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *DeliveryPage) UnmarshalJSON(data []byte) (err error) {
+func (o *GenerationList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *DeliveryPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDeliveryPage := _DeliveryPage{}
+	varGenerationList := _GenerationList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeliveryPage)
+	err = decoder.Decode(&varGenerationList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DeliveryPage(varDeliveryPage)
+	*o = GenerationList(varGenerationList)
 
 	return err
 }
 
-type NullableDeliveryPage struct {
-	value *DeliveryPage
+type NullableGenerationList struct {
+	value *GenerationList
 	isSet bool
 }
 
-func (v NullableDeliveryPage) Get() *DeliveryPage {
+func (v NullableGenerationList) Get() *GenerationList {
 	return v.value
 }
 
-func (v *NullableDeliveryPage) Set(val *DeliveryPage) {
+func (v *NullableGenerationList) Set(val *GenerationList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDeliveryPage) IsSet() bool {
+func (v NullableGenerationList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDeliveryPage) Unset() {
+func (v *NullableGenerationList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDeliveryPage(val *DeliveryPage) *NullableDeliveryPage {
-	return &NullableDeliveryPage{value: val, isSet: true}
+func NewNullableGenerationList(val *GenerationList) *NullableGenerationList {
+	return &NullableGenerationList{value: val, isSet: true}
 }
 
-func (v NullableDeliveryPage) MarshalJSON() ([]byte, error) {
+func (v NullableGenerationList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDeliveryPage) UnmarshalJSON(src []byte) error {
+func (v *NullableGenerationList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

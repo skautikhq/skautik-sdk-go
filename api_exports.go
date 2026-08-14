@@ -357,7 +357,7 @@ type ApiListExportsRequest struct {
 	ApiService *ExportsAPIService
 }
 
-func (r ApiListExportsRequest) Execute() (*ExportPage, *http.Response, error) {
+func (r ApiListExportsRequest) Execute() (*ExportList, *http.Response, error) {
 	return r.ApiService.ListExportsExecute(r)
 }
 
@@ -381,13 +381,13 @@ func (a *ExportsAPIService) ListExports(ctx context.Context) ApiListExportsReque
 }
 
 // Execute executes the request
-//  @return ExportPage
-func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*ExportPage, *http.Response, error) {
+//  @return ExportList
+func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*ExportList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ExportPage
+		localVarReturnValue  *ExportList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExportsAPIService.ListExports")

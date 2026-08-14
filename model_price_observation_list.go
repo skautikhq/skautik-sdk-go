@@ -16,37 +16,36 @@ import (
 	"fmt"
 )
 
-// checks if the PriceObservationPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PriceObservationPage{}
+// checks if the PriceObservationList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PriceObservationList{}
 
-// PriceObservationPage A page of PriceObservation records, with the cursor for the next one.
-type PriceObservationPage struct {
+// PriceObservationList Every PriceObservation record.
+type PriceObservationList struct {
 	Data []PriceObservation `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
 }
 
-type _PriceObservationPage PriceObservationPage
+type _PriceObservationList PriceObservationList
 
-// NewPriceObservationPage instantiates a new PriceObservationPage object
+// NewPriceObservationList instantiates a new PriceObservationList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPriceObservationPage(data []PriceObservation) *PriceObservationPage {
-	this := PriceObservationPage{}
+func NewPriceObservationList(data []PriceObservation) *PriceObservationList {
+	this := PriceObservationList{}
 	this.Data = data
 	return &this
 }
 
-// NewPriceObservationPageWithDefaults instantiates a new PriceObservationPage object
+// NewPriceObservationListWithDefaults instantiates a new PriceObservationList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPriceObservationPageWithDefaults() *PriceObservationPage {
-	this := PriceObservationPage{}
+func NewPriceObservationListWithDefaults() *PriceObservationList {
+	this := PriceObservationList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *PriceObservationPage) GetData() []PriceObservation {
+func (o *PriceObservationList) GetData() []PriceObservation {
 	if o == nil {
 		var ret []PriceObservation
 		return ret
@@ -57,7 +56,7 @@ func (o *PriceObservationPage) GetData() []PriceObservation {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *PriceObservationPage) GetDataOk() ([]PriceObservation, bool) {
+func (o *PriceObservationList) GetDataOk() ([]PriceObservation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *PriceObservationPage) GetDataOk() ([]PriceObservation, bool) {
 }
 
 // SetData sets field value
-func (o *PriceObservationPage) SetData(v []PriceObservation) {
+func (o *PriceObservationList) SetData(v []PriceObservation) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *PriceObservationPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PriceObservationPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *PriceObservationPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *PriceObservationPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o PriceObservationPage) MarshalJSON() ([]byte, error) {
+func (o PriceObservationList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o PriceObservationPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PriceObservationPage) ToMap() (map[string]interface{}, error) {
+func (o PriceObservationList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *PriceObservationPage) UnmarshalJSON(data []byte) (err error) {
+func (o *PriceObservationList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *PriceObservationPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPriceObservationPage := _PriceObservationPage{}
+	varPriceObservationList := _PriceObservationList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPriceObservationPage)
+	err = decoder.Decode(&varPriceObservationList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PriceObservationPage(varPriceObservationPage)
+	*o = PriceObservationList(varPriceObservationList)
 
 	return err
 }
 
-type NullablePriceObservationPage struct {
-	value *PriceObservationPage
+type NullablePriceObservationList struct {
+	value *PriceObservationList
 	isSet bool
 }
 
-func (v NullablePriceObservationPage) Get() *PriceObservationPage {
+func (v NullablePriceObservationList) Get() *PriceObservationList {
 	return v.value
 }
 
-func (v *NullablePriceObservationPage) Set(val *PriceObservationPage) {
+func (v *NullablePriceObservationList) Set(val *PriceObservationList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePriceObservationPage) IsSet() bool {
+func (v NullablePriceObservationList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePriceObservationPage) Unset() {
+func (v *NullablePriceObservationList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePriceObservationPage(val *PriceObservationPage) *NullablePriceObservationPage {
-	return &NullablePriceObservationPage{value: val, isSet: true}
+func NewNullablePriceObservationList(val *PriceObservationList) *NullablePriceObservationList {
+	return &NullablePriceObservationList{value: val, isSet: true}
 }
 
-func (v NullablePriceObservationPage) MarshalJSON() ([]byte, error) {
+func (v NullablePriceObservationList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePriceObservationPage) UnmarshalJSON(src []byte) error {
+func (v *NullablePriceObservationList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

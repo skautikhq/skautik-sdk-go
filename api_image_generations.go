@@ -514,7 +514,7 @@ type ApiListGenerationsRequest struct {
 	ApiService *ImageGenerationsAPIService
 }
 
-func (r ApiListGenerationsRequest) Execute() (*GenerationPage, *http.Response, error) {
+func (r ApiListGenerationsRequest) Execute() (*GenerationList, *http.Response, error) {
 	return r.ApiService.ListGenerationsExecute(r)
 }
 
@@ -536,13 +536,13 @@ func (a *ImageGenerationsAPIService) ListGenerations(ctx context.Context) ApiLis
 }
 
 // Execute executes the request
-//  @return GenerationPage
-func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerationsRequest) (*GenerationPage, *http.Response, error) {
+//  @return GenerationList
+func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerationsRequest) (*GenerationList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *GenerationPage
+		localVarReturnValue  *GenerationList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImageGenerationsAPIService.ListGenerations")

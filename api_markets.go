@@ -343,7 +343,7 @@ type ApiListDistrictsRequest struct {
 	marketId string
 }
 
-func (r ApiListDistrictsRequest) Execute() (*DistrictPage, *http.Response, error) {
+func (r ApiListDistrictsRequest) Execute() (*DistrictList, *http.Response, error) {
 	return r.ApiService.ListDistrictsExecute(r)
 }
 
@@ -367,13 +367,13 @@ func (a *MarketsAPIService) ListDistricts(ctx context.Context, marketId string) 
 }
 
 // Execute executes the request
-//  @return DistrictPage
-func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*DistrictPage, *http.Response, error) {
+//  @return DistrictList
+func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*DistrictList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DistrictPage
+		localVarReturnValue  *DistrictList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.ListDistricts")
@@ -522,7 +522,7 @@ func (r ApiListMarketsRequest) Cursor(cursor string) ApiListMarketsRequest {
 	return r
 }
 
-func (r ApiListMarketsRequest) Execute() (*CityPage, *http.Response, error) {
+func (r ApiListMarketsRequest) Execute() (*CityList, *http.Response, error) {
 	return r.ApiService.ListMarketsExecute(r)
 }
 
@@ -546,13 +546,13 @@ func (a *MarketsAPIService) ListMarkets(ctx context.Context) ApiListMarketsReque
 }
 
 // Execute executes the request
-//  @return CityPage
-func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*CityPage, *http.Response, error) {
+//  @return CityList
+func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*CityList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CityPage
+		localVarReturnValue  *CityList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.ListMarkets")

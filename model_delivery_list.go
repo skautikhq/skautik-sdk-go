@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the DistrictPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &DistrictPage{}
+// checks if the DeliveryList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeliveryList{}
 
-// DistrictPage A page of District records, with the cursor for the next one.
-type DistrictPage struct {
-	Data []District `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// DeliveryList Every Delivery record.
+type DeliveryList struct {
+	Data []Delivery `json:"data"`
 }
 
-type _DistrictPage DistrictPage
+type _DeliveryList DeliveryList
 
-// NewDistrictPage instantiates a new DistrictPage object
+// NewDeliveryList instantiates a new DeliveryList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDistrictPage(data []District) *DistrictPage {
-	this := DistrictPage{}
+func NewDeliveryList(data []Delivery) *DeliveryList {
+	this := DeliveryList{}
 	this.Data = data
 	return &this
 }
 
-// NewDistrictPageWithDefaults instantiates a new DistrictPage object
+// NewDeliveryListWithDefaults instantiates a new DeliveryList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewDistrictPageWithDefaults() *DistrictPage {
-	this := DistrictPage{}
+func NewDeliveryListWithDefaults() *DeliveryList {
+	this := DeliveryList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *DistrictPage) GetData() []District {
+func (o *DeliveryList) GetData() []Delivery {
 	if o == nil {
-		var ret []District
+		var ret []Delivery
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *DistrictPage) GetData() []District {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *DistrictPage) GetDataOk() ([]District, bool) {
+func (o *DeliveryList) GetDataOk() ([]Delivery, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *DistrictPage) GetDataOk() ([]District, bool) {
 }
 
 // SetData sets field value
-func (o *DistrictPage) SetData(v []District) {
+func (o *DeliveryList) SetData(v []Delivery) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *DistrictPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DistrictPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *DistrictPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *DistrictPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o DistrictPage) MarshalJSON() ([]byte, error) {
+func (o DeliveryList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o DistrictPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o DistrictPage) ToMap() (map[string]interface{}, error) {
+func (o DeliveryList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *DistrictPage) UnmarshalJSON(data []byte) (err error) {
+func (o *DeliveryList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *DistrictPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varDistrictPage := _DistrictPage{}
+	varDeliveryList := _DeliveryList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDistrictPage)
+	err = decoder.Decode(&varDeliveryList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = DistrictPage(varDistrictPage)
+	*o = DeliveryList(varDeliveryList)
 
 	return err
 }
 
-type NullableDistrictPage struct {
-	value *DistrictPage
+type NullableDeliveryList struct {
+	value *DeliveryList
 	isSet bool
 }
 
-func (v NullableDistrictPage) Get() *DistrictPage {
+func (v NullableDeliveryList) Get() *DeliveryList {
 	return v.value
 }
 
-func (v *NullableDistrictPage) Set(val *DistrictPage) {
+func (v *NullableDeliveryList) Set(val *DeliveryList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableDistrictPage) IsSet() bool {
+func (v NullableDeliveryList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableDistrictPage) Unset() {
+func (v *NullableDeliveryList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableDistrictPage(val *DistrictPage) *NullableDistrictPage {
-	return &NullableDistrictPage{value: val, isSet: true}
+func NewNullableDeliveryList(val *DeliveryList) *NullableDeliveryList {
+	return &NullableDeliveryList{value: val, isSet: true}
 }
 
-func (v NullableDistrictPage) MarshalJSON() ([]byte, error) {
+func (v NullableDeliveryList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableDistrictPage) UnmarshalJSON(src []byte) error {
+func (v *NullableDeliveryList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

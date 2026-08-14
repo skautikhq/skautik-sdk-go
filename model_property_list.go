@@ -16,39 +16,38 @@ import (
 	"fmt"
 )
 
-// checks if the GenerationPage type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GenerationPage{}
+// checks if the PropertyList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PropertyList{}
 
-// GenerationPage A page of Generation records, with the cursor for the next one.
-type GenerationPage struct {
-	Data []Generation `json:"data"`
-	Meta *PageMeta `json:"meta,omitempty"`
+// PropertyList Every Property record.
+type PropertyList struct {
+	Data []Property `json:"data"`
 }
 
-type _GenerationPage GenerationPage
+type _PropertyList PropertyList
 
-// NewGenerationPage instantiates a new GenerationPage object
+// NewPropertyList instantiates a new PropertyList object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGenerationPage(data []Generation) *GenerationPage {
-	this := GenerationPage{}
+func NewPropertyList(data []Property) *PropertyList {
+	this := PropertyList{}
 	this.Data = data
 	return &this
 }
 
-// NewGenerationPageWithDefaults instantiates a new GenerationPage object
+// NewPropertyListWithDefaults instantiates a new PropertyList object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGenerationPageWithDefaults() *GenerationPage {
-	this := GenerationPage{}
+func NewPropertyListWithDefaults() *PropertyList {
+	this := PropertyList{}
 	return &this
 }
 
 // GetData returns the Data field value
-func (o *GenerationPage) GetData() []Generation {
+func (o *PropertyList) GetData() []Property {
 	if o == nil {
-		var ret []Generation
+		var ret []Property
 		return ret
 	}
 
@@ -57,7 +56,7 @@ func (o *GenerationPage) GetData() []Generation {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *GenerationPage) GetDataOk() ([]Generation, bool) {
+func (o *PropertyList) GetDataOk() ([]Property, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,43 +64,11 @@ func (o *GenerationPage) GetDataOk() ([]Generation, bool) {
 }
 
 // SetData sets field value
-func (o *GenerationPage) SetData(v []Generation) {
+func (o *PropertyList) SetData(v []Property) {
 	o.Data = v
 }
 
-// GetMeta returns the Meta field value if set, zero value otherwise.
-func (o *GenerationPage) GetMeta() PageMeta {
-	if o == nil || IsNil(o.Meta) {
-		var ret PageMeta
-		return ret
-	}
-	return *o.Meta
-}
-
-// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GenerationPage) GetMetaOk() (*PageMeta, bool) {
-	if o == nil || IsNil(o.Meta) {
-		return nil, false
-	}
-	return o.Meta, true
-}
-
-// HasMeta returns a boolean if a field has been set.
-func (o *GenerationPage) HasMeta() bool {
-	if o != nil && !IsNil(o.Meta) {
-		return true
-	}
-
-	return false
-}
-
-// SetMeta gets a reference to the given PageMeta and assigns it to the Meta field.
-func (o *GenerationPage) SetMeta(v PageMeta) {
-	o.Meta = &v
-}
-
-func (o GenerationPage) MarshalJSON() ([]byte, error) {
+func (o PropertyList) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -109,16 +76,13 @@ func (o GenerationPage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GenerationPage) ToMap() (map[string]interface{}, error) {
+func (o PropertyList) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["data"] = o.Data
-	if !IsNil(o.Meta) {
-		toSerialize["meta"] = o.Meta
-	}
 	return toSerialize, nil
 }
 
-func (o *GenerationPage) UnmarshalJSON(data []byte) (err error) {
+func (o *PropertyList) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -140,53 +104,53 @@ func (o *GenerationPage) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGenerationPage := _GenerationPage{}
+	varPropertyList := _PropertyList{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGenerationPage)
+	err = decoder.Decode(&varPropertyList)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GenerationPage(varGenerationPage)
+	*o = PropertyList(varPropertyList)
 
 	return err
 }
 
-type NullableGenerationPage struct {
-	value *GenerationPage
+type NullablePropertyList struct {
+	value *PropertyList
 	isSet bool
 }
 
-func (v NullableGenerationPage) Get() *GenerationPage {
+func (v NullablePropertyList) Get() *PropertyList {
 	return v.value
 }
 
-func (v *NullableGenerationPage) Set(val *GenerationPage) {
+func (v *NullablePropertyList) Set(val *PropertyList) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGenerationPage) IsSet() bool {
+func (v NullablePropertyList) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGenerationPage) Unset() {
+func (v *NullablePropertyList) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGenerationPage(val *GenerationPage) *NullableGenerationPage {
-	return &NullableGenerationPage{value: val, isSet: true}
+func NewNullablePropertyList(val *PropertyList) *NullablePropertyList {
+	return &NullablePropertyList{value: val, isSet: true}
 }
 
-func (v NullableGenerationPage) MarshalJSON() ([]byte, error) {
+func (v NullablePropertyList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGenerationPage) UnmarshalJSON(src []byte) error {
+func (v *NullablePropertyList) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
