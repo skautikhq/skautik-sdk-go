@@ -187,21 +187,22 @@ func (a *InquiriesAPIService) GetInquiryExecute(r ApiGetInquiryRequest) (*Inquir
 type ApiListInquiriesRequest struct {
 	ctx context.Context
 	ApiService *InquiriesAPIService
-	propertyId *string
 	status *string
+	propertyId *string
 	limit *int32
 	cursor *string
-}
-
-// Only enquiries about this property.
-func (r ApiListInquiriesRequest) PropertyId(propertyId string) ApiListInquiriesRequest {
-	r.propertyId = &propertyId
-	return r
+	sort *string
 }
 
 // Only enquiries in this state.
 func (r ApiListInquiriesRequest) Status(status string) ApiListInquiriesRequest {
 	r.status = &status
+	return r
+}
+
+// Only enquiries about this property.
+func (r ApiListInquiriesRequest) PropertyId(propertyId string) ApiListInquiriesRequest {
+	r.propertyId = &propertyId
 	return r
 }
 
@@ -214,6 +215,12 @@ func (r ApiListInquiriesRequest) Limit(limit int32) ApiListInquiriesRequest {
 // Opaque cursor from the previous page&#39;s meta.next_cursor.
 func (r ApiListInquiriesRequest) Cursor(cursor string) ApiListInquiriesRequest {
 	r.cursor = &cursor
+	return r
+}
+
+// Field to order by. Prefix with a minus for descending.
+func (r ApiListInquiriesRequest) Sort(sort string) ApiListInquiriesRequest {
+	r.sort = &sort
 	return r
 }
 
@@ -261,11 +268,11 @@ func (a *InquiriesAPIService) ListInquiriesExecute(r ApiListInquiriesRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.propertyId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "property_id", r.propertyId, "form", "")
-	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
+	}
+	if r.propertyId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property_id", r.propertyId, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -276,6 +283,9 @@ func (a *InquiriesAPIService) ListInquiriesExecute(r ApiListInquiriesRequest) (*
 	}
 	if r.cursor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -539,11 +549,11 @@ type ApiUpdateInquiryRequest struct {
 	ctx context.Context
 	ApiService *InquiriesAPIService
 	inquiryId string
-	updateInquiryRequest *UpdateInquiryRequest
+	inquiryStatusInput *InquiryStatusInput
 }
 
-func (r ApiUpdateInquiryRequest) UpdateInquiryRequest(updateInquiryRequest UpdateInquiryRequest) ApiUpdateInquiryRequest {
-	r.updateInquiryRequest = &updateInquiryRequest
+func (r ApiUpdateInquiryRequest) InquiryStatusInput(inquiryStatusInput InquiryStatusInput) ApiUpdateInquiryRequest {
+	r.inquiryStatusInput = &inquiryStatusInput
 	return r
 }
 
@@ -593,8 +603,8 @@ func (a *InquiriesAPIService) UpdateInquiryExecute(r ApiUpdateInquiryRequest) (*
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateInquiryRequest == nil {
-		return localVarReturnValue, nil, reportError("updateInquiryRequest is required and must be specified")
+	if r.inquiryStatusInput == nil {
+		return localVarReturnValue, nil, reportError("inquiryStatusInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -615,7 +625,7 @@ func (a *InquiriesAPIService) UpdateInquiryExecute(r ApiUpdateInquiryRequest) (*
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateInquiryRequest
+	localVarPostBody = r.inquiryStatusInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

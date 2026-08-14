@@ -17,7 +17,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"reflect"
 )
 
 
@@ -29,6 +28,20 @@ type ApiGetDistrictRequest struct {
 	ApiService *MarketsAPIService
 	marketId string
 	districtId string
+	period *string
+	propertyType *string
+}
+
+// Month to report, as YYYY-MM. Defaults to the most recent computed.
+func (r ApiGetDistrictRequest) Period(period string) ApiGetDistrictRequest {
+	r.period = &period
+	return r
+}
+
+// Restrict the figures to one kind of property.
+func (r ApiGetDistrictRequest) PropertyType(propertyType string) ApiGetDistrictRequest {
+	r.propertyType = &propertyType
+	return r
 }
 
 func (r ApiGetDistrictRequest) Execute() (*http.Response, error) {
@@ -79,6 +92,12 @@ func (a *MarketsAPIService) GetDistrictExecute(r ApiGetDistrictRequest) (*http.R
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	if r.propertyType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", r.propertyType, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -182,6 +201,20 @@ type ApiGetMarketRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
 	marketId string
+	period *string
+	propertyType *string
+}
+
+// Month to report, as YYYY-MM. Defaults to the most recent computed.
+func (r ApiGetMarketRequest) Period(period string) ApiGetMarketRequest {
+	r.period = &period
+	return r
+}
+
+// Restrict the figures to one kind of property.
+func (r ApiGetMarketRequest) PropertyType(propertyType string) ApiGetMarketRequest {
+	r.propertyType = &propertyType
+	return r
 }
 
 func (r ApiGetMarketRequest) Execute() (*MarketResponse, *http.Response, error) {
@@ -229,6 +262,12 @@ func (a *MarketsAPIService) GetMarketExecute(r ApiGetMarketRequest) (*MarketResp
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.period != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
+	}
+	if r.propertyType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", r.propertyType, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -499,27 +538,6 @@ func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*Di
 type ApiListMarketsRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
-	country *string
-	limit *int32
-	cursor *string
-}
-
-// ISO 3166-1 alpha-2 filter.
-func (r ApiListMarketsRequest) Country(country string) ApiListMarketsRequest {
-	r.country = &country
-	return r
-}
-
-// Records per page, 1 to 200.
-func (r ApiListMarketsRequest) Limit(limit int32) ApiListMarketsRequest {
-	r.limit = &limit
-	return r
-}
-
-// Opaque pointer from the previous response. Omit for the first page. Cursors are stable across inserts, so paging never skips or repeats a record the way an offset does.
-func (r ApiListMarketsRequest) Cursor(cursor string) ApiListMarketsRequest {
-	r.cursor = &cursor
-	return r
 }
 
 func (r ApiListMarketsRequest) Execute() (*CityList, *http.Response, error) {
@@ -566,19 +584,6 @@ func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*CityLi
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.country != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "country", r.country, "form", "")
-	}
-	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 50
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
-		r.limit = &defaultValue
-	}
-	if r.cursor != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cursor", r.cursor, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -691,14 +696,14 @@ type ApiMarketStatisticsRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
 	marketId string
-	propertyType *[]string
+	propertyType *string
 	transactionType *string
 	interval *string
 	since *string
 }
 
 // Narrow to one property type.
-func (r ApiMarketStatisticsRequest) PropertyType(propertyType []string) ApiMarketStatisticsRequest {
+func (r ApiMarketStatisticsRequest) PropertyType(propertyType string) ApiMarketStatisticsRequest {
 	r.propertyType = &propertyType
 	return r
 }
@@ -769,25 +774,13 @@ func (a *MarketsAPIService) MarketStatisticsExecute(r ApiMarketStatisticsRequest
 	localVarFormParams := url.Values{}
 
 	if r.propertyType != nil {
-		t := *r.propertyType
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", r.propertyType, "form", "")
 	}
 	if r.transactionType != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "transaction_type", r.transactionType, "form", "")
 	}
 	if r.interval != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "interval", r.interval, "form", "")
-	} else {
-		var defaultValue string = "month"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "interval", defaultValue, "form", "")
-		r.interval = &defaultValue
 	}
 	if r.since != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")

@@ -26,11 +26,11 @@ type ImageGenerationsAPIService service
 type ApiCreateGenerationRequest struct {
 	ctx context.Context
 	ApiService *ImageGenerationsAPIService
-	createGenerationRequest *CreateGenerationRequest
+	generationInput *GenerationInput
 }
 
-func (r ApiCreateGenerationRequest) CreateGenerationRequest(createGenerationRequest CreateGenerationRequest) ApiCreateGenerationRequest {
-	r.createGenerationRequest = &createGenerationRequest
+func (r ApiCreateGenerationRequest) GenerationInput(generationInput GenerationInput) ApiCreateGenerationRequest {
+	r.generationInput = &generationInput
 	return r
 }
 
@@ -77,8 +77,8 @@ func (a *ImageGenerationsAPIService) CreateGenerationExecute(r ApiCreateGenerati
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createGenerationRequest == nil {
-		return localVarReturnValue, nil, reportError("createGenerationRequest is required and must be specified")
+	if r.generationInput == nil {
+		return localVarReturnValue, nil, reportError("generationInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *ImageGenerationsAPIService) CreateGenerationExecute(r ApiCreateGenerati
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createGenerationRequest
+	localVarPostBody = r.generationInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

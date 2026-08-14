@@ -16,37 +16,36 @@ import (
 	"fmt"
 )
 
-// checks if the UpdateInquiryRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &UpdateInquiryRequest{}
+// checks if the InquiryStatusInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InquiryStatusInput{}
 
-// UpdateInquiryRequest struct for UpdateInquiryRequest
-type UpdateInquiryRequest struct {
-	// The state to move it to.
+// InquiryStatusInput struct for InquiryStatusInput
+type InquiryStatusInput struct {
 	Status string `json:"status"`
 }
 
-type _UpdateInquiryRequest UpdateInquiryRequest
+type _InquiryStatusInput InquiryStatusInput
 
-// NewUpdateInquiryRequest instantiates a new UpdateInquiryRequest object
+// NewInquiryStatusInput instantiates a new InquiryStatusInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateInquiryRequest(status string) *UpdateInquiryRequest {
-	this := UpdateInquiryRequest{}
+func NewInquiryStatusInput(status string) *InquiryStatusInput {
+	this := InquiryStatusInput{}
 	this.Status = status
 	return &this
 }
 
-// NewUpdateInquiryRequestWithDefaults instantiates a new UpdateInquiryRequest object
+// NewInquiryStatusInputWithDefaults instantiates a new InquiryStatusInput object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUpdateInquiryRequestWithDefaults() *UpdateInquiryRequest {
-	this := UpdateInquiryRequest{}
+func NewInquiryStatusInputWithDefaults() *InquiryStatusInput {
+	this := InquiryStatusInput{}
 	return &this
 }
 
 // GetStatus returns the Status field value
-func (o *UpdateInquiryRequest) GetStatus() string {
+func (o *InquiryStatusInput) GetStatus() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -57,7 +56,7 @@ func (o *UpdateInquiryRequest) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *UpdateInquiryRequest) GetStatusOk() (*string, bool) {
+func (o *InquiryStatusInput) GetStatusOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -65,11 +64,11 @@ func (o *UpdateInquiryRequest) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *UpdateInquiryRequest) SetStatus(v string) {
+func (o *InquiryStatusInput) SetStatus(v string) {
 	o.Status = v
 }
 
-func (o UpdateInquiryRequest) MarshalJSON() ([]byte, error) {
+func (o InquiryStatusInput) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -77,13 +76,13 @@ func (o UpdateInquiryRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UpdateInquiryRequest) ToMap() (map[string]interface{}, error) {
+func (o InquiryStatusInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["status"] = o.Status
 	return toSerialize, nil
 }
 
-func (o *UpdateInquiryRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *InquiryStatusInput) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -105,53 +104,53 @@ func (o *UpdateInquiryRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varUpdateInquiryRequest := _UpdateInquiryRequest{}
+	varInquiryStatusInput := _InquiryStatusInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUpdateInquiryRequest)
+	err = decoder.Decode(&varInquiryStatusInput)
 
 	if err != nil {
 		return err
 	}
 
-	*o = UpdateInquiryRequest(varUpdateInquiryRequest)
+	*o = InquiryStatusInput(varInquiryStatusInput)
 
 	return err
 }
 
-type NullableUpdateInquiryRequest struct {
-	value *UpdateInquiryRequest
+type NullableInquiryStatusInput struct {
+	value *InquiryStatusInput
 	isSet bool
 }
 
-func (v NullableUpdateInquiryRequest) Get() *UpdateInquiryRequest {
+func (v NullableInquiryStatusInput) Get() *InquiryStatusInput {
 	return v.value
 }
 
-func (v *NullableUpdateInquiryRequest) Set(val *UpdateInquiryRequest) {
+func (v *NullableInquiryStatusInput) Set(val *InquiryStatusInput) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUpdateInquiryRequest) IsSet() bool {
+func (v NullableInquiryStatusInput) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUpdateInquiryRequest) Unset() {
+func (v *NullableInquiryStatusInput) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUpdateInquiryRequest(val *UpdateInquiryRequest) *NullableUpdateInquiryRequest {
-	return &NullableUpdateInquiryRequest{value: val, isSet: true}
+func NewNullableInquiryStatusInput(val *InquiryStatusInput) *NullableInquiryStatusInput {
+	return &NullableInquiryStatusInput{value: val, isSet: true}
 }
 
-func (v NullableUpdateInquiryRequest) MarshalJSON() ([]byte, error) {
+func (v NullableInquiryStatusInput) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUpdateInquiryRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableInquiryStatusInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -16,64 +16,62 @@ import (
 	"fmt"
 )
 
-// checks if the CreateWebhookRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CreateWebhookRequest{}
+// checks if the DeliveryInput type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeliveryInput{}
 
-// CreateWebhookRequest struct for CreateWebhookRequest
-type CreateWebhookRequest struct {
-	// Event names to subscribe to. Every name must be one of the events listed above; an unrecognised one is refused rather than silently never firing.
-	Events []string `json:"events"`
-	// HTTPS endpoint. Plain HTTP is rejected.
+// DeliveryInput struct for DeliveryInput
+type DeliveryInput struct {
+	Type string `json:"type"`
 	Url string `json:"url"`
 }
 
-type _CreateWebhookRequest CreateWebhookRequest
+type _DeliveryInput DeliveryInput
 
-// NewCreateWebhookRequest instantiates a new CreateWebhookRequest object
+// NewDeliveryInput instantiates a new DeliveryInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateWebhookRequest(events []string, url string) *CreateWebhookRequest {
-	this := CreateWebhookRequest{}
-	this.Events = events
+func NewDeliveryInput(type_ string, url string) *DeliveryInput {
+	this := DeliveryInput{}
+	this.Type = type_
 	this.Url = url
 	return &this
 }
 
-// NewCreateWebhookRequestWithDefaults instantiates a new CreateWebhookRequest object
+// NewDeliveryInputWithDefaults instantiates a new DeliveryInput object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateWebhookRequestWithDefaults() *CreateWebhookRequest {
-	this := CreateWebhookRequest{}
+func NewDeliveryInputWithDefaults() *DeliveryInput {
+	this := DeliveryInput{}
 	return &this
 }
 
-// GetEvents returns the Events field value
-func (o *CreateWebhookRequest) GetEvents() []string {
+// GetType returns the Type field value
+func (o *DeliveryInput) GetType() string {
 	if o == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 
-	return o.Events
+	return o.Type
 }
 
-// GetEventsOk returns a tuple with the Events field value
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *CreateWebhookRequest) GetEventsOk() ([]string, bool) {
+func (o *DeliveryInput) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Events, true
+	return &o.Type, true
 }
 
-// SetEvents sets field value
-func (o *CreateWebhookRequest) SetEvents(v []string) {
-	o.Events = v
+// SetType sets field value
+func (o *DeliveryInput) SetType(v string) {
+	o.Type = v
 }
 
 // GetUrl returns the Url field value
-func (o *CreateWebhookRequest) GetUrl() string {
+func (o *DeliveryInput) GetUrl() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -84,7 +82,7 @@ func (o *CreateWebhookRequest) GetUrl() string {
 
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
-func (o *CreateWebhookRequest) GetUrlOk() (*string, bool) {
+func (o *DeliveryInput) GetUrlOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,11 +90,11 @@ func (o *CreateWebhookRequest) GetUrlOk() (*string, bool) {
 }
 
 // SetUrl sets field value
-func (o *CreateWebhookRequest) SetUrl(v string) {
+func (o *DeliveryInput) SetUrl(v string) {
 	o.Url = v
 }
 
-func (o CreateWebhookRequest) MarshalJSON() ([]byte, error) {
+func (o DeliveryInput) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -104,19 +102,19 @@ func (o CreateWebhookRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CreateWebhookRequest) ToMap() (map[string]interface{}, error) {
+func (o DeliveryInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["events"] = o.Events
+	toSerialize["type"] = o.Type
 	toSerialize["url"] = o.Url
 	return toSerialize, nil
 }
 
-func (o *CreateWebhookRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *DeliveryInput) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"events",
+		"type",
 		"url",
 	}
 
@@ -134,53 +132,53 @@ func (o *CreateWebhookRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varCreateWebhookRequest := _CreateWebhookRequest{}
+	varDeliveryInput := _DeliveryInput{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
 	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateWebhookRequest)
+	err = decoder.Decode(&varDeliveryInput)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CreateWebhookRequest(varCreateWebhookRequest)
+	*o = DeliveryInput(varDeliveryInput)
 
 	return err
 }
 
-type NullableCreateWebhookRequest struct {
-	value *CreateWebhookRequest
+type NullableDeliveryInput struct {
+	value *DeliveryInput
 	isSet bool
 }
 
-func (v NullableCreateWebhookRequest) Get() *CreateWebhookRequest {
+func (v NullableDeliveryInput) Get() *DeliveryInput {
 	return v.value
 }
 
-func (v *NullableCreateWebhookRequest) Set(val *CreateWebhookRequest) {
+func (v *NullableDeliveryInput) Set(val *DeliveryInput) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateWebhookRequest) IsSet() bool {
+func (v NullableDeliveryInput) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateWebhookRequest) Unset() {
+func (v *NullableDeliveryInput) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateWebhookRequest(val *CreateWebhookRequest) *NullableCreateWebhookRequest {
-	return &NullableCreateWebhookRequest{value: val, isSet: true}
+func NewNullableDeliveryInput(val *DeliveryInput) *NullableDeliveryInput {
+	return &NullableDeliveryInput{value: val, isSet: true}
 }
 
-func (v NullableCreateWebhookRequest) MarshalJSON() ([]byte, error) {
+func (v NullableDeliveryInput) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateWebhookRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableDeliveryInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

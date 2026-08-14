@@ -26,11 +26,11 @@ type ExportsAPIService service
 type ApiCreateExportRequest struct {
 	ctx context.Context
 	ApiService *ExportsAPIService
-	createExportRequest *CreateExportRequest
+	exportInput *ExportInput
 }
 
-func (r ApiCreateExportRequest) CreateExportRequest(createExportRequest CreateExportRequest) ApiCreateExportRequest {
-	r.createExportRequest = &createExportRequest
+func (r ApiCreateExportRequest) ExportInput(exportInput ExportInput) ApiCreateExportRequest {
+	r.exportInput = &exportInput
 	return r
 }
 
@@ -77,8 +77,8 @@ func (a *ExportsAPIService) CreateExportExecute(r ApiCreateExportRequest) (*Expo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createExportRequest == nil {
-		return localVarReturnValue, nil, reportError("createExportRequest is required and must be specified")
+	if r.exportInput == nil {
+		return localVarReturnValue, nil, reportError("exportInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *ExportsAPIService) CreateExportExecute(r ApiCreateExportRequest) (*Expo
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createExportRequest
+	localVarPostBody = r.exportInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

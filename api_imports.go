@@ -28,17 +28,41 @@ type ApiCreateImportRequest struct {
 	ctx context.Context
 	ApiService *ImportsAPIService
 	format *string
-	idempotencyKey *string
-	dryRun *bool
-	file *os.File
 	mode *string
 	sourceId *string
-	url *string
+	dryRun *bool
+	filename *string
+	idempotencyKey *string
+	file *os.File
 }
 
-// Which format the payload is in.
+// 
 func (r ApiCreateImportRequest) Format(format string) ApiCreateImportRequest {
 	r.format = &format
+	return r
+}
+
+// 
+func (r ApiCreateImportRequest) Mode(mode string) ApiCreateImportRequest {
+	r.mode = &mode
+	return r
+}
+
+// 
+func (r ApiCreateImportRequest) SourceId(sourceId string) ApiCreateImportRequest {
+	r.sourceId = &sourceId
+	return r
+}
+
+// 
+func (r ApiCreateImportRequest) DryRun(dryRun bool) ApiCreateImportRequest {
+	r.dryRun = &dryRun
+	return r
+}
+
+// Original filename, recorded on the run so a failure can be traced back to the file that caused it.
+func (r ApiCreateImportRequest) Filename(filename string) ApiCreateImportRequest {
+	r.filename = &filename
 	return r
 }
 
@@ -48,33 +72,9 @@ func (r ApiCreateImportRequest) IdempotencyKey(idempotencyKey string) ApiCreateI
 	return r
 }
 
-// Validate and report what would change without writing anything. Run this first on any migration.
-func (r ApiCreateImportRequest) DryRun(dryRun bool) ApiCreateImportRequest {
-	r.dryRun = &dryRun
-	return r
-}
-
 // The payload. Mutually exclusive with url.
 func (r ApiCreateImportRequest) File(file *os.File) ApiCreateImportRequest {
 	r.file = file
-	return r
-}
-
-// incremental updates what the payload contains. full_sync additionally withdraws anything absent, and is refused unless the source is configured for it.
-func (r ApiCreateImportRequest) Mode(mode string) ApiCreateImportRequest {
-	r.mode = &mode
-	return r
-}
-
-// Apply a stored import source&#39;s mapping and settings rather than the defaults.
-func (r ApiCreateImportRequest) SourceId(sourceId string) ApiCreateImportRequest {
-	r.sourceId = &sourceId
-	return r
-}
-
-// Where to fetch the payload from. Mutually exclusive with file.
-func (r ApiCreateImportRequest) Url(url string) ApiCreateImportRequest {
-	r.url = &url
 	return r
 }
 
@@ -125,6 +125,23 @@ func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Impo
 		return localVarReturnValue, nil, reportError("format is required and must be specified")
 	}
 
+	parameterAddToHeaderOrQuery(localVarQueryParams, "format", r.format, "form", "")
+	if r.mode != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mode", r.mode, "form", "")
+	} else {
+		var defaultValue string = "incremental"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mode", defaultValue, "form", "")
+		r.mode = &defaultValue
+	}
+	if r.sourceId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "source_id", r.sourceId, "form", "")
+	}
+	if r.dryRun != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", r.dryRun, "form", "")
+	}
+	if r.filename != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filename", r.filename, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
 
@@ -145,9 +162,6 @@ func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Impo
 	if r.idempotencyKey != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
-	if r.dryRun != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "dry_run", r.dryRun, "", "")
-	}
 	var fileLocalVarFormFileName string
 	var fileLocalVarFileName     string
 	var fileLocalVarFileBytes    []byte
@@ -162,16 +176,6 @@ func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Impo
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
 		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
-	}
-	parameterAddToHeaderOrQuery(localVarFormParams, "format", r.format, "", "")
-	if r.mode != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mode", r.mode, "", "")
-	}
-	if r.sourceId != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "source_id", r.sourceId, "", "")
-	}
-	if r.url != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "url", r.url, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -278,11 +282,11 @@ func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Impo
 type ApiCreateImportSourceRequest struct {
 	ctx context.Context
 	ApiService *ImportsAPIService
-	createImportSourceRequest *CreateImportSourceRequest
+	importSourceInput *ImportSourceInput
 }
 
-func (r ApiCreateImportSourceRequest) CreateImportSourceRequest(createImportSourceRequest CreateImportSourceRequest) ApiCreateImportSourceRequest {
-	r.createImportSourceRequest = &createImportSourceRequest
+func (r ApiCreateImportSourceRequest) ImportSourceInput(importSourceInput ImportSourceInput) ApiCreateImportSourceRequest {
+	r.importSourceInput = &importSourceInput
 	return r
 }
 
@@ -329,8 +333,8 @@ func (a *ImportsAPIService) CreateImportSourceExecute(r ApiCreateImportSourceReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createImportSourceRequest == nil {
-		return localVarReturnValue, nil, reportError("createImportSourceRequest is required and must be specified")
+	if r.importSourceInput == nil {
+		return localVarReturnValue, nil, reportError("importSourceInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -351,7 +355,7 @@ func (a *ImportsAPIService) CreateImportSourceExecute(r ApiCreateImportSourceReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createImportSourceRequest
+	localVarPostBody = r.importSourceInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1072,13 +1076,6 @@ type ApiListImportRecordsRequest struct {
 	ctx context.Context
 	ApiService *ImportsAPIService
 	importId string
-	outcome *string
-}
-
-// Narrow to one outcome.
-func (r ApiListImportRecordsRequest) Outcome(outcome string) ApiListImportRecordsRequest {
-	r.outcome = &outcome
-	return r
 }
 
 func (r ApiListImportRecordsRequest) Execute() (*ImportRecordList, *http.Response, error) {
@@ -1128,9 +1125,6 @@ func (a *ImportsAPIService) ListImportRecordsExecute(r ApiListImportRecordsReque
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.outcome != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "outcome", r.outcome, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1399,20 +1393,6 @@ func (a *ImportsAPIService) ListImportSourcesExecute(r ApiListImportSourcesReque
 type ApiListImportsRequest struct {
 	ctx context.Context
 	ApiService *ImportsAPIService
-	sourceId *string
-	status *string
-}
-
-// Only imports produced by one source.
-func (r ApiListImportsRequest) SourceId(sourceId string) ApiListImportsRequest {
-	r.sourceId = &sourceId
-	return r
-}
-
-// Filter by outcome.
-func (r ApiListImportsRequest) Status(status string) ApiListImportsRequest {
-	r.status = &status
-	return r
 }
 
 func (r ApiListImportsRequest) Execute() (*ImportList, *http.Response, error) {
@@ -1457,12 +1437,6 @@ func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*Import
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.sourceId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "source_id", r.sourceId, "form", "")
-	}
-	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1575,6 +1549,12 @@ type ApiUpdateImportSourceRequest struct {
 	ctx context.Context
 	ApiService *ImportsAPIService
 	sourceId string
+	sourceUpdate *SourceUpdate
+}
+
+func (r ApiUpdateImportSourceRequest) SourceUpdate(sourceUpdate SourceUpdate) ApiUpdateImportSourceRequest {
+	r.sourceUpdate = &sourceUpdate
+	return r
 }
 
 func (r ApiUpdateImportSourceRequest) Execute() (*ImportSourceResponse, *http.Response, error) {
@@ -1621,9 +1601,12 @@ func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.sourceUpdate == nil {
+		return localVarReturnValue, nil, reportError("sourceUpdate is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1639,6 +1622,8 @@ func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.sourceUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -27,12 +27,12 @@ type PropertiesAPIService service
 type ApiCreatePropertyRequest struct {
 	ctx context.Context
 	ApiService *PropertiesAPIService
-	createPropertyRequest *CreatePropertyRequest
+	propertyInput *PropertyInput
 	idempotencyKey *string
 }
 
-func (r ApiCreatePropertyRequest) CreatePropertyRequest(createPropertyRequest CreatePropertyRequest) ApiCreatePropertyRequest {
-	r.createPropertyRequest = &createPropertyRequest
+func (r ApiCreatePropertyRequest) PropertyInput(propertyInput PropertyInput) ApiCreatePropertyRequest {
+	r.propertyInput = &propertyInput
 	return r
 }
 
@@ -85,8 +85,8 @@ func (a *PropertiesAPIService) CreatePropertyExecute(r ApiCreatePropertyRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createPropertyRequest == nil {
-		return localVarReturnValue, nil, reportError("createPropertyRequest is required and must be specified")
+	if r.propertyInput == nil {
+		return localVarReturnValue, nil, reportError("propertyInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -110,7 +110,7 @@ func (a *PropertiesAPIService) CreatePropertyExecute(r ApiCreatePropertyRequest)
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "simple", "")
 	}
 	// body params
-	localVarPostBody = r.createPropertyRequest
+	localVarPostBody = r.propertyInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1329,11 +1329,11 @@ func (a *PropertiesAPIService) PropertyPriceHistoryExecute(r ApiPropertyPriceHis
 type ApiSearchPropertiesRequest struct {
 	ctx context.Context
 	ApiService *PropertiesAPIService
-	searchPropertiesRequest *SearchPropertiesRequest
+	searchRequest *SearchRequest
 }
 
-func (r ApiSearchPropertiesRequest) SearchPropertiesRequest(searchPropertiesRequest SearchPropertiesRequest) ApiSearchPropertiesRequest {
-	r.searchPropertiesRequest = &searchPropertiesRequest
+func (r ApiSearchPropertiesRequest) SearchRequest(searchRequest SearchRequest) ApiSearchPropertiesRequest {
+	r.searchRequest = &searchRequest
 	return r
 }
 
@@ -1380,6 +1380,9 @@ func (a *PropertiesAPIService) SearchPropertiesExecute(r ApiSearchPropertiesRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.searchRequest == nil {
+		return localVarReturnValue, nil, reportError("searchRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1399,7 +1402,7 @@ func (a *PropertiesAPIService) SearchPropertiesExecute(r ApiSearchPropertiesRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.searchPropertiesRequest
+	localVarPostBody = r.searchRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1555,10 +1558,6 @@ func (a *PropertiesAPIService) SimilarPropertiesExecute(r ApiSimilarPropertiesRe
 
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 10
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
-		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1672,7 +1671,13 @@ type ApiUpdatePropertyRequest struct {
 	ctx context.Context
 	ApiService *PropertiesAPIService
 	propertyId string
+	propertyInput *PropertyInput
 	ifMatch *string
+}
+
+func (r ApiUpdatePropertyRequest) PropertyInput(propertyInput PropertyInput) ApiUpdatePropertyRequest {
+	r.propertyInput = &propertyInput
+	return r
 }
 
 // ETag from your last read. Rejected with 412 if the record moved on.
@@ -1727,9 +1732,12 @@ func (a *PropertiesAPIService) UpdatePropertyExecute(r ApiUpdatePropertyRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.propertyInput == nil {
+		return localVarReturnValue, nil, reportError("propertyInput is required and must be specified")
+	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1748,6 +1756,8 @@ func (a *PropertiesAPIService) UpdatePropertyExecute(r ApiUpdatePropertyRequest)
 	if r.ifMatch != nil {
 		parameterAddToHeaderOrQuery(localVarHeaderParams, "If-Match", r.ifMatch, "simple", "")
 	}
+	// body params
+	localVarPostBody = r.propertyInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1866,12 +1876,26 @@ type ApiUploadPropertyImageRequest struct {
 	ApiService *PropertiesAPIService
 	propertyId string
 	file *os.File
+	roomType *string
+	primary *bool
 	position *int32
 }
 
 // Image payload.
 func (r ApiUploadPropertyImageRequest) File(file *os.File) ApiUploadPropertyImageRequest {
 	r.file = file
+	return r
+}
+
+// What the photograph shows, used to group images and to pick a source for staging.
+func (r ApiUploadPropertyImageRequest) RoomType(roomType string) ApiUploadPropertyImageRequest {
+	r.roomType = &roomType
+	return r
+}
+
+// Pass true to make this the primary image, which demotes the current one.
+func (r ApiUploadPropertyImageRequest) Primary(primary bool) ApiUploadPropertyImageRequest {
+	r.primary = &primary
 	return r
 }
 
@@ -1931,6 +1955,12 @@ func (a *PropertiesAPIService) UploadPropertyImageExecute(r ApiUploadPropertyIma
 		return localVarReturnValue, nil, reportError("file is required and must be specified")
 	}
 
+	if r.roomType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "room_type", r.roomType, "form", "")
+	}
+	if r.primary != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "primary", r.primary, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
 

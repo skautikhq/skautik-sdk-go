@@ -14,38 +14,35 @@ import (
 	"encoding/json"
 )
 
-// checks if the UpdateWebhookRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &UpdateWebhookRequest{}
+// checks if the WebhookUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &WebhookUpdate{}
 
-// UpdateWebhookRequest struct for UpdateWebhookRequest
-type UpdateWebhookRequest struct {
-	// False pauses deliveries; the registration and its secret survive.
+// WebhookUpdate struct for WebhookUpdate
+type WebhookUpdate struct {
 	Active *bool `json:"active,omitempty"`
-	// Replaces the whole subscription list rather than adding to it.
 	Events []string `json:"events,omitempty"`
-	// New HTTPS endpoint.
 	Url *string `json:"url,omitempty"`
 }
 
-// NewUpdateWebhookRequest instantiates a new UpdateWebhookRequest object
+// NewWebhookUpdate instantiates a new WebhookUpdate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUpdateWebhookRequest() *UpdateWebhookRequest {
-	this := UpdateWebhookRequest{}
+func NewWebhookUpdate() *WebhookUpdate {
+	this := WebhookUpdate{}
 	return &this
 }
 
-// NewUpdateWebhookRequestWithDefaults instantiates a new UpdateWebhookRequest object
+// NewWebhookUpdateWithDefaults instantiates a new WebhookUpdate object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUpdateWebhookRequestWithDefaults() *UpdateWebhookRequest {
-	this := UpdateWebhookRequest{}
+func NewWebhookUpdateWithDefaults() *WebhookUpdate {
+	this := WebhookUpdate{}
 	return &this
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
-func (o *UpdateWebhookRequest) GetActive() bool {
+func (o *WebhookUpdate) GetActive() bool {
 	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
@@ -55,7 +52,7 @@ func (o *UpdateWebhookRequest) GetActive() bool {
 
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateWebhookRequest) GetActiveOk() (*bool, bool) {
+func (o *WebhookUpdate) GetActiveOk() (*bool, bool) {
 	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
@@ -63,7 +60,7 @@ func (o *UpdateWebhookRequest) GetActiveOk() (*bool, bool) {
 }
 
 // HasActive returns a boolean if a field has been set.
-func (o *UpdateWebhookRequest) HasActive() bool {
+func (o *WebhookUpdate) HasActive() bool {
 	if o != nil && !IsNil(o.Active) {
 		return true
 	}
@@ -72,12 +69,12 @@ func (o *UpdateWebhookRequest) HasActive() bool {
 }
 
 // SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *UpdateWebhookRequest) SetActive(v bool) {
+func (o *WebhookUpdate) SetActive(v bool) {
 	o.Active = &v
 }
 
 // GetEvents returns the Events field value if set, zero value otherwise.
-func (o *UpdateWebhookRequest) GetEvents() []string {
+func (o *WebhookUpdate) GetEvents() []string {
 	if o == nil || IsNil(o.Events) {
 		var ret []string
 		return ret
@@ -87,7 +84,7 @@ func (o *UpdateWebhookRequest) GetEvents() []string {
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateWebhookRequest) GetEventsOk() ([]string, bool) {
+func (o *WebhookUpdate) GetEventsOk() ([]string, bool) {
 	if o == nil || IsNil(o.Events) {
 		return nil, false
 	}
@@ -95,7 +92,7 @@ func (o *UpdateWebhookRequest) GetEventsOk() ([]string, bool) {
 }
 
 // HasEvents returns a boolean if a field has been set.
-func (o *UpdateWebhookRequest) HasEvents() bool {
+func (o *WebhookUpdate) HasEvents() bool {
 	if o != nil && !IsNil(o.Events) {
 		return true
 	}
@@ -104,12 +101,12 @@ func (o *UpdateWebhookRequest) HasEvents() bool {
 }
 
 // SetEvents gets a reference to the given []string and assigns it to the Events field.
-func (o *UpdateWebhookRequest) SetEvents(v []string) {
+func (o *WebhookUpdate) SetEvents(v []string) {
 	o.Events = v
 }
 
 // GetUrl returns the Url field value if set, zero value otherwise.
-func (o *UpdateWebhookRequest) GetUrl() string {
+func (o *WebhookUpdate) GetUrl() string {
 	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
@@ -119,7 +116,7 @@ func (o *UpdateWebhookRequest) GetUrl() string {
 
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateWebhookRequest) GetUrlOk() (*string, bool) {
+func (o *WebhookUpdate) GetUrlOk() (*string, bool) {
 	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
@@ -127,7 +124,7 @@ func (o *UpdateWebhookRequest) GetUrlOk() (*string, bool) {
 }
 
 // HasUrl returns a boolean if a field has been set.
-func (o *UpdateWebhookRequest) HasUrl() bool {
+func (o *WebhookUpdate) HasUrl() bool {
 	if o != nil && !IsNil(o.Url) {
 		return true
 	}
@@ -136,11 +133,11 @@ func (o *UpdateWebhookRequest) HasUrl() bool {
 }
 
 // SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *UpdateWebhookRequest) SetUrl(v string) {
+func (o *WebhookUpdate) SetUrl(v string) {
 	o.Url = &v
 }
 
-func (o UpdateWebhookRequest) MarshalJSON() ([]byte, error) {
+func (o WebhookUpdate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -148,7 +145,7 @@ func (o UpdateWebhookRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o UpdateWebhookRequest) ToMap() (map[string]interface{}, error) {
+func (o WebhookUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
@@ -162,38 +159,38 @@ func (o UpdateWebhookRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableUpdateWebhookRequest struct {
-	value *UpdateWebhookRequest
+type NullableWebhookUpdate struct {
+	value *WebhookUpdate
 	isSet bool
 }
 
-func (v NullableUpdateWebhookRequest) Get() *UpdateWebhookRequest {
+func (v NullableWebhookUpdate) Get() *WebhookUpdate {
 	return v.value
 }
 
-func (v *NullableUpdateWebhookRequest) Set(val *UpdateWebhookRequest) {
+func (v *NullableWebhookUpdate) Set(val *WebhookUpdate) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUpdateWebhookRequest) IsSet() bool {
+func (v NullableWebhookUpdate) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUpdateWebhookRequest) Unset() {
+func (v *NullableWebhookUpdate) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUpdateWebhookRequest(val *UpdateWebhookRequest) *NullableUpdateWebhookRequest {
-	return &NullableUpdateWebhookRequest{value: val, isSet: true}
+func NewNullableWebhookUpdate(val *WebhookUpdate) *NullableWebhookUpdate {
+	return &NullableWebhookUpdate{value: val, isSet: true}
 }
 
-func (v NullableUpdateWebhookRequest) MarshalJSON() ([]byte, error) {
+func (v NullableWebhookUpdate) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUpdateWebhookRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableWebhookUpdate) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

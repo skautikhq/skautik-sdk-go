@@ -26,11 +26,11 @@ type WebhooksAPIService service
 type ApiCreateWebhookRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
-	createWebhookRequest *CreateWebhookRequest
+	webhookInput *WebhookInput
 }
 
-func (r ApiCreateWebhookRequest) CreateWebhookRequest(createWebhookRequest CreateWebhookRequest) ApiCreateWebhookRequest {
-	r.createWebhookRequest = &createWebhookRequest
+func (r ApiCreateWebhookRequest) WebhookInput(webhookInput WebhookInput) ApiCreateWebhookRequest {
+	r.webhookInput = &webhookInput
 	return r
 }
 
@@ -77,8 +77,8 @@ func (a *WebhooksAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*E
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createWebhookRequest == nil {
-		return localVarReturnValue, nil, reportError("createWebhookRequest is required and must be specified")
+	if r.webhookInput == nil {
+		return localVarReturnValue, nil, reportError("webhookInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -99,7 +99,7 @@ func (a *WebhooksAPIService) CreateWebhookExecute(r ApiCreateWebhookRequest) (*E
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createWebhookRequest
+	localVarPostBody = r.webhookInput
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -570,10 +570,6 @@ func (a *WebhooksAPIService) ListDeliveriesExecute(r ApiListDeliveriesRequest) (
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 100
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
-		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1312,11 +1308,11 @@ type ApiUpdateWebhookRequest struct {
 	ctx context.Context
 	ApiService *WebhooksAPIService
 	webhookId string
-	updateWebhookRequest *UpdateWebhookRequest
+	webhookUpdate *WebhookUpdate
 }
 
-func (r ApiUpdateWebhookRequest) UpdateWebhookRequest(updateWebhookRequest UpdateWebhookRequest) ApiUpdateWebhookRequest {
-	r.updateWebhookRequest = &updateWebhookRequest
+func (r ApiUpdateWebhookRequest) WebhookUpdate(webhookUpdate WebhookUpdate) ApiUpdateWebhookRequest {
+	r.webhookUpdate = &webhookUpdate
 	return r
 }
 
@@ -1366,6 +1362,9 @@ func (a *WebhooksAPIService) UpdateWebhookExecute(r ApiUpdateWebhookRequest) (*W
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.webhookUpdate == nil {
+		return localVarReturnValue, nil, reportError("webhookUpdate is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1385,7 +1384,7 @@ func (a *WebhooksAPIService) UpdateWebhookExecute(r ApiUpdateWebhookRequest) (*W
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateWebhookRequest
+	localVarPostBody = r.webhookUpdate
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
