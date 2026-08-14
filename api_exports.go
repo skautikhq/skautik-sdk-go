@@ -34,7 +34,7 @@ func (r ApiCreateExportRequest) CreateExportRequest(createExportRequest CreateEx
 	return r
 }
 
-func (r ApiCreateExportRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiCreateExportRequest) Execute() (*ExportResponse, *http.Response, error) {
 	return r.ApiService.CreateExportExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *ExportsAPIService) CreateExport(ctx context.Context) ApiCreateExportReq
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ExportsAPIService) CreateExportExecute(r ApiCreateExportRequest) (*Envelope, *http.Response, error) {
+//  @return ExportResponse
+func (a *ExportsAPIService) CreateExportExecute(r ApiCreateExportRequest) (*ExportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ExportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExportsAPIService.CreateExport")
@@ -197,7 +197,7 @@ type ApiGetExportRequest struct {
 	exportId string
 }
 
-func (r ApiGetExportRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiGetExportRequest) Execute() (*ExportResponse, *http.Response, error) {
 	return r.ApiService.GetExportExecute(r)
 }
 
@@ -223,13 +223,13 @@ func (a *ExportsAPIService) GetExport(ctx context.Context, exportId string) ApiG
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ExportsAPIService) GetExportExecute(r ApiGetExportRequest) (*Envelope, *http.Response, error) {
+//  @return ExportResponse
+func (a *ExportsAPIService) GetExportExecute(r ApiGetExportRequest) (*ExportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ExportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExportsAPIService.GetExport")
@@ -357,7 +357,7 @@ type ApiListExportsRequest struct {
 	ApiService *ExportsAPIService
 }
 
-func (r ApiListExportsRequest) Execute() (*http.Response, error) {
+func (r ApiListExportsRequest) Execute() (*ExportPage, *http.Response, error) {
 	return r.ApiService.ListExportsExecute(r)
 }
 
@@ -381,16 +381,18 @@ func (a *ExportsAPIService) ListExports(ctx context.Context) ApiListExportsReque
 }
 
 // Execute executes the request
-func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*http.Response, error) {
+//  @return ExportPage
+func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*ExportPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *ExportPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExportsAPIService.ListExports")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/exports"
@@ -409,7 +411,7 @@ func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*http.R
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -418,19 +420,19 @@ func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*http.R
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -443,57 +445,66 @@ func (a *ExportsAPIService) ListExportsExecute(r ApiListExportsRequest) (*http.R
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

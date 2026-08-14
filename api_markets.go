@@ -184,7 +184,7 @@ type ApiGetMarketRequest struct {
 	marketId string
 }
 
-func (r ApiGetMarketRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiGetMarketRequest) Execute() (*MarketResponse, *http.Response, error) {
 	return r.ApiService.GetMarketExecute(r)
 }
 
@@ -208,13 +208,13 @@ func (a *MarketsAPIService) GetMarket(ctx context.Context, marketId string) ApiG
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *MarketsAPIService) GetMarketExecute(r ApiGetMarketRequest) (*Envelope, *http.Response, error) {
+//  @return MarketResponse
+func (a *MarketsAPIService) GetMarketExecute(r ApiGetMarketRequest) (*MarketResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *MarketResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.GetMarket")
@@ -343,7 +343,7 @@ type ApiListDistrictsRequest struct {
 	marketId string
 }
 
-func (r ApiListDistrictsRequest) Execute() (*http.Response, error) {
+func (r ApiListDistrictsRequest) Execute() (*DistrictPage, *http.Response, error) {
 	return r.ApiService.ListDistrictsExecute(r)
 }
 
@@ -367,16 +367,18 @@ func (a *MarketsAPIService) ListDistricts(ctx context.Context, marketId string) 
 }
 
 // Execute executes the request
-func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*http.Response, error) {
+//  @return DistrictPage
+func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*DistrictPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *DistrictPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.ListDistricts")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/markets/{city}/districts"
@@ -396,7 +398,7 @@ func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*ht
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -405,19 +407,19 @@ func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*ht
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -430,59 +432,68 @@ func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*ht
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiListMarketsRequest struct {
@@ -511,7 +522,7 @@ func (r ApiListMarketsRequest) Cursor(cursor string) ApiListMarketsRequest {
 	return r
 }
 
-func (r ApiListMarketsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiListMarketsRequest) Execute() (*CityPage, *http.Response, error) {
 	return r.ApiService.ListMarketsExecute(r)
 }
 
@@ -535,13 +546,13 @@ func (a *MarketsAPIService) ListMarkets(ctx context.Context) ApiListMarketsReque
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*Envelope, *http.Response, error) {
+//  @return CityPage
+func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*CityPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *CityPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.ListMarkets")
@@ -710,7 +721,7 @@ func (r ApiMarketStatisticsRequest) Since(since string) ApiMarketStatisticsReque
 	return r
 }
 
-func (r ApiMarketStatisticsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiMarketStatisticsRequest) Execute() (*SeriesResponse, *http.Response, error) {
 	return r.ApiService.MarketStatisticsExecute(r)
 }
 
@@ -736,13 +747,13 @@ func (a *MarketsAPIService) MarketStatistics(ctx context.Context, marketId strin
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *MarketsAPIService) MarketStatisticsExecute(r ApiMarketStatisticsRequest) (*Envelope, *http.Response, error) {
+//  @return SeriesResponse
+func (a *MarketsAPIService) MarketStatisticsExecute(r ApiMarketStatisticsRequest) (*SeriesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *SeriesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MarketsAPIService.MarketStatistics")

@@ -34,7 +34,7 @@ func (r ApiCreateGenerationRequest) CreateGenerationRequest(createGenerationRequ
 	return r
 }
 
-func (r ApiCreateGenerationRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiCreateGenerationRequest) Execute() (*GenerationResponse, *http.Response, error) {
 	return r.ApiService.CreateGenerationExecute(r)
 }
 
@@ -58,13 +58,13 @@ func (a *ImageGenerationsAPIService) CreateGeneration(ctx context.Context) ApiCr
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImageGenerationsAPIService) CreateGenerationExecute(r ApiCreateGenerationRequest) (*Envelope, *http.Response, error) {
+//  @return GenerationResponse
+func (a *ImageGenerationsAPIService) CreateGenerationExecute(r ApiCreateGenerationRequest) (*GenerationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *GenerationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImageGenerationsAPIService.CreateGeneration")
@@ -197,7 +197,7 @@ type ApiGetGenerationRequest struct {
 	generationId string
 }
 
-func (r ApiGetGenerationRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiGetGenerationRequest) Execute() (*GenerationResponse, *http.Response, error) {
 	return r.ApiService.GetGenerationExecute(r)
 }
 
@@ -223,13 +223,13 @@ func (a *ImageGenerationsAPIService) GetGeneration(ctx context.Context, generati
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImageGenerationsAPIService) GetGenerationExecute(r ApiGetGenerationRequest) (*Envelope, *http.Response, error) {
+//  @return GenerationResponse
+func (a *ImageGenerationsAPIService) GetGenerationExecute(r ApiGetGenerationRequest) (*GenerationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *GenerationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImageGenerationsAPIService.GetGeneration")
@@ -514,7 +514,7 @@ type ApiListGenerationsRequest struct {
 	ApiService *ImageGenerationsAPIService
 }
 
-func (r ApiListGenerationsRequest) Execute() (*http.Response, error) {
+func (r ApiListGenerationsRequest) Execute() (*GenerationPage, *http.Response, error) {
 	return r.ApiService.ListGenerationsExecute(r)
 }
 
@@ -536,16 +536,18 @@ func (a *ImageGenerationsAPIService) ListGenerations(ctx context.Context) ApiLis
 }
 
 // Execute executes the request
-func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerationsRequest) (*http.Response, error) {
+//  @return GenerationPage
+func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerationsRequest) (*GenerationPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *GenerationPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImageGenerationsAPIService.ListGenerations")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/generations"
@@ -564,7 +566,7 @@ func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerations
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -573,19 +575,19 @@ func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerations
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -598,57 +600,66 @@ func (a *ImageGenerationsAPIService) ListGenerationsExecute(r ApiListGenerations
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

@@ -78,7 +78,7 @@ func (r ApiCreateImportRequest) Url(url string) ApiCreateImportRequest {
 	return r
 }
 
-func (r ApiCreateImportRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiCreateImportRequest) Execute() (*ImportResponse, *http.Response, error) {
 	return r.ApiService.CreateImportExecute(r)
 }
 
@@ -102,13 +102,13 @@ func (a *ImportsAPIService) CreateImport(ctx context.Context) ApiCreateImportReq
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Envelope, *http.Response, error) {
+//  @return ImportResponse
+func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*ImportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ImportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.CreateImport")
@@ -286,7 +286,7 @@ func (r ApiCreateImportSourceRequest) CreateImportSourceRequest(createImportSour
 	return r
 }
 
-func (r ApiCreateImportSourceRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiCreateImportSourceRequest) Execute() (*ImportSourceResponse, *http.Response, error) {
 	return r.ApiService.CreateImportSourceExecute(r)
 }
 
@@ -310,13 +310,13 @@ func (a *ImportsAPIService) CreateImportSource(ctx context.Context) ApiCreateImp
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImportsAPIService) CreateImportSourceExecute(r ApiCreateImportSourceRequest) (*Envelope, *http.Response, error) {
+//  @return ImportSourceResponse
+func (a *ImportsAPIService) CreateImportSourceExecute(r ApiCreateImportSourceRequest) (*ImportSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ImportSourceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.CreateImportSource")
@@ -599,7 +599,7 @@ type ApiGetImportRequest struct {
 	importId string
 }
 
-func (r ApiGetImportRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiGetImportRequest) Execute() (*ImportResponse, *http.Response, error) {
 	return r.ApiService.GetImportExecute(r)
 }
 
@@ -623,13 +623,13 @@ func (a *ImportsAPIService) GetImport(ctx context.Context, importId string) ApiG
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImportsAPIService) GetImportExecute(r ApiGetImportRequest) (*Envelope, *http.Response, error) {
+//  @return ImportResponse
+func (a *ImportsAPIService) GetImportExecute(r ApiGetImportRequest) (*ImportResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ImportResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.GetImport")
@@ -758,7 +758,7 @@ type ApiGetImportSourceRequest struct {
 	sourceId string
 }
 
-func (r ApiGetImportSourceRequest) Execute() (*http.Response, error) {
+func (r ApiGetImportSourceRequest) Execute() (*ImportSourceResponse, *http.Response, error) {
 	return r.ApiService.GetImportSourceExecute(r)
 }
 
@@ -782,16 +782,18 @@ func (a *ImportsAPIService) GetImportSource(ctx context.Context, sourceId string
 }
 
 // Execute executes the request
-func (a *ImportsAPIService) GetImportSourceExecute(r ApiGetImportSourceRequest) (*http.Response, error) {
+//  @return ImportSourceResponse
+func (a *ImportsAPIService) GetImportSourceExecute(r ApiGetImportSourceRequest) (*ImportSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *ImportSourceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.GetImportSource")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/import-sources/{source_id}"
@@ -811,7 +813,7 @@ func (a *ImportsAPIService) GetImportSourceExecute(r ApiGetImportSourceRequest) 
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -820,19 +822,19 @@ func (a *ImportsAPIService) GetImportSourceExecute(r ApiGetImportSourceRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -845,59 +847,68 @@ func (a *ImportsAPIService) GetImportSourceExecute(r ApiGetImportSourceRequest) 
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiImportFormatsRequest struct {
@@ -1070,7 +1081,7 @@ func (r ApiListImportRecordsRequest) Outcome(outcome string) ApiListImportRecord
 	return r
 }
 
-func (r ApiListImportRecordsRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiListImportRecordsRequest) Execute() (*ImportRecordPage, *http.Response, error) {
 	return r.ApiService.ListImportRecordsExecute(r)
 }
 
@@ -1096,13 +1107,13 @@ func (a *ImportsAPIService) ListImportRecords(ctx context.Context, importId stri
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImportsAPIService) ListImportRecordsExecute(r ApiListImportRecordsRequest) (*Envelope, *http.Response, error) {
+//  @return ImportRecordPage
+func (a *ImportsAPIService) ListImportRecordsExecute(r ApiListImportRecordsRequest) (*ImportRecordPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ImportRecordPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportRecords")
@@ -1233,7 +1244,7 @@ type ApiListImportSourcesRequest struct {
 	ApiService *ImportsAPIService
 }
 
-func (r ApiListImportSourcesRequest) Execute() (*Envelope, *http.Response, error) {
+func (r ApiListImportSourcesRequest) Execute() (*ImportSourcePage, *http.Response, error) {
 	return r.ApiService.ListImportSourcesExecute(r)
 }
 
@@ -1257,13 +1268,13 @@ func (a *ImportsAPIService) ListImportSources(ctx context.Context) ApiListImport
 }
 
 // Execute executes the request
-//  @return Envelope
-func (a *ImportsAPIService) ListImportSourcesExecute(r ApiListImportSourcesRequest) (*Envelope, *http.Response, error) {
+//  @return ImportSourcePage
+func (a *ImportsAPIService) ListImportSourcesExecute(r ApiListImportSourcesRequest) (*ImportSourcePage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Envelope
+		localVarReturnValue  *ImportSourcePage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportSources")
@@ -1404,7 +1415,7 @@ func (r ApiListImportsRequest) Status(status string) ApiListImportsRequest {
 	return r
 }
 
-func (r ApiListImportsRequest) Execute() (*http.Response, error) {
+func (r ApiListImportsRequest) Execute() (*ImportPage, *http.Response, error) {
 	return r.ApiService.ListImportsExecute(r)
 }
 
@@ -1426,16 +1437,18 @@ func (a *ImportsAPIService) ListImports(ctx context.Context) ApiListImportsReque
 }
 
 // Execute executes the request
-func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*http.Response, error) {
+//  @return ImportPage
+func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*ImportPage, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *ImportPage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImports")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports"
@@ -1460,7 +1473,7 @@ func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*http.R
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1469,19 +1482,19 @@ func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*http.R
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1494,59 +1507,68 @@ func (a *ImportsAPIService) ListImportsExecute(r ApiListImportsRequest) (*http.R
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiUpdateImportSourceRequest struct {
@@ -1555,7 +1577,7 @@ type ApiUpdateImportSourceRequest struct {
 	sourceId string
 }
 
-func (r ApiUpdateImportSourceRequest) Execute() (*http.Response, error) {
+func (r ApiUpdateImportSourceRequest) Execute() (*ImportSourceResponse, *http.Response, error) {
 	return r.ApiService.UpdateImportSourceExecute(r)
 }
 
@@ -1579,16 +1601,18 @@ func (a *ImportsAPIService) UpdateImportSource(ctx context.Context, sourceId str
 }
 
 // Execute executes the request
-func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceRequest) (*http.Response, error) {
+//  @return ImportSourceResponse
+func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceRequest) (*ImportSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *ImportSourceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.UpdateImportSource")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/import-sources/{source_id}"
@@ -1608,7 +1632,7 @@ func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceReq
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1617,19 +1641,19 @@ func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1642,57 +1666,66 @@ func (a *ImportsAPIService) UpdateImportSourceExecute(r ApiUpdateImportSourceReq
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 422 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v Problem
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
