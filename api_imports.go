@@ -36,25 +36,25 @@ type ApiCreateImportRequest struct {
 	file *os.File
 }
 
-// 
+// Format of the file being sent.
 func (r ApiCreateImportRequest) Format(format string) ApiCreateImportRequest {
 	r.format = &format
 	return r
 }
 
-// 
+// Incremental updates what the file contains and leaves the rest alone. A full sync also withdraws anything absent from it, which is why it is not the default.
 func (r ApiCreateImportRequest) Mode(mode string) ApiCreateImportRequest {
 	r.mode = &mode
 	return r
 }
 
-// 
+// Import source this transfer belongs to, when it comes from a standing connector rather than a one-off upload.
 func (r ApiCreateImportRequest) SourceId(sourceId string) ApiCreateImportRequest {
 	r.sourceId = &sourceId
 	return r
 }
 
-// 
+// Parse and report what would change without writing anything. Worth doing once with a new mapping.
 func (r ApiCreateImportRequest) DryRun(dryRun bool) ApiCreateImportRequest {
 	r.dryRun = &dryRun
 	return r

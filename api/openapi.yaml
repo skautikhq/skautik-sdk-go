@@ -900,7 +900,6 @@ paths:
 
         Requires the `imports:write` scope.
       operationId: listImports
-      parameters: []
       responses:
         "200":
           content:
@@ -968,7 +967,8 @@ paths:
         Requires the `imports:write` scope.
       operationId: createImport
       parameters:
-      - description: ""
+      - description: Format of the file being sent.
+        example: csv
         explode: true
         in: query
         name: format
@@ -979,7 +979,10 @@ paths:
           - json
           type: string
         style: form
-      - description: ""
+      - description: "Incremental updates what the file contains and leaves the rest\
+          \ alone. A full sync also withdraws anything absent from it, which is why\
+          \ it is not the default."
+        example: incremental
         explode: true
         in: query
         name: mode
@@ -991,7 +994,9 @@ paths:
           - full_sync
           type: string
         style: form
-      - description: ""
+      - description: "Import source this transfer belongs to, when it comes from a\
+          \ standing connector rather than a one-off upload."
+        example: src_immoscout
         explode: true
         in: query
         name: source_id
@@ -999,7 +1004,9 @@ paths:
         schema:
           type: string
         style: form
-      - description: ""
+      - description: Parse and report what would change without writing anything.
+          Worth doing once with a new mapping.
+        example: true
         explode: true
         in: query
         name: dry_run
@@ -1669,7 +1676,6 @@ paths:
 
         Requires the `markets:read` scope.
       operationId: listMarkets
-      parameters: []
       responses:
         "200":
           content:
@@ -1725,6 +1731,15 @@ paths:
         Requires the `markets:read` scope.
       operationId: getMarket
       parameters:
+      - description: "Market identifier, such as berlin-de."
+        example: berlin-de
+        explode: false
+        in: path
+        name: city
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: "Month to report, as YYYY-MM. Defaults to the most recent computed."
         example: 2026-07
         explode: true
@@ -1752,15 +1767,6 @@ paths:
           - other
           type: string
         style: form
-      - description: "Market identifier, such as berlin-de."
-        example: berlin-de
-        explode: false
-        in: path
-        name: market_id
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
         "200":
           content:
@@ -1839,7 +1845,7 @@ paths:
         example: berlin-de
         explode: false
         in: path
-        name: market_id
+        name: city
         required: true
         schema:
           type: string
@@ -1900,6 +1906,24 @@ paths:
         Availability: Growth and above.
       operationId: getDistrict
       parameters:
+      - description: Market identifier.
+        example: berlin-de
+        explode: false
+        in: path
+        name: city
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: District identifier.
+        example: kreuzberg
+        explode: false
+        in: path
+        name: district
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: "Month to report, as YYYY-MM. Defaults to the most recent computed."
         example: 2026-07
         explode: true
@@ -1927,24 +1951,6 @@ paths:
           - other
           type: string
         style: form
-      - description: Market identifier.
-        example: berlin-de
-        explode: false
-        in: path
-        name: market_id
-        required: true
-        schema:
-          type: string
-        style: simple
-      - description: District identifier.
-        example: kreuzberg
-        explode: false
-        in: path
-        name: district_id
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
         "200":
           description: The request succeeded.
@@ -1991,6 +1997,15 @@ paths:
         Requires the `markets:read` scope.
       operationId: marketStatistics
       parameters:
+      - description: Market identifier.
+        example: berlin-de
+        explode: false
+        in: path
+        name: city
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: Narrow to one property type.
         example: apartment
         explode: true
@@ -2043,15 +2058,6 @@ paths:
         schema:
           type: string
         style: form
-      - description: Market identifier.
-        example: berlin-de
-        explode: false
-        in: path
-        name: market_id
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
         "200":
           content:
@@ -2743,6 +2749,15 @@ paths:
         Requires the `properties:read` scope.
       operationId: getProperty
       parameters:
+      - description: Identifier returned by any collection endpoint.
+        example: prop_8f2a41c9d0
+        explode: false
+        in: path
+        name: property_id
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: Related records to inline rather than fetch separately.
         example:
         - images
@@ -2760,15 +2775,6 @@ paths:
           type: array
           default: null
         style: form
-      - description: Identifier returned by any collection endpoint.
-        example: prop_8f2a41c9d0
-        explode: false
-        in: path
-        name: property_id
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
         "200":
           content:
@@ -3063,6 +3069,15 @@ paths:
         Requires the `images:write` scope.
       operationId: uploadPropertyImage
       parameters:
+      - description: Property to attach to.
+        example: prop_8f2a41c9d0
+        explode: false
+        in: path
+        name: property_id
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: "What the photograph shows, used to group images and to pick\
           \ a source for staging."
         example: living_room
@@ -3083,15 +3098,6 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: Property to attach to.
-        example: prop_8f2a41c9d0
-        explode: false
-        in: path
-        name: property_id
-        required: true
-        schema:
-          type: string
-        style: simple
       requestBody:
         content:
           multipart/form-data:
@@ -3300,15 +3306,6 @@ paths:
         Availability: Growth and above.
       operationId: similarProperties
       parameters:
-      - description: "Comparables to return, 1 to 50."
-        example: 10
-        explode: true
-        in: query
-        name: limit
-        required: false
-        schema:
-          type: integer
-        style: form
       - description: Property to compare against.
         example: prop_8f2a41c9d0
         explode: false
@@ -3318,6 +3315,15 @@ paths:
         schema:
           type: string
         style: simple
+      - description: "Comparables to return, 1 to 50."
+        example: 10
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -3783,6 +3789,15 @@ paths:
         Requires the `webhooks:manage` scope.
       operationId: listDeliveries
       parameters:
+      - description: Webhook identifier.
+        example: whk_1b7e6c19a139404cb173d23fcb3331c4
+        explode: false
+        in: path
+        name: webhook_id
+        required: true
+        schema:
+          type: string
+        style: simple
       - description: Filter by outcome.
         example: succeeded
         explode: true
@@ -3805,15 +3820,6 @@ paths:
         schema:
           type: integer
         style: form
-      - description: Webhook identifier.
-        example: whk_1b7e6c19a139404cb173d23fcb3331c4
-        explode: false
-        in: path
-        name: webhook_id
-        required: true
-        schema:
-          type: string
-        style: simple
       responses:
         "200":
           content:

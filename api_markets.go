@@ -26,8 +26,8 @@ type MarketsAPIService service
 type ApiGetDistrictRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
-	marketId string
-	districtId string
+	city string
+	district string
 	period *string
 	propertyType *string
 }
@@ -58,16 +58,16 @@ Requires the `markets:read` scope.
 Availability: Growth and above.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param marketId Market identifier.
- @param districtId District identifier.
+ @param city Market identifier.
+ @param district District identifier.
  @return ApiGetDistrictRequest
 */
-func (a *MarketsAPIService) GetDistrict(ctx context.Context, marketId string, districtId string) ApiGetDistrictRequest {
+func (a *MarketsAPIService) GetDistrict(ctx context.Context, city string, district string) ApiGetDistrictRequest {
 	return ApiGetDistrictRequest{
 		ApiService: a,
 		ctx: ctx,
-		marketId: marketId,
-		districtId: districtId,
+		city: city,
+		district: district,
 	}
 }
 
@@ -85,8 +85,8 @@ func (a *MarketsAPIService) GetDistrictExecute(r ApiGetDistrictRequest) (*http.R
 	}
 
 	localVarPath := localBasePath + "/markets/{city}/districts/{district}"
-	localVarPath = strings.Replace(localVarPath, "{"+"market_id"+"}", url.PathEscape(parameterValueToString(r.marketId, "marketId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"district_id"+"}", url.PathEscape(parameterValueToString(r.districtId, "districtId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"city"+"}", url.PathEscape(parameterValueToString(r.city, "city")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"district"+"}", url.PathEscape(parameterValueToString(r.district, "district")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -200,7 +200,7 @@ func (a *MarketsAPIService) GetDistrictExecute(r ApiGetDistrictRequest) (*http.R
 type ApiGetMarketRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
-	marketId string
+	city string
 	period *string
 	propertyType *string
 }
@@ -229,14 +229,14 @@ One market with supply and price distribution.
 Requires the `markets:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param marketId Market identifier, such as berlin-de.
+ @param city Market identifier, such as berlin-de.
  @return ApiGetMarketRequest
 */
-func (a *MarketsAPIService) GetMarket(ctx context.Context, marketId string) ApiGetMarketRequest {
+func (a *MarketsAPIService) GetMarket(ctx context.Context, city string) ApiGetMarketRequest {
 	return ApiGetMarketRequest{
 		ApiService: a,
 		ctx: ctx,
-		marketId: marketId,
+		city: city,
 	}
 }
 
@@ -256,7 +256,7 @@ func (a *MarketsAPIService) GetMarketExecute(r ApiGetMarketRequest) (*MarketResp
 	}
 
 	localVarPath := localBasePath + "/markets/{city}"
-	localVarPath = strings.Replace(localVarPath, "{"+"market_id"+"}", url.PathEscape(parameterValueToString(r.marketId, "marketId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"city"+"}", url.PathEscape(parameterValueToString(r.city, "city")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -379,7 +379,7 @@ func (a *MarketsAPIService) GetMarketExecute(r ApiGetMarketRequest) (*MarketResp
 type ApiListDistrictsRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
-	marketId string
+	city string
 }
 
 func (r ApiListDistrictsRequest) Execute() (*DistrictList, *http.Response, error) {
@@ -394,14 +394,14 @@ Subdivisions of a market, for building your own filters.
 Requires the `markets:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param marketId Market identifier.
+ @param city Market identifier.
  @return ApiListDistrictsRequest
 */
-func (a *MarketsAPIService) ListDistricts(ctx context.Context, marketId string) ApiListDistrictsRequest {
+func (a *MarketsAPIService) ListDistricts(ctx context.Context, city string) ApiListDistrictsRequest {
 	return ApiListDistrictsRequest{
 		ApiService: a,
 		ctx: ctx,
-		marketId: marketId,
+		city: city,
 	}
 }
 
@@ -421,7 +421,7 @@ func (a *MarketsAPIService) ListDistrictsExecute(r ApiListDistrictsRequest) (*Di
 	}
 
 	localVarPath := localBasePath + "/markets/{city}/districts"
-	localVarPath = strings.Replace(localVarPath, "{"+"market_id"+"}", url.PathEscape(parameterValueToString(r.marketId, "marketId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"city"+"}", url.PathEscape(parameterValueToString(r.city, "city")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -695,7 +695,7 @@ func (a *MarketsAPIService) ListMarketsExecute(r ApiListMarketsRequest) (*CityLi
 type ApiMarketStatisticsRequest struct {
 	ctx context.Context
 	ApiService *MarketsAPIService
-	marketId string
+	city string
 	propertyType *string
 	transactionType *string
 	interval *string
@@ -740,14 +740,14 @@ Computed from the catalogue we hold, which means these describe asking behaviour
 Requires the `markets:read` scope.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param marketId Market identifier.
+ @param city Market identifier.
  @return ApiMarketStatisticsRequest
 */
-func (a *MarketsAPIService) MarketStatistics(ctx context.Context, marketId string) ApiMarketStatisticsRequest {
+func (a *MarketsAPIService) MarketStatistics(ctx context.Context, city string) ApiMarketStatisticsRequest {
 	return ApiMarketStatisticsRequest{
 		ApiService: a,
 		ctx: ctx,
-		marketId: marketId,
+		city: city,
 	}
 }
 
@@ -767,7 +767,7 @@ func (a *MarketsAPIService) MarketStatisticsExecute(r ApiMarketStatisticsRequest
 	}
 
 	localVarPath := localBasePath + "/markets/{city}/statistics"
-	localVarPath = strings.Replace(localVarPath, "{"+"market_id"+"}", url.PathEscape(parameterValueToString(r.marketId, "marketId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"city"+"}", url.PathEscape(parameterValueToString(r.city, "city")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
