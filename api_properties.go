@@ -17,7 +17,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"reflect"
 	"os"
 )
 
@@ -534,7 +533,7 @@ type ApiGetPropertyRequest struct {
 	expand *[]string
 }
 
-// Related resources to inline.
+// Related records to inline rather than fetch separately.
 func (r ApiGetPropertyRequest) Expand(expand []string) ApiGetPropertyRequest {
 	r.expand = &expand
 	return r
@@ -699,32 +698,44 @@ func (a *PropertiesAPIService) GetPropertyExecute(r ApiGetPropertyRequest) (*Pro
 type ApiListPropertiesRequest struct {
 	ctx context.Context
 	ApiService *PropertiesAPIService
-	market *string
-	district *[]string
+	city *string
+	district *string
+	postalCode *string
+	type_ *string
 	transactionType *string
-	propertyType *[]string
-	priceMin *int32
-	priceMax *int32
-	bedroomsMin *int32
-	areaMin *float32
 	status *string
-	updatedSince *string
+	externalId *string
+	minPrice *float32
+	maxPrice *float32
+	minLivingArea *float32
+	minBedrooms *int32
 	limit *int32
 	cursor *string
 	sort *string
-	fields *[]string
 	expand *[]string
 }
 
-// Market identifier from the markets endpoint.
-func (r ApiListPropertiesRequest) Market(market string) ApiListPropertiesRequest {
-	r.market = &market
+// City to restrict to, as it appears on a property&#39;s address.
+func (r ApiListPropertiesRequest) City(city string) ApiListPropertiesRequest {
+	r.city = &city
 	return r
 }
 
-// District within the market. Repeatable for a union.
-func (r ApiListPropertiesRequest) District(district []string) ApiListPropertiesRequest {
+// District within the city.
+func (r ApiListPropertiesRequest) District(district string) ApiListPropertiesRequest {
 	r.district = &district
+	return r
+}
+
+// Postal code to restrict to.
+func (r ApiListPropertiesRequest) PostalCode(postalCode string) ApiListPropertiesRequest {
+	r.postalCode = &postalCode
+	return r
+}
+
+// Kind of property.
+func (r ApiListPropertiesRequest) Type_(type_ string) ApiListPropertiesRequest {
+	r.type_ = &type_
 	return r
 }
 
@@ -734,49 +745,43 @@ func (r ApiListPropertiesRequest) TransactionType(transactionType string) ApiLis
 	return r
 }
 
-// Repeatable for a union.
-func (r ApiListPropertiesRequest) PropertyType(propertyType []string) ApiListPropertiesRequest {
-	r.propertyType = &propertyType
-	return r
-}
-
-// Inclusive lower bound, in minor units.
-func (r ApiListPropertiesRequest) PriceMin(priceMin int32) ApiListPropertiesRequest {
-	r.priceMin = &priceMin
-	return r
-}
-
-// Inclusive upper bound, in minor units.
-func (r ApiListPropertiesRequest) PriceMax(priceMax int32) ApiListPropertiesRequest {
-	r.priceMax = &priceMax
-	return r
-}
-
-// Inclusive lower bound on bedroom count.
-func (r ApiListPropertiesRequest) BedroomsMin(bedroomsMin int32) ApiListPropertiesRequest {
-	r.bedroomsMin = &bedroomsMin
-	return r
-}
-
-// Inclusive lower bound on living area, in square metres.
-func (r ApiListPropertiesRequest) AreaMin(areaMin float32) ApiListPropertiesRequest {
-	r.areaMin = &areaMin
-	return r
-}
-
-// Defaults to active. Pass explicitly to include withdrawn records.
+// Listing status. Omit for every status rather than only active ones.
 func (r ApiListPropertiesRequest) Status(status string) ApiListPropertiesRequest {
 	r.status = &status
 	return r
 }
 
-// RFC 3339 timestamp. The efficient way to keep a mirror in step without re-reading everything.
-func (r ApiListPropertiesRequest) UpdatedSince(updatedSince string) ApiListPropertiesRequest {
-	r.updatedSince = &updatedSince
+// Your own identifier for a record, to find what an import created.
+func (r ApiListPropertiesRequest) ExternalId(externalId string) ApiListPropertiesRequest {
+	r.externalId = &externalId
 	return r
 }
 
-// Records per page, 1 to 200.
+// Inclusive lower bound on the asking price.
+func (r ApiListPropertiesRequest) MinPrice(minPrice float32) ApiListPropertiesRequest {
+	r.minPrice = &minPrice
+	return r
+}
+
+// Inclusive upper bound on the asking price.
+func (r ApiListPropertiesRequest) MaxPrice(maxPrice float32) ApiListPropertiesRequest {
+	r.maxPrice = &maxPrice
+	return r
+}
+
+// Inclusive lower bound on living area, in square metres.
+func (r ApiListPropertiesRequest) MinLivingArea(minLivingArea float32) ApiListPropertiesRequest {
+	r.minLivingArea = &minLivingArea
+	return r
+}
+
+// Inclusive lower bound on bedroom count.
+func (r ApiListPropertiesRequest) MinBedrooms(minBedrooms int32) ApiListPropertiesRequest {
+	r.minBedrooms = &minBedrooms
+	return r
+}
+
+// Records per page.
 func (r ApiListPropertiesRequest) Limit(limit int32) ApiListPropertiesRequest {
 	r.limit = &limit
 	return r
@@ -788,19 +793,13 @@ func (r ApiListPropertiesRequest) Cursor(cursor string) ApiListPropertiesRequest
 	return r
 }
 
-// Field to order by. Prefix with a minus for descending. Ties break on id, so paging is deterministic.
+// Field to order by. Prefix with a minus for descending.
 func (r ApiListPropertiesRequest) Sort(sort string) ApiListPropertiesRequest {
 	r.sort = &sort
 	return r
 }
 
-// Comma-separated list of fields to return. Trims payloads substantially when you only need a few.
-func (r ApiListPropertiesRequest) Fields(fields []string) ApiListPropertiesRequest {
-	r.fields = &fields
-	return r
-}
-
-// Comma-separated related resources to inline rather than fetch separately.
+// Related records to inline rather than fetch separately.
 func (r ApiListPropertiesRequest) Expand(expand []string) ApiListPropertiesRequest {
 	r.expand = &expand
 	return r
@@ -850,55 +849,38 @@ func (a *PropertiesAPIService) ListPropertiesExecute(r ApiListPropertiesRequest)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.market != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "market", r.market, "form", "")
+	if r.city != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "city", r.city, "form", "")
 	}
 	if r.district != nil {
-		t := *r.district
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "district", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "district", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "district", r.district, "form", "")
+	}
+	if r.postalCode != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "postal_code", r.postalCode, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
 	}
 	if r.transactionType != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "transaction_type", r.transactionType, "form", "")
 	}
-	if r.propertyType != nil {
-		t := *r.propertyType
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "property_type", t, "form", "multi")
-		}
-	}
-	if r.priceMin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "price_min", r.priceMin, "form", "")
-	}
-	if r.priceMax != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "price_max", r.priceMax, "form", "")
-	}
-	if r.bedroomsMin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bedrooms_min", r.bedroomsMin, "form", "")
-	}
-	if r.areaMin != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "area_min", r.areaMin, "form", "")
-	}
 	if r.status != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
-	} else {
-		var defaultValue string = "active"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", defaultValue, "form", "")
-		r.status = &defaultValue
 	}
-	if r.updatedSince != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "updated_since", r.updatedSince, "form", "")
+	if r.externalId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "external_id", r.externalId, "form", "")
+	}
+	if r.minPrice != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "min_price", r.minPrice, "form", "")
+	}
+	if r.maxPrice != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "max_price", r.maxPrice, "form", "")
+	}
+	if r.minLivingArea != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "min_living_area", r.minLivingArea, "form", "")
+	}
+	if r.minBedrooms != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "min_bedrooms", r.minBedrooms, "form", "")
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
@@ -912,13 +894,6 @@ func (a *PropertiesAPIService) ListPropertiesExecute(r ApiListPropertiesRequest)
 	}
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
-	} else {
-		var defaultValue string = "-listed_at"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", defaultValue, "form", "")
-		r.sort = &defaultValue
-	}
-	if r.fields != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "csv")
 	}
 	if r.expand != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "csv")
