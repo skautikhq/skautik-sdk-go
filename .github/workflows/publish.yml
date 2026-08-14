@@ -1,0 +1,34 @@
+name: Publish
+
+# Generated. Edit this in skautikhq/skautik-sdk, not here.
+on:
+    push:
+        tags: ["v*"]
+    workflow_dispatch:
+        inputs:
+            dry_run:
+                description: Build everything, publish nothing
+                type: boolean
+                default: true
+
+env:
+    DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        environment: release
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-go@v5
+              with:
+                  go-version: "1.25"
+                  cache: false
+
+            - run: go build ./...
+            - run: go vet ./...
+
+            - name: Nothing to push
+              run: |
+                  echo "The module proxy serves whatever the tag points at, so"
+                  echo "there is nothing for this job to send."
