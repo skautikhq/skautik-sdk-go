@@ -26,19 +26,25 @@ type Property struct {
 	Building Building `json:"building"`
 	CreatedAt time.Time `json:"created_at"`
 	Description *string `json:"description,omitempty"`
+	Descriptions *Descriptions `json:"descriptions,omitempty"`
 	Energy *Energy `json:"energy,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
+	Features *Features `json:"features,omitempty"`
 	Id string `json:"id"`
 	Images []Image `json:"images,omitempty"`
+	Language *string `json:"language,omitempty"`
 	LastVerifiedAt *time.Time `json:"last_verified_at,omitempty"`
 	Listing *Listing `json:"listing,omitempty"`
 	Location *Location `json:"location,omitempty"`
 	Market *MarketContext `json:"market,omitempty"`
+	Parking *Parking `json:"parking,omitempty"`
 	PriceHistory []PriceObservation `json:"price_history,omitempty"`
 	Rooms Rooms `json:"rooms"`
 	Size Size `json:"size"`
 	Source string `json:"source"`
+	Subtype *string `json:"subtype,omitempty"`
 	Title string `json:"title"`
+	Translations []Translation `json:"translations,omitempty"`
 	Type string `json:"type"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
@@ -176,6 +182,38 @@ func (o *Property) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetDescriptions returns the Descriptions field value if set, zero value otherwise.
+func (o *Property) GetDescriptions() Descriptions {
+	if o == nil || IsNil(o.Descriptions) {
+		var ret Descriptions
+		return ret
+	}
+	return *o.Descriptions
+}
+
+// GetDescriptionsOk returns a tuple with the Descriptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetDescriptionsOk() (*Descriptions, bool) {
+	if o == nil || IsNil(o.Descriptions) {
+		return nil, false
+	}
+	return o.Descriptions, true
+}
+
+// HasDescriptions returns a boolean if a field has been set.
+func (o *Property) HasDescriptions() bool {
+	if o != nil && !IsNil(o.Descriptions) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptions gets a reference to the given Descriptions and assigns it to the Descriptions field.
+func (o *Property) SetDescriptions(v Descriptions) {
+	o.Descriptions = &v
+}
+
 // GetEnergy returns the Energy field value if set, zero value otherwise.
 func (o *Property) GetEnergy() Energy {
 	if o == nil || IsNil(o.Energy) {
@@ -240,6 +278,38 @@ func (o *Property) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
+// GetFeatures returns the Features field value if set, zero value otherwise.
+func (o *Property) GetFeatures() Features {
+	if o == nil || IsNil(o.Features) {
+		var ret Features
+		return ret
+	}
+	return *o.Features
+}
+
+// GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetFeaturesOk() (*Features, bool) {
+	if o == nil || IsNil(o.Features) {
+		return nil, false
+	}
+	return o.Features, true
+}
+
+// HasFeatures returns a boolean if a field has been set.
+func (o *Property) HasFeatures() bool {
+	if o != nil && !IsNil(o.Features) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeatures gets a reference to the given Features and assigns it to the Features field.
+func (o *Property) SetFeatures(v Features) {
+	o.Features = &v
+}
+
 // GetId returns the Id field value
 func (o *Property) GetId() string {
 	if o == nil {
@@ -294,6 +364,38 @@ func (o *Property) HasImages() bool {
 // SetImages gets a reference to the given []Image and assigns it to the Images field.
 func (o *Property) SetImages(v []Image) {
 	o.Images = v
+}
+
+// GetLanguage returns the Language field value if set, zero value otherwise.
+func (o *Property) GetLanguage() string {
+	if o == nil || IsNil(o.Language) {
+		var ret string
+		return ret
+	}
+	return *o.Language
+}
+
+// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetLanguageOk() (*string, bool) {
+	if o == nil || IsNil(o.Language) {
+		return nil, false
+	}
+	return o.Language, true
+}
+
+// HasLanguage returns a boolean if a field has been set.
+func (o *Property) HasLanguage() bool {
+	if o != nil && !IsNil(o.Language) {
+		return true
+	}
+
+	return false
+}
+
+// SetLanguage gets a reference to the given string and assigns it to the Language field.
+func (o *Property) SetLanguage(v string) {
+	o.Language = &v
 }
 
 // GetLastVerifiedAt returns the LastVerifiedAt field value if set, zero value otherwise.
@@ -424,6 +526,38 @@ func (o *Property) SetMarket(v MarketContext) {
 	o.Market = &v
 }
 
+// GetParking returns the Parking field value if set, zero value otherwise.
+func (o *Property) GetParking() Parking {
+	if o == nil || IsNil(o.Parking) {
+		var ret Parking
+		return ret
+	}
+	return *o.Parking
+}
+
+// GetParkingOk returns a tuple with the Parking field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetParkingOk() (*Parking, bool) {
+	if o == nil || IsNil(o.Parking) {
+		return nil, false
+	}
+	return o.Parking, true
+}
+
+// HasParking returns a boolean if a field has been set.
+func (o *Property) HasParking() bool {
+	if o != nil && !IsNil(o.Parking) {
+		return true
+	}
+
+	return false
+}
+
+// SetParking gets a reference to the given Parking and assigns it to the Parking field.
+func (o *Property) SetParking(v Parking) {
+	o.Parking = &v
+}
+
 // GetPriceHistory returns the PriceHistory field value if set, zero value otherwise.
 func (o *Property) GetPriceHistory() []PriceObservation {
 	if o == nil || IsNil(o.PriceHistory) {
@@ -528,6 +662,38 @@ func (o *Property) SetSource(v string) {
 	o.Source = v
 }
 
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *Property) GetSubtype() string {
+	if o == nil || IsNil(o.Subtype) {
+		var ret string
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetSubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *Property) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given string and assigns it to the Subtype field.
+func (o *Property) SetSubtype(v string) {
+	o.Subtype = &v
+}
+
 // GetTitle returns the Title field value
 func (o *Property) GetTitle() string {
 	if o == nil {
@@ -550,6 +716,38 @@ func (o *Property) GetTitleOk() (*string, bool) {
 // SetTitle sets field value
 func (o *Property) SetTitle(v string) {
 	o.Title = v
+}
+
+// GetTranslations returns the Translations field value if set, zero value otherwise.
+func (o *Property) GetTranslations() []Translation {
+	if o == nil || IsNil(o.Translations) {
+		var ret []Translation
+		return ret
+	}
+	return o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Property) GetTranslationsOk() ([]Translation, bool) {
+	if o == nil || IsNil(o.Translations) {
+		return nil, false
+	}
+	return o.Translations, true
+}
+
+// HasTranslations returns a boolean if a field has been set.
+func (o *Property) HasTranslations() bool {
+	if o != nil && !IsNil(o.Translations) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranslations gets a reference to the given []Translation and assigns it to the Translations field.
+func (o *Property) SetTranslations(v []Translation) {
+	o.Translations = v
 }
 
 // GetType returns the Type field value
@@ -616,15 +814,24 @@ func (o Property) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.Descriptions) {
+		toSerialize["descriptions"] = o.Descriptions
+	}
 	if !IsNil(o.Energy) {
 		toSerialize["energy"] = o.Energy
 	}
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
 	}
+	if !IsNil(o.Features) {
+		toSerialize["features"] = o.Features
+	}
 	toSerialize["id"] = o.Id
 	if !IsNil(o.Images) {
 		toSerialize["images"] = o.Images
+	}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
 	}
 	if !IsNil(o.LastVerifiedAt) {
 		toSerialize["last_verified_at"] = o.LastVerifiedAt
@@ -638,13 +845,22 @@ func (o Property) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Market) {
 		toSerialize["market"] = o.Market
 	}
+	if !IsNil(o.Parking) {
+		toSerialize["parking"] = o.Parking
+	}
 	if !IsNil(o.PriceHistory) {
 		toSerialize["price_history"] = o.PriceHistory
 	}
 	toSerialize["rooms"] = o.Rooms
 	toSerialize["size"] = o.Size
 	toSerialize["source"] = o.Source
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
+	}
 	toSerialize["title"] = o.Title
+	if !IsNil(o.Translations) {
+		toSerialize["translations"] = o.Translations
+	}
 	toSerialize["type"] = o.Type
 	toSerialize["updated_at"] = o.UpdatedAt
 	return toSerialize, nil

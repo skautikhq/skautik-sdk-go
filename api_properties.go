@@ -531,11 +531,18 @@ type ApiGetPropertyRequest struct {
 	ApiService *PropertiesAPIService
 	propertyId string
 	expand *[]string
+	language *string
 }
 
-// Related records to inline rather than fetch separately.
+// Related records to inline rather than fetch separately. Available: images, price_history, market, translations.
 func (r ApiGetPropertyRequest) Expand(expand []string) ApiGetPropertyRequest {
 	r.expand = &expand
+	return r
+}
+
+// Answer in this language where the property has it, as an ISO 639-1 code. A property that does not hold the language keeps its own text rather than being answered in another, and the response says which language it came back in. Feeds carrying several languages are what fills this.
+func (r ApiGetPropertyRequest) Language(language string) ApiGetPropertyRequest {
+	r.language = &language
 	return r
 }
 
@@ -586,6 +593,9 @@ func (a *PropertiesAPIService) GetPropertyExecute(r ApiGetPropertyRequest) (*Pro
 
 	if r.expand != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "csv")
+	}
+	if r.language != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language", r.language, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -713,6 +723,7 @@ type ApiListPropertiesRequest struct {
 	cursor *string
 	sort *string
 	expand *[]string
+	language *string
 }
 
 // City to restrict to, as it appears on a property&#39;s address.
@@ -799,9 +810,15 @@ func (r ApiListPropertiesRequest) Sort(sort string) ApiListPropertiesRequest {
 	return r
 }
 
-// Related records to inline rather than fetch separately.
+// Related records to inline rather than fetch separately. Available: images, price_history, market, translations.
 func (r ApiListPropertiesRequest) Expand(expand []string) ApiListPropertiesRequest {
 	r.expand = &expand
+	return r
+}
+
+// Answer in this language where the property has it, as an ISO 639-1 code. A property that does not hold the language keeps its own text rather than being answered in another, and the response says which language it came back in. Feeds carrying several languages are what fills this.
+func (r ApiListPropertiesRequest) Language(language string) ApiListPropertiesRequest {
+	r.language = &language
 	return r
 }
 
@@ -897,6 +914,9 @@ func (a *PropertiesAPIService) ListPropertiesExecute(r ApiListPropertiesRequest)
 	}
 	if r.expand != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "csv")
+	}
+	if r.language != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language", r.language, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -19,11 +19,13 @@ var _ MappedNullable = &Rooms{}
 
 // Rooms struct for Rooms
 type Rooms struct {
+	Balconies *int32 `json:"balconies,omitempty"`
 	Bathrooms *int32 `json:"bathrooms,omitempty"`
 	Bedrooms *int32 `json:"bedrooms,omitempty"`
 	Floor *int32 `json:"floor,omitempty"`
 	FloorsInBuilding *int32 `json:"floors_in_building,omitempty"`
 	HalfBathrooms *int32 `json:"half_bathrooms,omitempty"`
+	Terraces *int32 `json:"terraces,omitempty"`
 	TotalRooms *int32 `json:"total_rooms,omitempty"`
 }
 
@@ -42,6 +44,38 @@ func NewRooms() *Rooms {
 func NewRoomsWithDefaults() *Rooms {
 	this := Rooms{}
 	return &this
+}
+
+// GetBalconies returns the Balconies field value if set, zero value otherwise.
+func (o *Rooms) GetBalconies() int32 {
+	if o == nil || IsNil(o.Balconies) {
+		var ret int32
+		return ret
+	}
+	return *o.Balconies
+}
+
+// GetBalconiesOk returns a tuple with the Balconies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rooms) GetBalconiesOk() (*int32, bool) {
+	if o == nil || IsNil(o.Balconies) {
+		return nil, false
+	}
+	return o.Balconies, true
+}
+
+// HasBalconies returns a boolean if a field has been set.
+func (o *Rooms) HasBalconies() bool {
+	if o != nil && !IsNil(o.Balconies) {
+		return true
+	}
+
+	return false
+}
+
+// SetBalconies gets a reference to the given int32 and assigns it to the Balconies field.
+func (o *Rooms) SetBalconies(v int32) {
+	o.Balconies = &v
 }
 
 // GetBathrooms returns the Bathrooms field value if set, zero value otherwise.
@@ -204,6 +238,38 @@ func (o *Rooms) SetHalfBathrooms(v int32) {
 	o.HalfBathrooms = &v
 }
 
+// GetTerraces returns the Terraces field value if set, zero value otherwise.
+func (o *Rooms) GetTerraces() int32 {
+	if o == nil || IsNil(o.Terraces) {
+		var ret int32
+		return ret
+	}
+	return *o.Terraces
+}
+
+// GetTerracesOk returns a tuple with the Terraces field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rooms) GetTerracesOk() (*int32, bool) {
+	if o == nil || IsNil(o.Terraces) {
+		return nil, false
+	}
+	return o.Terraces, true
+}
+
+// HasTerraces returns a boolean if a field has been set.
+func (o *Rooms) HasTerraces() bool {
+	if o != nil && !IsNil(o.Terraces) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerraces gets a reference to the given int32 and assigns it to the Terraces field.
+func (o *Rooms) SetTerraces(v int32) {
+	o.Terraces = &v
+}
+
 // GetTotalRooms returns the TotalRooms field value if set, zero value otherwise.
 func (o *Rooms) GetTotalRooms() int32 {
 	if o == nil || IsNil(o.TotalRooms) {
@@ -246,6 +312,9 @@ func (o Rooms) MarshalJSON() ([]byte, error) {
 
 func (o Rooms) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Balconies) {
+		toSerialize["balconies"] = o.Balconies
+	}
 	if !IsNil(o.Bathrooms) {
 		toSerialize["bathrooms"] = o.Bathrooms
 	}
@@ -260,6 +329,9 @@ func (o Rooms) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.HalfBathrooms) {
 		toSerialize["half_bathrooms"] = o.HalfBathrooms
+	}
+	if !IsNil(o.Terraces) {
+		toSerialize["terraces"] = o.Terraces
 	}
 	if !IsNil(o.TotalRooms) {
 		toSerialize["total_rooms"] = o.TotalRooms

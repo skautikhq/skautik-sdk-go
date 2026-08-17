@@ -21,12 +21,13 @@ var _ MappedNullable = &ImportSourceInput{}
 
 // ImportSourceInput struct for ImportSourceInput
 type ImportSourceInput struct {
-	DeletionPolicy string `json:"deletion_policy"`
+	Connector *ConnectorInput `json:"connector,omitempty"`
+	DeletionPolicy *string `json:"deletion_policy,omitempty"`
 	Delivery DeliveryInput `json:"delivery"`
 	Format string `json:"format"`
-	Mapping map[string]string `json:"mapping"`
+	Mapping map[string]string `json:"mapping,omitempty"`
 	Name string `json:"name"`
-	Schedule string `json:"schedule"`
+	Schedule *string `json:"schedule,omitempty"`
 }
 
 type _ImportSourceInput ImportSourceInput
@@ -35,14 +36,11 @@ type _ImportSourceInput ImportSourceInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportSourceInput(deletionPolicy string, delivery DeliveryInput, format string, mapping map[string]string, name string, schedule string) *ImportSourceInput {
+func NewImportSourceInput(delivery DeliveryInput, format string, name string) *ImportSourceInput {
 	this := ImportSourceInput{}
-	this.DeletionPolicy = deletionPolicy
 	this.Delivery = delivery
 	this.Format = format
-	this.Mapping = mapping
 	this.Name = name
-	this.Schedule = schedule
 	return &this
 }
 
@@ -54,28 +52,68 @@ func NewImportSourceInputWithDefaults() *ImportSourceInput {
 	return &this
 }
 
-// GetDeletionPolicy returns the DeletionPolicy field value
+// GetConnector returns the Connector field value if set, zero value otherwise.
+func (o *ImportSourceInput) GetConnector() ConnectorInput {
+	if o == nil || IsNil(o.Connector) {
+		var ret ConnectorInput
+		return ret
+	}
+	return *o.Connector
+}
+
+// GetConnectorOk returns a tuple with the Connector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportSourceInput) GetConnectorOk() (*ConnectorInput, bool) {
+	if o == nil || IsNil(o.Connector) {
+		return nil, false
+	}
+	return o.Connector, true
+}
+
+// HasConnector returns a boolean if a field has been set.
+func (o *ImportSourceInput) HasConnector() bool {
+	if o != nil && !IsNil(o.Connector) {
+		return true
+	}
+
+	return false
+}
+
+// SetConnector gets a reference to the given ConnectorInput and assigns it to the Connector field.
+func (o *ImportSourceInput) SetConnector(v ConnectorInput) {
+	o.Connector = &v
+}
+
+// GetDeletionPolicy returns the DeletionPolicy field value if set, zero value otherwise.
 func (o *ImportSourceInput) GetDeletionPolicy() string {
-	if o == nil {
+	if o == nil || IsNil(o.DeletionPolicy) {
 		var ret string
 		return ret
 	}
-
-	return o.DeletionPolicy
+	return *o.DeletionPolicy
 }
 
-// GetDeletionPolicyOk returns a tuple with the DeletionPolicy field value
+// GetDeletionPolicyOk returns a tuple with the DeletionPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportSourceInput) GetDeletionPolicyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DeletionPolicy) {
 		return nil, false
 	}
-	return &o.DeletionPolicy, true
+	return o.DeletionPolicy, true
 }
 
-// SetDeletionPolicy sets field value
+// HasDeletionPolicy returns a boolean if a field has been set.
+func (o *ImportSourceInput) HasDeletionPolicy() bool {
+	if o != nil && !IsNil(o.DeletionPolicy) {
+		return true
+	}
+
+	return false
+}
+
+// SetDeletionPolicy gets a reference to the given string and assigns it to the DeletionPolicy field.
 func (o *ImportSourceInput) SetDeletionPolicy(v string) {
-	o.DeletionPolicy = v
+	o.DeletionPolicy = &v
 }
 
 // GetDelivery returns the Delivery field value
@@ -126,26 +164,34 @@ func (o *ImportSourceInput) SetFormat(v string) {
 	o.Format = v
 }
 
-// GetMapping returns the Mapping field value
+// GetMapping returns the Mapping field value if set, zero value otherwise.
 func (o *ImportSourceInput) GetMapping() map[string]string {
-	if o == nil {
+	if o == nil || IsNil(o.Mapping) {
 		var ret map[string]string
 		return ret
 	}
-
 	return o.Mapping
 }
 
-// GetMappingOk returns a tuple with the Mapping field value
+// GetMappingOk returns a tuple with the Mapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportSourceInput) GetMappingOk() (map[string]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Mapping) {
 		return map[string]string{}, false
 	}
 	return o.Mapping, true
 }
 
-// SetMapping sets field value
+// HasMapping returns a boolean if a field has been set.
+func (o *ImportSourceInput) HasMapping() bool {
+	if o != nil && !IsNil(o.Mapping) {
+		return true
+	}
+
+	return false
+}
+
+// SetMapping gets a reference to the given map[string]string and assigns it to the Mapping field.
 func (o *ImportSourceInput) SetMapping(v map[string]string) {
 	o.Mapping = v
 }
@@ -174,28 +220,36 @@ func (o *ImportSourceInput) SetName(v string) {
 	o.Name = v
 }
 
-// GetSchedule returns the Schedule field value
+// GetSchedule returns the Schedule field value if set, zero value otherwise.
 func (o *ImportSourceInput) GetSchedule() string {
-	if o == nil {
+	if o == nil || IsNil(o.Schedule) {
 		var ret string
 		return ret
 	}
-
-	return o.Schedule
+	return *o.Schedule
 }
 
-// GetScheduleOk returns a tuple with the Schedule field value
+// GetScheduleOk returns a tuple with the Schedule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportSourceInput) GetScheduleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Schedule) {
 		return nil, false
 	}
-	return &o.Schedule, true
+	return o.Schedule, true
 }
 
-// SetSchedule sets field value
+// HasSchedule returns a boolean if a field has been set.
+func (o *ImportSourceInput) HasSchedule() bool {
+	if o != nil && !IsNil(o.Schedule) {
+		return true
+	}
+
+	return false
+}
+
+// SetSchedule gets a reference to the given string and assigns it to the Schedule field.
 func (o *ImportSourceInput) SetSchedule(v string) {
-	o.Schedule = v
+	o.Schedule = &v
 }
 
 func (o ImportSourceInput) MarshalJSON() ([]byte, error) {
@@ -208,12 +262,21 @@ func (o ImportSourceInput) MarshalJSON() ([]byte, error) {
 
 func (o ImportSourceInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["deletion_policy"] = o.DeletionPolicy
+	if !IsNil(o.Connector) {
+		toSerialize["connector"] = o.Connector
+	}
+	if !IsNil(o.DeletionPolicy) {
+		toSerialize["deletion_policy"] = o.DeletionPolicy
+	}
 	toSerialize["delivery"] = o.Delivery
 	toSerialize["format"] = o.Format
-	toSerialize["mapping"] = o.Mapping
+	if !IsNil(o.Mapping) {
+		toSerialize["mapping"] = o.Mapping
+	}
 	toSerialize["name"] = o.Name
-	toSerialize["schedule"] = o.Schedule
+	if !IsNil(o.Schedule) {
+		toSerialize["schedule"] = o.Schedule
+	}
 	return toSerialize, nil
 }
 
@@ -222,12 +285,9 @@ func (o *ImportSourceInput) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"deletion_policy",
 		"delivery",
 		"format",
-		"mapping",
 		"name",
-		"schedule",
 	}
 
 	allProperties := make(map[string]interface{})

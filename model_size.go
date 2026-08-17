@@ -19,8 +19,17 @@ var _ MappedNullable = &Size{}
 
 // Size struct for Size
 type Size struct {
+	AtticSqm *float32 `json:"attic_sqm,omitempty"`
+	BalconyTerraceSqm *float32 `json:"balcony_terrace_sqm,omitempty"`
+	CellarSqm *float32 `json:"cellar_sqm,omitempty"`
+	GardenSqm *float32 `json:"garden_sqm,omitempty"`
 	LivingAreaSqm *float32 `json:"living_area_sqm,omitempty"`
+	OfficeAreaSqm *float32 `json:"office_area_sqm,omitempty"`
+	OtherAreaSqm *float32 `json:"other_area_sqm,omitempty"`
 	PlotAreaSqm *float32 `json:"plot_area_sqm,omitempty"`
+	RetailAreaSqm *float32 `json:"retail_area_sqm,omitempty"`
+	StorageAreaSqm *float32 `json:"storage_area_sqm,omitempty"`
+	TotalAreaSqm *float32 `json:"total_area_sqm,omitempty"`
 	UsableAreaSqm *float32 `json:"usable_area_sqm,omitempty"`
 }
 
@@ -39,6 +48,134 @@ func NewSize() *Size {
 func NewSizeWithDefaults() *Size {
 	this := Size{}
 	return &this
+}
+
+// GetAtticSqm returns the AtticSqm field value if set, zero value otherwise.
+func (o *Size) GetAtticSqm() float32 {
+	if o == nil || IsNil(o.AtticSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.AtticSqm
+}
+
+// GetAtticSqmOk returns a tuple with the AtticSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetAtticSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.AtticSqm) {
+		return nil, false
+	}
+	return o.AtticSqm, true
+}
+
+// HasAtticSqm returns a boolean if a field has been set.
+func (o *Size) HasAtticSqm() bool {
+	if o != nil && !IsNil(o.AtticSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetAtticSqm gets a reference to the given float32 and assigns it to the AtticSqm field.
+func (o *Size) SetAtticSqm(v float32) {
+	o.AtticSqm = &v
+}
+
+// GetBalconyTerraceSqm returns the BalconyTerraceSqm field value if set, zero value otherwise.
+func (o *Size) GetBalconyTerraceSqm() float32 {
+	if o == nil || IsNil(o.BalconyTerraceSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.BalconyTerraceSqm
+}
+
+// GetBalconyTerraceSqmOk returns a tuple with the BalconyTerraceSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetBalconyTerraceSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.BalconyTerraceSqm) {
+		return nil, false
+	}
+	return o.BalconyTerraceSqm, true
+}
+
+// HasBalconyTerraceSqm returns a boolean if a field has been set.
+func (o *Size) HasBalconyTerraceSqm() bool {
+	if o != nil && !IsNil(o.BalconyTerraceSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetBalconyTerraceSqm gets a reference to the given float32 and assigns it to the BalconyTerraceSqm field.
+func (o *Size) SetBalconyTerraceSqm(v float32) {
+	o.BalconyTerraceSqm = &v
+}
+
+// GetCellarSqm returns the CellarSqm field value if set, zero value otherwise.
+func (o *Size) GetCellarSqm() float32 {
+	if o == nil || IsNil(o.CellarSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.CellarSqm
+}
+
+// GetCellarSqmOk returns a tuple with the CellarSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetCellarSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.CellarSqm) {
+		return nil, false
+	}
+	return o.CellarSqm, true
+}
+
+// HasCellarSqm returns a boolean if a field has been set.
+func (o *Size) HasCellarSqm() bool {
+	if o != nil && !IsNil(o.CellarSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellarSqm gets a reference to the given float32 and assigns it to the CellarSqm field.
+func (o *Size) SetCellarSqm(v float32) {
+	o.CellarSqm = &v
+}
+
+// GetGardenSqm returns the GardenSqm field value if set, zero value otherwise.
+func (o *Size) GetGardenSqm() float32 {
+	if o == nil || IsNil(o.GardenSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.GardenSqm
+}
+
+// GetGardenSqmOk returns a tuple with the GardenSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetGardenSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.GardenSqm) {
+		return nil, false
+	}
+	return o.GardenSqm, true
+}
+
+// HasGardenSqm returns a boolean if a field has been set.
+func (o *Size) HasGardenSqm() bool {
+	if o != nil && !IsNil(o.GardenSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetGardenSqm gets a reference to the given float32 and assigns it to the GardenSqm field.
+func (o *Size) SetGardenSqm(v float32) {
+	o.GardenSqm = &v
 }
 
 // GetLivingAreaSqm returns the LivingAreaSqm field value if set, zero value otherwise.
@@ -73,6 +210,70 @@ func (o *Size) SetLivingAreaSqm(v float32) {
 	o.LivingAreaSqm = &v
 }
 
+// GetOfficeAreaSqm returns the OfficeAreaSqm field value if set, zero value otherwise.
+func (o *Size) GetOfficeAreaSqm() float32 {
+	if o == nil || IsNil(o.OfficeAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.OfficeAreaSqm
+}
+
+// GetOfficeAreaSqmOk returns a tuple with the OfficeAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetOfficeAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.OfficeAreaSqm) {
+		return nil, false
+	}
+	return o.OfficeAreaSqm, true
+}
+
+// HasOfficeAreaSqm returns a boolean if a field has been set.
+func (o *Size) HasOfficeAreaSqm() bool {
+	if o != nil && !IsNil(o.OfficeAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetOfficeAreaSqm gets a reference to the given float32 and assigns it to the OfficeAreaSqm field.
+func (o *Size) SetOfficeAreaSqm(v float32) {
+	o.OfficeAreaSqm = &v
+}
+
+// GetOtherAreaSqm returns the OtherAreaSqm field value if set, zero value otherwise.
+func (o *Size) GetOtherAreaSqm() float32 {
+	if o == nil || IsNil(o.OtherAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.OtherAreaSqm
+}
+
+// GetOtherAreaSqmOk returns a tuple with the OtherAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetOtherAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.OtherAreaSqm) {
+		return nil, false
+	}
+	return o.OtherAreaSqm, true
+}
+
+// HasOtherAreaSqm returns a boolean if a field has been set.
+func (o *Size) HasOtherAreaSqm() bool {
+	if o != nil && !IsNil(o.OtherAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetOtherAreaSqm gets a reference to the given float32 and assigns it to the OtherAreaSqm field.
+func (o *Size) SetOtherAreaSqm(v float32) {
+	o.OtherAreaSqm = &v
+}
+
 // GetPlotAreaSqm returns the PlotAreaSqm field value if set, zero value otherwise.
 func (o *Size) GetPlotAreaSqm() float32 {
 	if o == nil || IsNil(o.PlotAreaSqm) {
@@ -103,6 +304,102 @@ func (o *Size) HasPlotAreaSqm() bool {
 // SetPlotAreaSqm gets a reference to the given float32 and assigns it to the PlotAreaSqm field.
 func (o *Size) SetPlotAreaSqm(v float32) {
 	o.PlotAreaSqm = &v
+}
+
+// GetRetailAreaSqm returns the RetailAreaSqm field value if set, zero value otherwise.
+func (o *Size) GetRetailAreaSqm() float32 {
+	if o == nil || IsNil(o.RetailAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.RetailAreaSqm
+}
+
+// GetRetailAreaSqmOk returns a tuple with the RetailAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetRetailAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.RetailAreaSqm) {
+		return nil, false
+	}
+	return o.RetailAreaSqm, true
+}
+
+// HasRetailAreaSqm returns a boolean if a field has been set.
+func (o *Size) HasRetailAreaSqm() bool {
+	if o != nil && !IsNil(o.RetailAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetRetailAreaSqm gets a reference to the given float32 and assigns it to the RetailAreaSqm field.
+func (o *Size) SetRetailAreaSqm(v float32) {
+	o.RetailAreaSqm = &v
+}
+
+// GetStorageAreaSqm returns the StorageAreaSqm field value if set, zero value otherwise.
+func (o *Size) GetStorageAreaSqm() float32 {
+	if o == nil || IsNil(o.StorageAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.StorageAreaSqm
+}
+
+// GetStorageAreaSqmOk returns a tuple with the StorageAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetStorageAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.StorageAreaSqm) {
+		return nil, false
+	}
+	return o.StorageAreaSqm, true
+}
+
+// HasStorageAreaSqm returns a boolean if a field has been set.
+func (o *Size) HasStorageAreaSqm() bool {
+	if o != nil && !IsNil(o.StorageAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageAreaSqm gets a reference to the given float32 and assigns it to the StorageAreaSqm field.
+func (o *Size) SetStorageAreaSqm(v float32) {
+	o.StorageAreaSqm = &v
+}
+
+// GetTotalAreaSqm returns the TotalAreaSqm field value if set, zero value otherwise.
+func (o *Size) GetTotalAreaSqm() float32 {
+	if o == nil || IsNil(o.TotalAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalAreaSqm
+}
+
+// GetTotalAreaSqmOk returns a tuple with the TotalAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Size) GetTotalAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalAreaSqm) {
+		return nil, false
+	}
+	return o.TotalAreaSqm, true
+}
+
+// HasTotalAreaSqm returns a boolean if a field has been set.
+func (o *Size) HasTotalAreaSqm() bool {
+	if o != nil && !IsNil(o.TotalAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalAreaSqm gets a reference to the given float32 and assigns it to the TotalAreaSqm field.
+func (o *Size) SetTotalAreaSqm(v float32) {
+	o.TotalAreaSqm = &v
 }
 
 // GetUsableAreaSqm returns the UsableAreaSqm field value if set, zero value otherwise.
@@ -147,11 +444,38 @@ func (o Size) MarshalJSON() ([]byte, error) {
 
 func (o Size) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AtticSqm) {
+		toSerialize["attic_sqm"] = o.AtticSqm
+	}
+	if !IsNil(o.BalconyTerraceSqm) {
+		toSerialize["balcony_terrace_sqm"] = o.BalconyTerraceSqm
+	}
+	if !IsNil(o.CellarSqm) {
+		toSerialize["cellar_sqm"] = o.CellarSqm
+	}
+	if !IsNil(o.GardenSqm) {
+		toSerialize["garden_sqm"] = o.GardenSqm
+	}
 	if !IsNil(o.LivingAreaSqm) {
 		toSerialize["living_area_sqm"] = o.LivingAreaSqm
 	}
+	if !IsNil(o.OfficeAreaSqm) {
+		toSerialize["office_area_sqm"] = o.OfficeAreaSqm
+	}
+	if !IsNil(o.OtherAreaSqm) {
+		toSerialize["other_area_sqm"] = o.OtherAreaSqm
+	}
 	if !IsNil(o.PlotAreaSqm) {
 		toSerialize["plot_area_sqm"] = o.PlotAreaSqm
+	}
+	if !IsNil(o.RetailAreaSqm) {
+		toSerialize["retail_area_sqm"] = o.RetailAreaSqm
+	}
+	if !IsNil(o.StorageAreaSqm) {
+		toSerialize["storage_area_sqm"] = o.StorageAreaSqm
+	}
+	if !IsNil(o.TotalAreaSqm) {
+		toSerialize["total_area_sqm"] = o.TotalAreaSqm
 	}
 	if !IsNil(o.UsableAreaSqm) {
 		toSerialize["usable_area_sqm"] = o.UsableAreaSqm

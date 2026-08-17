@@ -31,7 +31,9 @@ type Import struct {
 	FinishedAt *time.Time `json:"finished_at,omitempty"`
 	Format string `json:"format"`
 	Id string `json:"id"`
+	ImagesQueued *int32 `json:"images_queued,omitempty"`
 	Mode string `json:"mode"`
+	ShrinkGuard *ShrinkGuard `json:"shrink_guard,omitempty"`
 	SourceId *string `json:"source_id,omitempty"`
 	StartedAt *time.Time `json:"started_at,omitempty"`
 	Status string `json:"status"`
@@ -311,6 +313,38 @@ func (o *Import) SetId(v string) {
 	o.Id = v
 }
 
+// GetImagesQueued returns the ImagesQueued field value if set, zero value otherwise.
+func (o *Import) GetImagesQueued() int32 {
+	if o == nil || IsNil(o.ImagesQueued) {
+		var ret int32
+		return ret
+	}
+	return *o.ImagesQueued
+}
+
+// GetImagesQueuedOk returns a tuple with the ImagesQueued field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Import) GetImagesQueuedOk() (*int32, bool) {
+	if o == nil || IsNil(o.ImagesQueued) {
+		return nil, false
+	}
+	return o.ImagesQueued, true
+}
+
+// HasImagesQueued returns a boolean if a field has been set.
+func (o *Import) HasImagesQueued() bool {
+	if o != nil && !IsNil(o.ImagesQueued) {
+		return true
+	}
+
+	return false
+}
+
+// SetImagesQueued gets a reference to the given int32 and assigns it to the ImagesQueued field.
+func (o *Import) SetImagesQueued(v int32) {
+	o.ImagesQueued = &v
+}
+
 // GetMode returns the Mode field value
 func (o *Import) GetMode() string {
 	if o == nil {
@@ -333,6 +367,38 @@ func (o *Import) GetModeOk() (*string, bool) {
 // SetMode sets field value
 func (o *Import) SetMode(v string) {
 	o.Mode = v
+}
+
+// GetShrinkGuard returns the ShrinkGuard field value if set, zero value otherwise.
+func (o *Import) GetShrinkGuard() ShrinkGuard {
+	if o == nil || IsNil(o.ShrinkGuard) {
+		var ret ShrinkGuard
+		return ret
+	}
+	return *o.ShrinkGuard
+}
+
+// GetShrinkGuardOk returns a tuple with the ShrinkGuard field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Import) GetShrinkGuardOk() (*ShrinkGuard, bool) {
+	if o == nil || IsNil(o.ShrinkGuard) {
+		return nil, false
+	}
+	return o.ShrinkGuard, true
+}
+
+// HasShrinkGuard returns a boolean if a field has been set.
+func (o *Import) HasShrinkGuard() bool {
+	if o != nil && !IsNil(o.ShrinkGuard) {
+		return true
+	}
+
+	return false
+}
+
+// SetShrinkGuard gets a reference to the given ShrinkGuard and assigns it to the ShrinkGuard field.
+func (o *Import) SetShrinkGuard(v ShrinkGuard) {
+	o.ShrinkGuard = &v
 }
 
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
@@ -450,7 +516,13 @@ func (o Import) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["format"] = o.Format
 	toSerialize["id"] = o.Id
+	if !IsNil(o.ImagesQueued) {
+		toSerialize["images_queued"] = o.ImagesQueued
+	}
 	toSerialize["mode"] = o.Mode
+	if !IsNil(o.ShrinkGuard) {
+		toSerialize["shrink_guard"] = o.ShrinkGuard
+	}
 	if !IsNil(o.SourceId) {
 		toSerialize["source_id"] = o.SourceId
 	}

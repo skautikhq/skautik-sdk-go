@@ -19,8 +19,15 @@ var _ MappedNullable = &Energy{}
 
 // Energy struct for Energy
 type Energy struct {
+	CertificateType *string `json:"certificate_type,omitempty"`
+	Co2Emissions *float32 `json:"co2_emissions,omitempty"`
 	ConsumptionKwh *float32 `json:"consumption_kwh,omitempty"`
+	DemandKwh *float32 `json:"demand_kwh,omitempty"`
+	IncludesHotWater *bool `json:"includes_hot_water,omitempty"`
+	IssuedAt *string `json:"issued_at,omitempty"`
 	Label *string `json:"label,omitempty"`
+	PrimaryCarrier *string `json:"primary_carrier,omitempty"`
+	ValidUntil *string `json:"valid_until,omitempty"`
 }
 
 // NewEnergy instantiates a new Energy object
@@ -38,6 +45,70 @@ func NewEnergy() *Energy {
 func NewEnergyWithDefaults() *Energy {
 	this := Energy{}
 	return &this
+}
+
+// GetCertificateType returns the CertificateType field value if set, zero value otherwise.
+func (o *Energy) GetCertificateType() string {
+	if o == nil || IsNil(o.CertificateType) {
+		var ret string
+		return ret
+	}
+	return *o.CertificateType
+}
+
+// GetCertificateTypeOk returns a tuple with the CertificateType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetCertificateTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.CertificateType) {
+		return nil, false
+	}
+	return o.CertificateType, true
+}
+
+// HasCertificateType returns a boolean if a field has been set.
+func (o *Energy) HasCertificateType() bool {
+	if o != nil && !IsNil(o.CertificateType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCertificateType gets a reference to the given string and assigns it to the CertificateType field.
+func (o *Energy) SetCertificateType(v string) {
+	o.CertificateType = &v
+}
+
+// GetCo2Emissions returns the Co2Emissions field value if set, zero value otherwise.
+func (o *Energy) GetCo2Emissions() float32 {
+	if o == nil || IsNil(o.Co2Emissions) {
+		var ret float32
+		return ret
+	}
+	return *o.Co2Emissions
+}
+
+// GetCo2EmissionsOk returns a tuple with the Co2Emissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetCo2EmissionsOk() (*float32, bool) {
+	if o == nil || IsNil(o.Co2Emissions) {
+		return nil, false
+	}
+	return o.Co2Emissions, true
+}
+
+// HasCo2Emissions returns a boolean if a field has been set.
+func (o *Energy) HasCo2Emissions() bool {
+	if o != nil && !IsNil(o.Co2Emissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetCo2Emissions gets a reference to the given float32 and assigns it to the Co2Emissions field.
+func (o *Energy) SetCo2Emissions(v float32) {
+	o.Co2Emissions = &v
 }
 
 // GetConsumptionKwh returns the ConsumptionKwh field value if set, zero value otherwise.
@@ -72,6 +143,102 @@ func (o *Energy) SetConsumptionKwh(v float32) {
 	o.ConsumptionKwh = &v
 }
 
+// GetDemandKwh returns the DemandKwh field value if set, zero value otherwise.
+func (o *Energy) GetDemandKwh() float32 {
+	if o == nil || IsNil(o.DemandKwh) {
+		var ret float32
+		return ret
+	}
+	return *o.DemandKwh
+}
+
+// GetDemandKwhOk returns a tuple with the DemandKwh field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetDemandKwhOk() (*float32, bool) {
+	if o == nil || IsNil(o.DemandKwh) {
+		return nil, false
+	}
+	return o.DemandKwh, true
+}
+
+// HasDemandKwh returns a boolean if a field has been set.
+func (o *Energy) HasDemandKwh() bool {
+	if o != nil && !IsNil(o.DemandKwh) {
+		return true
+	}
+
+	return false
+}
+
+// SetDemandKwh gets a reference to the given float32 and assigns it to the DemandKwh field.
+func (o *Energy) SetDemandKwh(v float32) {
+	o.DemandKwh = &v
+}
+
+// GetIncludesHotWater returns the IncludesHotWater field value if set, zero value otherwise.
+func (o *Energy) GetIncludesHotWater() bool {
+	if o == nil || IsNil(o.IncludesHotWater) {
+		var ret bool
+		return ret
+	}
+	return *o.IncludesHotWater
+}
+
+// GetIncludesHotWaterOk returns a tuple with the IncludesHotWater field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetIncludesHotWaterOk() (*bool, bool) {
+	if o == nil || IsNil(o.IncludesHotWater) {
+		return nil, false
+	}
+	return o.IncludesHotWater, true
+}
+
+// HasIncludesHotWater returns a boolean if a field has been set.
+func (o *Energy) HasIncludesHotWater() bool {
+	if o != nil && !IsNil(o.IncludesHotWater) {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludesHotWater gets a reference to the given bool and assigns it to the IncludesHotWater field.
+func (o *Energy) SetIncludesHotWater(v bool) {
+	o.IncludesHotWater = &v
+}
+
+// GetIssuedAt returns the IssuedAt field value if set, zero value otherwise.
+func (o *Energy) GetIssuedAt() string {
+	if o == nil || IsNil(o.IssuedAt) {
+		var ret string
+		return ret
+	}
+	return *o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetIssuedAtOk() (*string, bool) {
+	if o == nil || IsNil(o.IssuedAt) {
+		return nil, false
+	}
+	return o.IssuedAt, true
+}
+
+// HasIssuedAt returns a boolean if a field has been set.
+func (o *Energy) HasIssuedAt() bool {
+	if o != nil && !IsNil(o.IssuedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuedAt gets a reference to the given string and assigns it to the IssuedAt field.
+func (o *Energy) SetIssuedAt(v string) {
+	o.IssuedAt = &v
+}
+
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *Energy) GetLabel() string {
 	if o == nil || IsNil(o.Label) {
@@ -104,6 +271,70 @@ func (o *Energy) SetLabel(v string) {
 	o.Label = &v
 }
 
+// GetPrimaryCarrier returns the PrimaryCarrier field value if set, zero value otherwise.
+func (o *Energy) GetPrimaryCarrier() string {
+	if o == nil || IsNil(o.PrimaryCarrier) {
+		var ret string
+		return ret
+	}
+	return *o.PrimaryCarrier
+}
+
+// GetPrimaryCarrierOk returns a tuple with the PrimaryCarrier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetPrimaryCarrierOk() (*string, bool) {
+	if o == nil || IsNil(o.PrimaryCarrier) {
+		return nil, false
+	}
+	return o.PrimaryCarrier, true
+}
+
+// HasPrimaryCarrier returns a boolean if a field has been set.
+func (o *Energy) HasPrimaryCarrier() bool {
+	if o != nil && !IsNil(o.PrimaryCarrier) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrimaryCarrier gets a reference to the given string and assigns it to the PrimaryCarrier field.
+func (o *Energy) SetPrimaryCarrier(v string) {
+	o.PrimaryCarrier = &v
+}
+
+// GetValidUntil returns the ValidUntil field value if set, zero value otherwise.
+func (o *Energy) GetValidUntil() string {
+	if o == nil || IsNil(o.ValidUntil) {
+		var ret string
+		return ret
+	}
+	return *o.ValidUntil
+}
+
+// GetValidUntilOk returns a tuple with the ValidUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Energy) GetValidUntilOk() (*string, bool) {
+	if o == nil || IsNil(o.ValidUntil) {
+		return nil, false
+	}
+	return o.ValidUntil, true
+}
+
+// HasValidUntil returns a boolean if a field has been set.
+func (o *Energy) HasValidUntil() bool {
+	if o != nil && !IsNil(o.ValidUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetValidUntil gets a reference to the given string and assigns it to the ValidUntil field.
+func (o *Energy) SetValidUntil(v string) {
+	o.ValidUntil = &v
+}
+
 func (o Energy) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -114,11 +345,32 @@ func (o Energy) MarshalJSON() ([]byte, error) {
 
 func (o Energy) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CertificateType) {
+		toSerialize["certificate_type"] = o.CertificateType
+	}
+	if !IsNil(o.Co2Emissions) {
+		toSerialize["co2_emissions"] = o.Co2Emissions
+	}
 	if !IsNil(o.ConsumptionKwh) {
 		toSerialize["consumption_kwh"] = o.ConsumptionKwh
 	}
+	if !IsNil(o.DemandKwh) {
+		toSerialize["demand_kwh"] = o.DemandKwh
+	}
+	if !IsNil(o.IncludesHotWater) {
+		toSerialize["includes_hot_water"] = o.IncludesHotWater
+	}
+	if !IsNil(o.IssuedAt) {
+		toSerialize["issued_at"] = o.IssuedAt
+	}
 	if !IsNil(o.Label) {
 		toSerialize["label"] = o.Label
+	}
+	if !IsNil(o.PrimaryCarrier) {
+		toSerialize["primary_carrier"] = o.PrimaryCarrier
+	}
+	if !IsNil(o.ValidUntil) {
+		toSerialize["valid_until"] = o.ValidUntil
 	}
 	return toSerialize, nil
 }

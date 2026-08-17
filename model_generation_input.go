@@ -22,10 +22,10 @@ var _ MappedNullable = &GenerationInput{}
 // GenerationInput struct for GenerationInput
 type GenerationInput struct {
 	Kind string `json:"kind"`
-	Prompt string `json:"prompt"`
-	RoomType string `json:"room_type"`
+	Prompt *string `json:"prompt,omitempty"`
+	RoomType *string `json:"room_type,omitempty"`
 	SourceImageId string `json:"source_image_id"`
-	Style string `json:"style"`
+	Style *string `json:"style,omitempty"`
 }
 
 type _GenerationInput GenerationInput
@@ -34,13 +34,10 @@ type _GenerationInput GenerationInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGenerationInput(kind string, prompt string, roomType string, sourceImageId string, style string) *GenerationInput {
+func NewGenerationInput(kind string, sourceImageId string) *GenerationInput {
 	this := GenerationInput{}
 	this.Kind = kind
-	this.Prompt = prompt
-	this.RoomType = roomType
 	this.SourceImageId = sourceImageId
-	this.Style = style
 	return &this
 }
 
@@ -76,52 +73,68 @@ func (o *GenerationInput) SetKind(v string) {
 	o.Kind = v
 }
 
-// GetPrompt returns the Prompt field value
+// GetPrompt returns the Prompt field value if set, zero value otherwise.
 func (o *GenerationInput) GetPrompt() string {
-	if o == nil {
+	if o == nil || IsNil(o.Prompt) {
 		var ret string
 		return ret
 	}
-
-	return o.Prompt
+	return *o.Prompt
 }
 
-// GetPromptOk returns a tuple with the Prompt field value
+// GetPromptOk returns a tuple with the Prompt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenerationInput) GetPromptOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Prompt) {
 		return nil, false
 	}
-	return &o.Prompt, true
+	return o.Prompt, true
 }
 
-// SetPrompt sets field value
+// HasPrompt returns a boolean if a field has been set.
+func (o *GenerationInput) HasPrompt() bool {
+	if o != nil && !IsNil(o.Prompt) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrompt gets a reference to the given string and assigns it to the Prompt field.
 func (o *GenerationInput) SetPrompt(v string) {
-	o.Prompt = v
+	o.Prompt = &v
 }
 
-// GetRoomType returns the RoomType field value
+// GetRoomType returns the RoomType field value if set, zero value otherwise.
 func (o *GenerationInput) GetRoomType() string {
-	if o == nil {
+	if o == nil || IsNil(o.RoomType) {
 		var ret string
 		return ret
 	}
-
-	return o.RoomType
+	return *o.RoomType
 }
 
-// GetRoomTypeOk returns a tuple with the RoomType field value
+// GetRoomTypeOk returns a tuple with the RoomType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenerationInput) GetRoomTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RoomType) {
 		return nil, false
 	}
-	return &o.RoomType, true
+	return o.RoomType, true
 }
 
-// SetRoomType sets field value
+// HasRoomType returns a boolean if a field has been set.
+func (o *GenerationInput) HasRoomType() bool {
+	if o != nil && !IsNil(o.RoomType) {
+		return true
+	}
+
+	return false
+}
+
+// SetRoomType gets a reference to the given string and assigns it to the RoomType field.
 func (o *GenerationInput) SetRoomType(v string) {
-	o.RoomType = v
+	o.RoomType = &v
 }
 
 // GetSourceImageId returns the SourceImageId field value
@@ -148,28 +161,36 @@ func (o *GenerationInput) SetSourceImageId(v string) {
 	o.SourceImageId = v
 }
 
-// GetStyle returns the Style field value
+// GetStyle returns the Style field value if set, zero value otherwise.
 func (o *GenerationInput) GetStyle() string {
-	if o == nil {
+	if o == nil || IsNil(o.Style) {
 		var ret string
 		return ret
 	}
-
-	return o.Style
+	return *o.Style
 }
 
-// GetStyleOk returns a tuple with the Style field value
+// GetStyleOk returns a tuple with the Style field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenerationInput) GetStyleOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Style) {
 		return nil, false
 	}
-	return &o.Style, true
+	return o.Style, true
 }
 
-// SetStyle sets field value
+// HasStyle returns a boolean if a field has been set.
+func (o *GenerationInput) HasStyle() bool {
+	if o != nil && !IsNil(o.Style) {
+		return true
+	}
+
+	return false
+}
+
+// SetStyle gets a reference to the given string and assigns it to the Style field.
 func (o *GenerationInput) SetStyle(v string) {
-	o.Style = v
+	o.Style = &v
 }
 
 func (o GenerationInput) MarshalJSON() ([]byte, error) {
@@ -183,10 +204,16 @@ func (o GenerationInput) MarshalJSON() ([]byte, error) {
 func (o GenerationInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["kind"] = o.Kind
-	toSerialize["prompt"] = o.Prompt
-	toSerialize["room_type"] = o.RoomType
+	if !IsNil(o.Prompt) {
+		toSerialize["prompt"] = o.Prompt
+	}
+	if !IsNil(o.RoomType) {
+		toSerialize["room_type"] = o.RoomType
+	}
 	toSerialize["source_image_id"] = o.SourceImageId
-	toSerialize["style"] = o.Style
+	if !IsNil(o.Style) {
+		toSerialize["style"] = o.Style
+	}
 	return toSerialize, nil
 }
 
@@ -196,10 +223,7 @@ func (o *GenerationInput) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"kind",
-		"prompt",
-		"room_type",
 		"source_image_id",
-		"style",
 	}
 
 	allProperties := make(map[string]interface{})

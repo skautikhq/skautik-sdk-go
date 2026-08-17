@@ -20,8 +20,11 @@ var _ MappedNullable = &Building{}
 // Building struct for Building
 type Building struct {
 	Condition *string `json:"condition,omitempty"`
+	ConstructionPhase *string `json:"construction_phase,omitempty"`
 	ConstructionType *string `json:"construction_type,omitempty"`
 	HeatingType *string `json:"heating_type,omitempty"`
+	Leasehold *bool `json:"leasehold,omitempty"`
+	MonumentProtected *bool `json:"monument_protected,omitempty"`
 	YearBuilt *int32 `json:"year_built,omitempty"`
 	YearRenovated *int32 `json:"year_renovated,omitempty"`
 }
@@ -73,6 +76,38 @@ func (o *Building) HasCondition() bool {
 // SetCondition gets a reference to the given string and assigns it to the Condition field.
 func (o *Building) SetCondition(v string) {
 	o.Condition = &v
+}
+
+// GetConstructionPhase returns the ConstructionPhase field value if set, zero value otherwise.
+func (o *Building) GetConstructionPhase() string {
+	if o == nil || IsNil(o.ConstructionPhase) {
+		var ret string
+		return ret
+	}
+	return *o.ConstructionPhase
+}
+
+// GetConstructionPhaseOk returns a tuple with the ConstructionPhase field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Building) GetConstructionPhaseOk() (*string, bool) {
+	if o == nil || IsNil(o.ConstructionPhase) {
+		return nil, false
+	}
+	return o.ConstructionPhase, true
+}
+
+// HasConstructionPhase returns a boolean if a field has been set.
+func (o *Building) HasConstructionPhase() bool {
+	if o != nil && !IsNil(o.ConstructionPhase) {
+		return true
+	}
+
+	return false
+}
+
+// SetConstructionPhase gets a reference to the given string and assigns it to the ConstructionPhase field.
+func (o *Building) SetConstructionPhase(v string) {
+	o.ConstructionPhase = &v
 }
 
 // GetConstructionType returns the ConstructionType field value if set, zero value otherwise.
@@ -137,6 +172,70 @@ func (o *Building) HasHeatingType() bool {
 // SetHeatingType gets a reference to the given string and assigns it to the HeatingType field.
 func (o *Building) SetHeatingType(v string) {
 	o.HeatingType = &v
+}
+
+// GetLeasehold returns the Leasehold field value if set, zero value otherwise.
+func (o *Building) GetLeasehold() bool {
+	if o == nil || IsNil(o.Leasehold) {
+		var ret bool
+		return ret
+	}
+	return *o.Leasehold
+}
+
+// GetLeaseholdOk returns a tuple with the Leasehold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Building) GetLeaseholdOk() (*bool, bool) {
+	if o == nil || IsNil(o.Leasehold) {
+		return nil, false
+	}
+	return o.Leasehold, true
+}
+
+// HasLeasehold returns a boolean if a field has been set.
+func (o *Building) HasLeasehold() bool {
+	if o != nil && !IsNil(o.Leasehold) {
+		return true
+	}
+
+	return false
+}
+
+// SetLeasehold gets a reference to the given bool and assigns it to the Leasehold field.
+func (o *Building) SetLeasehold(v bool) {
+	o.Leasehold = &v
+}
+
+// GetMonumentProtected returns the MonumentProtected field value if set, zero value otherwise.
+func (o *Building) GetMonumentProtected() bool {
+	if o == nil || IsNil(o.MonumentProtected) {
+		var ret bool
+		return ret
+	}
+	return *o.MonumentProtected
+}
+
+// GetMonumentProtectedOk returns a tuple with the MonumentProtected field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Building) GetMonumentProtectedOk() (*bool, bool) {
+	if o == nil || IsNil(o.MonumentProtected) {
+		return nil, false
+	}
+	return o.MonumentProtected, true
+}
+
+// HasMonumentProtected returns a boolean if a field has been set.
+func (o *Building) HasMonumentProtected() bool {
+	if o != nil && !IsNil(o.MonumentProtected) {
+		return true
+	}
+
+	return false
+}
+
+// SetMonumentProtected gets a reference to the given bool and assigns it to the MonumentProtected field.
+func (o *Building) SetMonumentProtected(v bool) {
+	o.MonumentProtected = &v
 }
 
 // GetYearBuilt returns the YearBuilt field value if set, zero value otherwise.
@@ -216,11 +315,20 @@ func (o Building) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Condition) {
 		toSerialize["condition"] = o.Condition
 	}
+	if !IsNil(o.ConstructionPhase) {
+		toSerialize["construction_phase"] = o.ConstructionPhase
+	}
 	if !IsNil(o.ConstructionType) {
 		toSerialize["construction_type"] = o.ConstructionType
 	}
 	if !IsNil(o.HeatingType) {
 		toSerialize["heating_type"] = o.HeatingType
+	}
+	if !IsNil(o.Leasehold) {
+		toSerialize["leasehold"] = o.Leasehold
+	}
+	if !IsNil(o.MonumentProtected) {
+		toSerialize["monument_protected"] = o.MonumentProtected
 	}
 	if !IsNil(o.YearBuilt) {
 		toSerialize["year_built"] = o.YearBuilt

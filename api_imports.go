@@ -32,6 +32,7 @@ type ApiCreateImportRequest struct {
 	sourceId *string
 	dryRun *bool
 	filename *string
+	confirmShrink *bool
 	idempotencyKey *string
 	file *os.File
 }
@@ -63,6 +64,12 @@ func (r ApiCreateImportRequest) DryRun(dryRun bool) ApiCreateImportRequest {
 // Original filename, recorded on the run so a failure can be traced back to the file that caused it.
 func (r ApiCreateImportRequest) Filename(filename string) ApiCreateImportRequest {
 	r.filename = &filename
+	return r
+}
+
+// Allow a full sync that would withdraw a large share of the source&#39;s portfolio. Without it, a delivery carrying far fewer records than the source currently holds has its withdrawals held back and the run is reported as partial, on the assumption that the export was truncated. Set this when the reduction is real.
+func (r ApiCreateImportRequest) ConfirmShrink(confirmShrink bool) ApiCreateImportRequest {
+	r.confirmShrink = &confirmShrink
 	return r
 }
 
@@ -141,6 +148,9 @@ func (a *ImportsAPIService) CreateImportExecute(r ApiCreateImportRequest) (*Impo
 	}
 	if r.filename != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filename", r.filename, "form", "")
+	}
+	if r.confirmShrink != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "confirm_shrink", r.confirmShrink, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}

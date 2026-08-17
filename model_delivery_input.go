@@ -22,7 +22,7 @@ var _ MappedNullable = &DeliveryInput{}
 // DeliveryInput struct for DeliveryInput
 type DeliveryInput struct {
 	Type string `json:"type"`
-	Url string `json:"url"`
+	Url *string `json:"url,omitempty"`
 }
 
 type _DeliveryInput DeliveryInput
@@ -31,10 +31,9 @@ type _DeliveryInput DeliveryInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeliveryInput(type_ string, url string) *DeliveryInput {
+func NewDeliveryInput(type_ string) *DeliveryInput {
 	this := DeliveryInput{}
 	this.Type = type_
-	this.Url = url
 	return &this
 }
 
@@ -70,28 +69,36 @@ func (o *DeliveryInput) SetType(v string) {
 	o.Type = v
 }
 
-// GetUrl returns the Url field value
+// GetUrl returns the Url field value if set, zero value otherwise.
 func (o *DeliveryInput) GetUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
-
-	return o.Url
+	return *o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeliveryInput) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-	return &o.Url, true
+	return o.Url, true
 }
 
-// SetUrl sets field value
+// HasUrl returns a boolean if a field has been set.
+func (o *DeliveryInput) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *DeliveryInput) SetUrl(v string) {
-	o.Url = v
+	o.Url = &v
 }
 
 func (o DeliveryInput) MarshalJSON() ([]byte, error) {
@@ -105,7 +112,9 @@ func (o DeliveryInput) MarshalJSON() ([]byte, error) {
 func (o DeliveryInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["type"] = o.Type
-	toSerialize["url"] = o.Url
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
 	return toSerialize, nil
 }
 
@@ -115,7 +124,6 @@ func (o *DeliveryInput) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"type",
-		"url",
 	}
 
 	allProperties := make(map[string]interface{})

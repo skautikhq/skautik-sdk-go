@@ -19,12 +19,19 @@ var _ MappedNullable = &ListingInput{}
 
 // ListingInput struct for ListingInput
 type ListingInput struct {
+	CommissionAmount *float32 `json:"commission_amount,omitempty"`
+	CommissionNote *string `json:"commission_note,omitempty"`
+	CommissionPayer *string `json:"commission_payer,omitempty"`
+	CommissionPercent *float32 `json:"commission_percent,omitempty"`
 	Currency *string `json:"currency,omitempty"`
 	Deposit *float32 `json:"deposit,omitempty"`
+	HeatingCosts *float32 `json:"heating_costs,omitempty"`
 	Price *float32 `json:"price,omitempty"`
+	PriceOnRequest *bool `json:"price_on_request,omitempty"`
 	PricePeriod *string `json:"price_period,omitempty"`
 	ServiceCharges *float32 `json:"service_charges,omitempty"`
 	Status *string `json:"status,omitempty"`
+	TotalRent *float32 `json:"total_rent,omitempty"`
 	TransactionType *string `json:"transaction_type,omitempty"`
 }
 
@@ -43,6 +50,134 @@ func NewListingInput() *ListingInput {
 func NewListingInputWithDefaults() *ListingInput {
 	this := ListingInput{}
 	return &this
+}
+
+// GetCommissionAmount returns the CommissionAmount field value if set, zero value otherwise.
+func (o *ListingInput) GetCommissionAmount() float32 {
+	if o == nil || IsNil(o.CommissionAmount) {
+		var ret float32
+		return ret
+	}
+	return *o.CommissionAmount
+}
+
+// GetCommissionAmountOk returns a tuple with the CommissionAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetCommissionAmountOk() (*float32, bool) {
+	if o == nil || IsNil(o.CommissionAmount) {
+		return nil, false
+	}
+	return o.CommissionAmount, true
+}
+
+// HasCommissionAmount returns a boolean if a field has been set.
+func (o *ListingInput) HasCommissionAmount() bool {
+	if o != nil && !IsNil(o.CommissionAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommissionAmount gets a reference to the given float32 and assigns it to the CommissionAmount field.
+func (o *ListingInput) SetCommissionAmount(v float32) {
+	o.CommissionAmount = &v
+}
+
+// GetCommissionNote returns the CommissionNote field value if set, zero value otherwise.
+func (o *ListingInput) GetCommissionNote() string {
+	if o == nil || IsNil(o.CommissionNote) {
+		var ret string
+		return ret
+	}
+	return *o.CommissionNote
+}
+
+// GetCommissionNoteOk returns a tuple with the CommissionNote field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetCommissionNoteOk() (*string, bool) {
+	if o == nil || IsNil(o.CommissionNote) {
+		return nil, false
+	}
+	return o.CommissionNote, true
+}
+
+// HasCommissionNote returns a boolean if a field has been set.
+func (o *ListingInput) HasCommissionNote() bool {
+	if o != nil && !IsNil(o.CommissionNote) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommissionNote gets a reference to the given string and assigns it to the CommissionNote field.
+func (o *ListingInput) SetCommissionNote(v string) {
+	o.CommissionNote = &v
+}
+
+// GetCommissionPayer returns the CommissionPayer field value if set, zero value otherwise.
+func (o *ListingInput) GetCommissionPayer() string {
+	if o == nil || IsNil(o.CommissionPayer) {
+		var ret string
+		return ret
+	}
+	return *o.CommissionPayer
+}
+
+// GetCommissionPayerOk returns a tuple with the CommissionPayer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetCommissionPayerOk() (*string, bool) {
+	if o == nil || IsNil(o.CommissionPayer) {
+		return nil, false
+	}
+	return o.CommissionPayer, true
+}
+
+// HasCommissionPayer returns a boolean if a field has been set.
+func (o *ListingInput) HasCommissionPayer() bool {
+	if o != nil && !IsNil(o.CommissionPayer) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommissionPayer gets a reference to the given string and assigns it to the CommissionPayer field.
+func (o *ListingInput) SetCommissionPayer(v string) {
+	o.CommissionPayer = &v
+}
+
+// GetCommissionPercent returns the CommissionPercent field value if set, zero value otherwise.
+func (o *ListingInput) GetCommissionPercent() float32 {
+	if o == nil || IsNil(o.CommissionPercent) {
+		var ret float32
+		return ret
+	}
+	return *o.CommissionPercent
+}
+
+// GetCommissionPercentOk returns a tuple with the CommissionPercent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetCommissionPercentOk() (*float32, bool) {
+	if o == nil || IsNil(o.CommissionPercent) {
+		return nil, false
+	}
+	return o.CommissionPercent, true
+}
+
+// HasCommissionPercent returns a boolean if a field has been set.
+func (o *ListingInput) HasCommissionPercent() bool {
+	if o != nil && !IsNil(o.CommissionPercent) {
+		return true
+	}
+
+	return false
+}
+
+// SetCommissionPercent gets a reference to the given float32 and assigns it to the CommissionPercent field.
+func (o *ListingInput) SetCommissionPercent(v float32) {
+	o.CommissionPercent = &v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -109,6 +244,38 @@ func (o *ListingInput) SetDeposit(v float32) {
 	o.Deposit = &v
 }
 
+// GetHeatingCosts returns the HeatingCosts field value if set, zero value otherwise.
+func (o *ListingInput) GetHeatingCosts() float32 {
+	if o == nil || IsNil(o.HeatingCosts) {
+		var ret float32
+		return ret
+	}
+	return *o.HeatingCosts
+}
+
+// GetHeatingCostsOk returns a tuple with the HeatingCosts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetHeatingCostsOk() (*float32, bool) {
+	if o == nil || IsNil(o.HeatingCosts) {
+		return nil, false
+	}
+	return o.HeatingCosts, true
+}
+
+// HasHeatingCosts returns a boolean if a field has been set.
+func (o *ListingInput) HasHeatingCosts() bool {
+	if o != nil && !IsNil(o.HeatingCosts) {
+		return true
+	}
+
+	return false
+}
+
+// SetHeatingCosts gets a reference to the given float32 and assigns it to the HeatingCosts field.
+func (o *ListingInput) SetHeatingCosts(v float32) {
+	o.HeatingCosts = &v
+}
+
 // GetPrice returns the Price field value if set, zero value otherwise.
 func (o *ListingInput) GetPrice() float32 {
 	if o == nil || IsNil(o.Price) {
@@ -139,6 +306,38 @@ func (o *ListingInput) HasPrice() bool {
 // SetPrice gets a reference to the given float32 and assigns it to the Price field.
 func (o *ListingInput) SetPrice(v float32) {
 	o.Price = &v
+}
+
+// GetPriceOnRequest returns the PriceOnRequest field value if set, zero value otherwise.
+func (o *ListingInput) GetPriceOnRequest() bool {
+	if o == nil || IsNil(o.PriceOnRequest) {
+		var ret bool
+		return ret
+	}
+	return *o.PriceOnRequest
+}
+
+// GetPriceOnRequestOk returns a tuple with the PriceOnRequest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetPriceOnRequestOk() (*bool, bool) {
+	if o == nil || IsNil(o.PriceOnRequest) {
+		return nil, false
+	}
+	return o.PriceOnRequest, true
+}
+
+// HasPriceOnRequest returns a boolean if a field has been set.
+func (o *ListingInput) HasPriceOnRequest() bool {
+	if o != nil && !IsNil(o.PriceOnRequest) {
+		return true
+	}
+
+	return false
+}
+
+// SetPriceOnRequest gets a reference to the given bool and assigns it to the PriceOnRequest field.
+func (o *ListingInput) SetPriceOnRequest(v bool) {
+	o.PriceOnRequest = &v
 }
 
 // GetPricePeriod returns the PricePeriod field value if set, zero value otherwise.
@@ -237,6 +436,38 @@ func (o *ListingInput) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetTotalRent returns the TotalRent field value if set, zero value otherwise.
+func (o *ListingInput) GetTotalRent() float32 {
+	if o == nil || IsNil(o.TotalRent) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalRent
+}
+
+// GetTotalRentOk returns a tuple with the TotalRent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ListingInput) GetTotalRentOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalRent) {
+		return nil, false
+	}
+	return o.TotalRent, true
+}
+
+// HasTotalRent returns a boolean if a field has been set.
+func (o *ListingInput) HasTotalRent() bool {
+	if o != nil && !IsNil(o.TotalRent) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalRent gets a reference to the given float32 and assigns it to the TotalRent field.
+func (o *ListingInput) SetTotalRent(v float32) {
+	o.TotalRent = &v
+}
+
 // GetTransactionType returns the TransactionType field value if set, zero value otherwise.
 func (o *ListingInput) GetTransactionType() string {
 	if o == nil || IsNil(o.TransactionType) {
@@ -279,14 +510,32 @@ func (o ListingInput) MarshalJSON() ([]byte, error) {
 
 func (o ListingInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CommissionAmount) {
+		toSerialize["commission_amount"] = o.CommissionAmount
+	}
+	if !IsNil(o.CommissionNote) {
+		toSerialize["commission_note"] = o.CommissionNote
+	}
+	if !IsNil(o.CommissionPayer) {
+		toSerialize["commission_payer"] = o.CommissionPayer
+	}
+	if !IsNil(o.CommissionPercent) {
+		toSerialize["commission_percent"] = o.CommissionPercent
+	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
 	if !IsNil(o.Deposit) {
 		toSerialize["deposit"] = o.Deposit
 	}
+	if !IsNil(o.HeatingCosts) {
+		toSerialize["heating_costs"] = o.HeatingCosts
+	}
 	if !IsNil(o.Price) {
 		toSerialize["price"] = o.Price
+	}
+	if !IsNil(o.PriceOnRequest) {
+		toSerialize["price_on_request"] = o.PriceOnRequest
 	}
 	if !IsNil(o.PricePeriod) {
 		toSerialize["price_period"] = o.PricePeriod
@@ -296,6 +545,9 @@ func (o ListingInput) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.TotalRent) {
+		toSerialize["total_rent"] = o.TotalRent
 	}
 	if !IsNil(o.TransactionType) {
 		toSerialize["transaction_type"] = o.TransactionType

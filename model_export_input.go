@@ -21,8 +21,8 @@ var _ MappedNullable = &ExportInput{}
 
 // ExportInput struct for ExportInput
 type ExportInput struct {
-	Fields []string `json:"fields"`
-	Filters map[string]string `json:"filters"`
+	Fields []string `json:"fields,omitempty"`
+	Filters map[string]string `json:"filters,omitempty"`
 	Format string `json:"format"`
 }
 
@@ -32,10 +32,8 @@ type _ExportInput ExportInput
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExportInput(fields []string, filters map[string]string, format string) *ExportInput {
+func NewExportInput(format string) *ExportInput {
 	this := ExportInput{}
-	this.Fields = fields
-	this.Filters = filters
 	this.Format = format
 	return &this
 }
@@ -48,50 +46,66 @@ func NewExportInputWithDefaults() *ExportInput {
 	return &this
 }
 
-// GetFields returns the Fields field value
+// GetFields returns the Fields field value if set, zero value otherwise.
 func (o *ExportInput) GetFields() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Fields) {
 		var ret []string
 		return ret
 	}
-
 	return o.Fields
 }
 
-// GetFieldsOk returns a tuple with the Fields field value
+// GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExportInput) GetFieldsOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Fields) {
 		return nil, false
 	}
 	return o.Fields, true
 }
 
-// SetFields sets field value
+// HasFields returns a boolean if a field has been set.
+func (o *ExportInput) HasFields() bool {
+	if o != nil && !IsNil(o.Fields) {
+		return true
+	}
+
+	return false
+}
+
+// SetFields gets a reference to the given []string and assigns it to the Fields field.
 func (o *ExportInput) SetFields(v []string) {
 	o.Fields = v
 }
 
-// GetFilters returns the Filters field value
+// GetFilters returns the Filters field value if set, zero value otherwise.
 func (o *ExportInput) GetFilters() map[string]string {
-	if o == nil {
+	if o == nil || IsNil(o.Filters) {
 		var ret map[string]string
 		return ret
 	}
-
 	return o.Filters
 }
 
-// GetFiltersOk returns a tuple with the Filters field value
+// GetFiltersOk returns a tuple with the Filters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExportInput) GetFiltersOk() (map[string]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Filters) {
 		return map[string]string{}, false
 	}
 	return o.Filters, true
 }
 
-// SetFilters sets field value
+// HasFilters returns a boolean if a field has been set.
+func (o *ExportInput) HasFilters() bool {
+	if o != nil && !IsNil(o.Filters) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilters gets a reference to the given map[string]string and assigns it to the Filters field.
 func (o *ExportInput) SetFilters(v map[string]string) {
 	o.Filters = v
 }
@@ -130,8 +144,12 @@ func (o ExportInput) MarshalJSON() ([]byte, error) {
 
 func (o ExportInput) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["fields"] = o.Fields
-	toSerialize["filters"] = o.Filters
+	if !IsNil(o.Fields) {
+		toSerialize["fields"] = o.Fields
+	}
+	if !IsNil(o.Filters) {
+		toSerialize["filters"] = o.Filters
+	}
 	toSerialize["format"] = o.Format
 	return toSerialize, nil
 }
@@ -141,8 +159,6 @@ func (o *ExportInput) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"fields",
-		"filters",
 		"format",
 	}
 

@@ -26,28 +26,81 @@ type PropertyInput struct {
 	AddressPostalCode *string `json:"address_postal_code,omitempty"`
 	AddressProvince *string `json:"address_province,omitempty"`
 	AddressStreet *string `json:"address_street,omitempty"`
+	AtticSqm *float32 `json:"attic_sqm,omitempty"`
+	BalconyCount *int32 `json:"balcony_count,omitempty"`
+	BalconyTerraceSqm *float32 `json:"balcony_terrace_sqm,omitempty"`
 	Bathrooms *int32 `json:"bathrooms,omitempty"`
 	Bedrooms *int32 `json:"bedrooms,omitempty"`
+	BuildingAmenities []string `json:"building_amenities,omitempty"`
+	CellarSqm *float32 `json:"cellar_sqm,omitempty"`
 	Condition *string `json:"condition,omitempty"`
+	ConstructionPhase *string `json:"construction_phase,omitempty"`
 	ConstructionType *string `json:"construction_type,omitempty"`
 	Description *string `json:"description,omitempty"`
+	DescriptionFittings *string `json:"description_fittings,omitempty"`
+	DescriptionLocation *string `json:"description_location,omitempty"`
+	DescriptionOther *string `json:"description_other,omitempty"`
+	EnergyCertificateIssuedAt *string `json:"energy_certificate_issued_at,omitempty"`
+	EnergyCertificateType *string `json:"energy_certificate_type,omitempty"`
+	EnergyCertificateValidUntil *string `json:"energy_certificate_valid_until,omitempty"`
+	EnergyCo2Emissions *float32 `json:"energy_co2_emissions,omitempty"`
 	EnergyConsumptionKwh *float32 `json:"energy_consumption_kwh,omitempty"`
+	EnergyDemandKwh *float32 `json:"energy_demand_kwh,omitempty"`
+	EnergyIncludesHotWater *bool `json:"energy_includes_hot_water,omitempty"`
 	EnergyLabel *string `json:"energy_label,omitempty"`
+	EnergyPrimaryCarrier *string `json:"energy_primary_carrier,omitempty"`
+	ExteriorFeatures []string `json:"exterior_features,omitempty"`
 	ExternalId *string `json:"external_id,omitempty"`
 	Floor *int32 `json:"floor,omitempty"`
+	Flooring *string `json:"flooring,omitempty"`
 	FloorsInBuilding *int32 `json:"floors_in_building,omitempty"`
+	GardenSqm *float32 `json:"garden_sqm,omitempty"`
 	HalfBathrooms *int32 `json:"half_bathrooms,omitempty"`
+	HasAirConditioning *bool `json:"has_air_conditioning,omitempty"`
+	HasAlarmSystem *bool `json:"has_alarm_system,omitempty"`
+	HasBalcony *bool `json:"has_balcony,omitempty"`
+	HasCellar *bool `json:"has_cellar,omitempty"`
+	HasFireplace *bool `json:"has_fireplace,omitempty"`
+	HasFittedKitchen *bool `json:"has_fitted_kitchen,omitempty"`
+	HasGarden *bool `json:"has_garden,omitempty"`
+	HasGuestToilet *bool `json:"has_guest_toilet,omitempty"`
+	HasLift *bool `json:"has_lift,omitempty"`
+	HasPool *bool `json:"has_pool,omitempty"`
+	HasSauna *bool `json:"has_sauna,omitempty"`
+	HasSolarPanels *bool `json:"has_solar_panels,omitempty"`
+	HasTerrace *bool `json:"has_terrace,omitempty"`
 	HeatingType *string `json:"heating_type,omitempty"`
+	Images []ImageInput `json:"images,omitempty"`
+	InteriorFeatures []string `json:"interior_features,omitempty"`
+	IsBarrierFree *bool `json:"is_barrier_free,omitempty"`
+	IsFurnished *bool `json:"is_furnished,omitempty"`
+	IsLeasehold *bool `json:"is_leasehold,omitempty"`
+	IsMonumentProtected *bool `json:"is_monument_protected,omitempty"`
+	KitchenType *string `json:"kitchen_type,omitempty"`
 	Latitude *float32 `json:"latitude,omitempty"`
 	Listing *ListingInput `json:"listing,omitempty"`
 	LivingAreaSqm *float32 `json:"living_area_sqm,omitempty"`
 	LocationPrecision *string `json:"location_precision,omitempty"`
 	Longitude *float32 `json:"longitude,omitempty"`
+	OfficeAreaSqm *float32 `json:"office_area_sqm,omitempty"`
+	OtherAreaSqm *float32 `json:"other_area_sqm,omitempty"`
+	ParkingIncluded *bool `json:"parking_included,omitempty"`
+	ParkingSpaceCount *int32 `json:"parking_space_count,omitempty"`
+	ParkingType *string `json:"parking_type,omitempty"`
 	PlotAreaSqm *float32 `json:"plot_area_sqm,omitempty"`
+	PropertySubtype *string `json:"property_subtype,omitempty"`
+	PublishAddress *bool `json:"publish_address,omitempty"`
+	RetailAreaSqm *float32 `json:"retail_area_sqm,omitempty"`
+	StorageAreaSqm *float32 `json:"storage_area_sqm,omitempty"`
+	Surroundings []string `json:"surroundings,omitempty"`
+	TerraceCount *int32 `json:"terrace_count,omitempty"`
 	Title *string `json:"title,omitempty"`
+	TotalAreaSqm *float32 `json:"total_area_sqm,omitempty"`
 	TotalRooms *int32 `json:"total_rooms,omitempty"`
+	Translations []Translation `json:"translations,omitempty"`
 	Type *string `json:"type,omitempty"`
 	UsableAreaSqm *float32 `json:"usable_area_sqm,omitempty"`
+	WindowGlazing *string `json:"window_glazing,omitempty"`
 	YearBuilt *int32 `json:"year_built,omitempty"`
 	YearRenovated *int32 `json:"year_renovated,omitempty"`
 }
@@ -293,6 +346,102 @@ func (o *PropertyInput) SetAddressStreet(v string) {
 	o.AddressStreet = &v
 }
 
+// GetAtticSqm returns the AtticSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetAtticSqm() float32 {
+	if o == nil || IsNil(o.AtticSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.AtticSqm
+}
+
+// GetAtticSqmOk returns a tuple with the AtticSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetAtticSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.AtticSqm) {
+		return nil, false
+	}
+	return o.AtticSqm, true
+}
+
+// HasAtticSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasAtticSqm() bool {
+	if o != nil && !IsNil(o.AtticSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetAtticSqm gets a reference to the given float32 and assigns it to the AtticSqm field.
+func (o *PropertyInput) SetAtticSqm(v float32) {
+	o.AtticSqm = &v
+}
+
+// GetBalconyCount returns the BalconyCount field value if set, zero value otherwise.
+func (o *PropertyInput) GetBalconyCount() int32 {
+	if o == nil || IsNil(o.BalconyCount) {
+		var ret int32
+		return ret
+	}
+	return *o.BalconyCount
+}
+
+// GetBalconyCountOk returns a tuple with the BalconyCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetBalconyCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.BalconyCount) {
+		return nil, false
+	}
+	return o.BalconyCount, true
+}
+
+// HasBalconyCount returns a boolean if a field has been set.
+func (o *PropertyInput) HasBalconyCount() bool {
+	if o != nil && !IsNil(o.BalconyCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetBalconyCount gets a reference to the given int32 and assigns it to the BalconyCount field.
+func (o *PropertyInput) SetBalconyCount(v int32) {
+	o.BalconyCount = &v
+}
+
+// GetBalconyTerraceSqm returns the BalconyTerraceSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetBalconyTerraceSqm() float32 {
+	if o == nil || IsNil(o.BalconyTerraceSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.BalconyTerraceSqm
+}
+
+// GetBalconyTerraceSqmOk returns a tuple with the BalconyTerraceSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetBalconyTerraceSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.BalconyTerraceSqm) {
+		return nil, false
+	}
+	return o.BalconyTerraceSqm, true
+}
+
+// HasBalconyTerraceSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasBalconyTerraceSqm() bool {
+	if o != nil && !IsNil(o.BalconyTerraceSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetBalconyTerraceSqm gets a reference to the given float32 and assigns it to the BalconyTerraceSqm field.
+func (o *PropertyInput) SetBalconyTerraceSqm(v float32) {
+	o.BalconyTerraceSqm = &v
+}
+
 // GetBathrooms returns the Bathrooms field value if set, zero value otherwise.
 func (o *PropertyInput) GetBathrooms() int32 {
 	if o == nil || IsNil(o.Bathrooms) {
@@ -357,6 +506,70 @@ func (o *PropertyInput) SetBedrooms(v int32) {
 	o.Bedrooms = &v
 }
 
+// GetBuildingAmenities returns the BuildingAmenities field value if set, zero value otherwise.
+func (o *PropertyInput) GetBuildingAmenities() []string {
+	if o == nil || IsNil(o.BuildingAmenities) {
+		var ret []string
+		return ret
+	}
+	return o.BuildingAmenities
+}
+
+// GetBuildingAmenitiesOk returns a tuple with the BuildingAmenities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetBuildingAmenitiesOk() ([]string, bool) {
+	if o == nil || IsNil(o.BuildingAmenities) {
+		return nil, false
+	}
+	return o.BuildingAmenities, true
+}
+
+// HasBuildingAmenities returns a boolean if a field has been set.
+func (o *PropertyInput) HasBuildingAmenities() bool {
+	if o != nil && !IsNil(o.BuildingAmenities) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuildingAmenities gets a reference to the given []string and assigns it to the BuildingAmenities field.
+func (o *PropertyInput) SetBuildingAmenities(v []string) {
+	o.BuildingAmenities = v
+}
+
+// GetCellarSqm returns the CellarSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetCellarSqm() float32 {
+	if o == nil || IsNil(o.CellarSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.CellarSqm
+}
+
+// GetCellarSqmOk returns a tuple with the CellarSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetCellarSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.CellarSqm) {
+		return nil, false
+	}
+	return o.CellarSqm, true
+}
+
+// HasCellarSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasCellarSqm() bool {
+	if o != nil && !IsNil(o.CellarSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetCellarSqm gets a reference to the given float32 and assigns it to the CellarSqm field.
+func (o *PropertyInput) SetCellarSqm(v float32) {
+	o.CellarSqm = &v
+}
+
 // GetCondition returns the Condition field value if set, zero value otherwise.
 func (o *PropertyInput) GetCondition() string {
 	if o == nil || IsNil(o.Condition) {
@@ -387,6 +600,38 @@ func (o *PropertyInput) HasCondition() bool {
 // SetCondition gets a reference to the given string and assigns it to the Condition field.
 func (o *PropertyInput) SetCondition(v string) {
 	o.Condition = &v
+}
+
+// GetConstructionPhase returns the ConstructionPhase field value if set, zero value otherwise.
+func (o *PropertyInput) GetConstructionPhase() string {
+	if o == nil || IsNil(o.ConstructionPhase) {
+		var ret string
+		return ret
+	}
+	return *o.ConstructionPhase
+}
+
+// GetConstructionPhaseOk returns a tuple with the ConstructionPhase field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetConstructionPhaseOk() (*string, bool) {
+	if o == nil || IsNil(o.ConstructionPhase) {
+		return nil, false
+	}
+	return o.ConstructionPhase, true
+}
+
+// HasConstructionPhase returns a boolean if a field has been set.
+func (o *PropertyInput) HasConstructionPhase() bool {
+	if o != nil && !IsNil(o.ConstructionPhase) {
+		return true
+	}
+
+	return false
+}
+
+// SetConstructionPhase gets a reference to the given string and assigns it to the ConstructionPhase field.
+func (o *PropertyInput) SetConstructionPhase(v string) {
+	o.ConstructionPhase = &v
 }
 
 // GetConstructionType returns the ConstructionType field value if set, zero value otherwise.
@@ -453,6 +698,230 @@ func (o *PropertyInput) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetDescriptionFittings returns the DescriptionFittings field value if set, zero value otherwise.
+func (o *PropertyInput) GetDescriptionFittings() string {
+	if o == nil || IsNil(o.DescriptionFittings) {
+		var ret string
+		return ret
+	}
+	return *o.DescriptionFittings
+}
+
+// GetDescriptionFittingsOk returns a tuple with the DescriptionFittings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetDescriptionFittingsOk() (*string, bool) {
+	if o == nil || IsNil(o.DescriptionFittings) {
+		return nil, false
+	}
+	return o.DescriptionFittings, true
+}
+
+// HasDescriptionFittings returns a boolean if a field has been set.
+func (o *PropertyInput) HasDescriptionFittings() bool {
+	if o != nil && !IsNil(o.DescriptionFittings) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptionFittings gets a reference to the given string and assigns it to the DescriptionFittings field.
+func (o *PropertyInput) SetDescriptionFittings(v string) {
+	o.DescriptionFittings = &v
+}
+
+// GetDescriptionLocation returns the DescriptionLocation field value if set, zero value otherwise.
+func (o *PropertyInput) GetDescriptionLocation() string {
+	if o == nil || IsNil(o.DescriptionLocation) {
+		var ret string
+		return ret
+	}
+	return *o.DescriptionLocation
+}
+
+// GetDescriptionLocationOk returns a tuple with the DescriptionLocation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetDescriptionLocationOk() (*string, bool) {
+	if o == nil || IsNil(o.DescriptionLocation) {
+		return nil, false
+	}
+	return o.DescriptionLocation, true
+}
+
+// HasDescriptionLocation returns a boolean if a field has been set.
+func (o *PropertyInput) HasDescriptionLocation() bool {
+	if o != nil && !IsNil(o.DescriptionLocation) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptionLocation gets a reference to the given string and assigns it to the DescriptionLocation field.
+func (o *PropertyInput) SetDescriptionLocation(v string) {
+	o.DescriptionLocation = &v
+}
+
+// GetDescriptionOther returns the DescriptionOther field value if set, zero value otherwise.
+func (o *PropertyInput) GetDescriptionOther() string {
+	if o == nil || IsNil(o.DescriptionOther) {
+		var ret string
+		return ret
+	}
+	return *o.DescriptionOther
+}
+
+// GetDescriptionOtherOk returns a tuple with the DescriptionOther field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetDescriptionOtherOk() (*string, bool) {
+	if o == nil || IsNil(o.DescriptionOther) {
+		return nil, false
+	}
+	return o.DescriptionOther, true
+}
+
+// HasDescriptionOther returns a boolean if a field has been set.
+func (o *PropertyInput) HasDescriptionOther() bool {
+	if o != nil && !IsNil(o.DescriptionOther) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescriptionOther gets a reference to the given string and assigns it to the DescriptionOther field.
+func (o *PropertyInput) SetDescriptionOther(v string) {
+	o.DescriptionOther = &v
+}
+
+// GetEnergyCertificateIssuedAt returns the EnergyCertificateIssuedAt field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyCertificateIssuedAt() string {
+	if o == nil || IsNil(o.EnergyCertificateIssuedAt) {
+		var ret string
+		return ret
+	}
+	return *o.EnergyCertificateIssuedAt
+}
+
+// GetEnergyCertificateIssuedAtOk returns a tuple with the EnergyCertificateIssuedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyCertificateIssuedAtOk() (*string, bool) {
+	if o == nil || IsNil(o.EnergyCertificateIssuedAt) {
+		return nil, false
+	}
+	return o.EnergyCertificateIssuedAt, true
+}
+
+// HasEnergyCertificateIssuedAt returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyCertificateIssuedAt() bool {
+	if o != nil && !IsNil(o.EnergyCertificateIssuedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyCertificateIssuedAt gets a reference to the given string and assigns it to the EnergyCertificateIssuedAt field.
+func (o *PropertyInput) SetEnergyCertificateIssuedAt(v string) {
+	o.EnergyCertificateIssuedAt = &v
+}
+
+// GetEnergyCertificateType returns the EnergyCertificateType field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyCertificateType() string {
+	if o == nil || IsNil(o.EnergyCertificateType) {
+		var ret string
+		return ret
+	}
+	return *o.EnergyCertificateType
+}
+
+// GetEnergyCertificateTypeOk returns a tuple with the EnergyCertificateType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyCertificateTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.EnergyCertificateType) {
+		return nil, false
+	}
+	return o.EnergyCertificateType, true
+}
+
+// HasEnergyCertificateType returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyCertificateType() bool {
+	if o != nil && !IsNil(o.EnergyCertificateType) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyCertificateType gets a reference to the given string and assigns it to the EnergyCertificateType field.
+func (o *PropertyInput) SetEnergyCertificateType(v string) {
+	o.EnergyCertificateType = &v
+}
+
+// GetEnergyCertificateValidUntil returns the EnergyCertificateValidUntil field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyCertificateValidUntil() string {
+	if o == nil || IsNil(o.EnergyCertificateValidUntil) {
+		var ret string
+		return ret
+	}
+	return *o.EnergyCertificateValidUntil
+}
+
+// GetEnergyCertificateValidUntilOk returns a tuple with the EnergyCertificateValidUntil field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyCertificateValidUntilOk() (*string, bool) {
+	if o == nil || IsNil(o.EnergyCertificateValidUntil) {
+		return nil, false
+	}
+	return o.EnergyCertificateValidUntil, true
+}
+
+// HasEnergyCertificateValidUntil returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyCertificateValidUntil() bool {
+	if o != nil && !IsNil(o.EnergyCertificateValidUntil) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyCertificateValidUntil gets a reference to the given string and assigns it to the EnergyCertificateValidUntil field.
+func (o *PropertyInput) SetEnergyCertificateValidUntil(v string) {
+	o.EnergyCertificateValidUntil = &v
+}
+
+// GetEnergyCo2Emissions returns the EnergyCo2Emissions field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyCo2Emissions() float32 {
+	if o == nil || IsNil(o.EnergyCo2Emissions) {
+		var ret float32
+		return ret
+	}
+	return *o.EnergyCo2Emissions
+}
+
+// GetEnergyCo2EmissionsOk returns a tuple with the EnergyCo2Emissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyCo2EmissionsOk() (*float32, bool) {
+	if o == nil || IsNil(o.EnergyCo2Emissions) {
+		return nil, false
+	}
+	return o.EnergyCo2Emissions, true
+}
+
+// HasEnergyCo2Emissions returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyCo2Emissions() bool {
+	if o != nil && !IsNil(o.EnergyCo2Emissions) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyCo2Emissions gets a reference to the given float32 and assigns it to the EnergyCo2Emissions field.
+func (o *PropertyInput) SetEnergyCo2Emissions(v float32) {
+	o.EnergyCo2Emissions = &v
+}
+
 // GetEnergyConsumptionKwh returns the EnergyConsumptionKwh field value if set, zero value otherwise.
 func (o *PropertyInput) GetEnergyConsumptionKwh() float32 {
 	if o == nil || IsNil(o.EnergyConsumptionKwh) {
@@ -485,6 +954,70 @@ func (o *PropertyInput) SetEnergyConsumptionKwh(v float32) {
 	o.EnergyConsumptionKwh = &v
 }
 
+// GetEnergyDemandKwh returns the EnergyDemandKwh field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyDemandKwh() float32 {
+	if o == nil || IsNil(o.EnergyDemandKwh) {
+		var ret float32
+		return ret
+	}
+	return *o.EnergyDemandKwh
+}
+
+// GetEnergyDemandKwhOk returns a tuple with the EnergyDemandKwh field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyDemandKwhOk() (*float32, bool) {
+	if o == nil || IsNil(o.EnergyDemandKwh) {
+		return nil, false
+	}
+	return o.EnergyDemandKwh, true
+}
+
+// HasEnergyDemandKwh returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyDemandKwh() bool {
+	if o != nil && !IsNil(o.EnergyDemandKwh) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyDemandKwh gets a reference to the given float32 and assigns it to the EnergyDemandKwh field.
+func (o *PropertyInput) SetEnergyDemandKwh(v float32) {
+	o.EnergyDemandKwh = &v
+}
+
+// GetEnergyIncludesHotWater returns the EnergyIncludesHotWater field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyIncludesHotWater() bool {
+	if o == nil || IsNil(o.EnergyIncludesHotWater) {
+		var ret bool
+		return ret
+	}
+	return *o.EnergyIncludesHotWater
+}
+
+// GetEnergyIncludesHotWaterOk returns a tuple with the EnergyIncludesHotWater field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyIncludesHotWaterOk() (*bool, bool) {
+	if o == nil || IsNil(o.EnergyIncludesHotWater) {
+		return nil, false
+	}
+	return o.EnergyIncludesHotWater, true
+}
+
+// HasEnergyIncludesHotWater returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyIncludesHotWater() bool {
+	if o != nil && !IsNil(o.EnergyIncludesHotWater) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyIncludesHotWater gets a reference to the given bool and assigns it to the EnergyIncludesHotWater field.
+func (o *PropertyInput) SetEnergyIncludesHotWater(v bool) {
+	o.EnergyIncludesHotWater = &v
+}
+
 // GetEnergyLabel returns the EnergyLabel field value if set, zero value otherwise.
 func (o *PropertyInput) GetEnergyLabel() string {
 	if o == nil || IsNil(o.EnergyLabel) {
@@ -515,6 +1048,70 @@ func (o *PropertyInput) HasEnergyLabel() bool {
 // SetEnergyLabel gets a reference to the given string and assigns it to the EnergyLabel field.
 func (o *PropertyInput) SetEnergyLabel(v string) {
 	o.EnergyLabel = &v
+}
+
+// GetEnergyPrimaryCarrier returns the EnergyPrimaryCarrier field value if set, zero value otherwise.
+func (o *PropertyInput) GetEnergyPrimaryCarrier() string {
+	if o == nil || IsNil(o.EnergyPrimaryCarrier) {
+		var ret string
+		return ret
+	}
+	return *o.EnergyPrimaryCarrier
+}
+
+// GetEnergyPrimaryCarrierOk returns a tuple with the EnergyPrimaryCarrier field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetEnergyPrimaryCarrierOk() (*string, bool) {
+	if o == nil || IsNil(o.EnergyPrimaryCarrier) {
+		return nil, false
+	}
+	return o.EnergyPrimaryCarrier, true
+}
+
+// HasEnergyPrimaryCarrier returns a boolean if a field has been set.
+func (o *PropertyInput) HasEnergyPrimaryCarrier() bool {
+	if o != nil && !IsNil(o.EnergyPrimaryCarrier) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnergyPrimaryCarrier gets a reference to the given string and assigns it to the EnergyPrimaryCarrier field.
+func (o *PropertyInput) SetEnergyPrimaryCarrier(v string) {
+	o.EnergyPrimaryCarrier = &v
+}
+
+// GetExteriorFeatures returns the ExteriorFeatures field value if set, zero value otherwise.
+func (o *PropertyInput) GetExteriorFeatures() []string {
+	if o == nil || IsNil(o.ExteriorFeatures) {
+		var ret []string
+		return ret
+	}
+	return o.ExteriorFeatures
+}
+
+// GetExteriorFeaturesOk returns a tuple with the ExteriorFeatures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetExteriorFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.ExteriorFeatures) {
+		return nil, false
+	}
+	return o.ExteriorFeatures, true
+}
+
+// HasExteriorFeatures returns a boolean if a field has been set.
+func (o *PropertyInput) HasExteriorFeatures() bool {
+	if o != nil && !IsNil(o.ExteriorFeatures) {
+		return true
+	}
+
+	return false
+}
+
+// SetExteriorFeatures gets a reference to the given []string and assigns it to the ExteriorFeatures field.
+func (o *PropertyInput) SetExteriorFeatures(v []string) {
+	o.ExteriorFeatures = v
 }
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
@@ -581,6 +1178,38 @@ func (o *PropertyInput) SetFloor(v int32) {
 	o.Floor = &v
 }
 
+// GetFlooring returns the Flooring field value if set, zero value otherwise.
+func (o *PropertyInput) GetFlooring() string {
+	if o == nil || IsNil(o.Flooring) {
+		var ret string
+		return ret
+	}
+	return *o.Flooring
+}
+
+// GetFlooringOk returns a tuple with the Flooring field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetFlooringOk() (*string, bool) {
+	if o == nil || IsNil(o.Flooring) {
+		return nil, false
+	}
+	return o.Flooring, true
+}
+
+// HasFlooring returns a boolean if a field has been set.
+func (o *PropertyInput) HasFlooring() bool {
+	if o != nil && !IsNil(o.Flooring) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlooring gets a reference to the given string and assigns it to the Flooring field.
+func (o *PropertyInput) SetFlooring(v string) {
+	o.Flooring = &v
+}
+
 // GetFloorsInBuilding returns the FloorsInBuilding field value if set, zero value otherwise.
 func (o *PropertyInput) GetFloorsInBuilding() int32 {
 	if o == nil || IsNil(o.FloorsInBuilding) {
@@ -611,6 +1240,38 @@ func (o *PropertyInput) HasFloorsInBuilding() bool {
 // SetFloorsInBuilding gets a reference to the given int32 and assigns it to the FloorsInBuilding field.
 func (o *PropertyInput) SetFloorsInBuilding(v int32) {
 	o.FloorsInBuilding = &v
+}
+
+// GetGardenSqm returns the GardenSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetGardenSqm() float32 {
+	if o == nil || IsNil(o.GardenSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.GardenSqm
+}
+
+// GetGardenSqmOk returns a tuple with the GardenSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetGardenSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.GardenSqm) {
+		return nil, false
+	}
+	return o.GardenSqm, true
+}
+
+// HasGardenSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasGardenSqm() bool {
+	if o != nil && !IsNil(o.GardenSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetGardenSqm gets a reference to the given float32 and assigns it to the GardenSqm field.
+func (o *PropertyInput) SetGardenSqm(v float32) {
+	o.GardenSqm = &v
 }
 
 // GetHalfBathrooms returns the HalfBathrooms field value if set, zero value otherwise.
@@ -645,6 +1306,422 @@ func (o *PropertyInput) SetHalfBathrooms(v int32) {
 	o.HalfBathrooms = &v
 }
 
+// GetHasAirConditioning returns the HasAirConditioning field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasAirConditioning() bool {
+	if o == nil || IsNil(o.HasAirConditioning) {
+		var ret bool
+		return ret
+	}
+	return *o.HasAirConditioning
+}
+
+// GetHasAirConditioningOk returns a tuple with the HasAirConditioning field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasAirConditioningOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasAirConditioning) {
+		return nil, false
+	}
+	return o.HasAirConditioning, true
+}
+
+// HasHasAirConditioning returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasAirConditioning() bool {
+	if o != nil && !IsNil(o.HasAirConditioning) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasAirConditioning gets a reference to the given bool and assigns it to the HasAirConditioning field.
+func (o *PropertyInput) SetHasAirConditioning(v bool) {
+	o.HasAirConditioning = &v
+}
+
+// GetHasAlarmSystem returns the HasAlarmSystem field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasAlarmSystem() bool {
+	if o == nil || IsNil(o.HasAlarmSystem) {
+		var ret bool
+		return ret
+	}
+	return *o.HasAlarmSystem
+}
+
+// GetHasAlarmSystemOk returns a tuple with the HasAlarmSystem field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasAlarmSystemOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasAlarmSystem) {
+		return nil, false
+	}
+	return o.HasAlarmSystem, true
+}
+
+// HasHasAlarmSystem returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasAlarmSystem() bool {
+	if o != nil && !IsNil(o.HasAlarmSystem) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasAlarmSystem gets a reference to the given bool and assigns it to the HasAlarmSystem field.
+func (o *PropertyInput) SetHasAlarmSystem(v bool) {
+	o.HasAlarmSystem = &v
+}
+
+// GetHasBalcony returns the HasBalcony field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasBalcony() bool {
+	if o == nil || IsNil(o.HasBalcony) {
+		var ret bool
+		return ret
+	}
+	return *o.HasBalcony
+}
+
+// GetHasBalconyOk returns a tuple with the HasBalcony field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasBalconyOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasBalcony) {
+		return nil, false
+	}
+	return o.HasBalcony, true
+}
+
+// HasHasBalcony returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasBalcony() bool {
+	if o != nil && !IsNil(o.HasBalcony) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasBalcony gets a reference to the given bool and assigns it to the HasBalcony field.
+func (o *PropertyInput) SetHasBalcony(v bool) {
+	o.HasBalcony = &v
+}
+
+// GetHasCellar returns the HasCellar field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasCellar() bool {
+	if o == nil || IsNil(o.HasCellar) {
+		var ret bool
+		return ret
+	}
+	return *o.HasCellar
+}
+
+// GetHasCellarOk returns a tuple with the HasCellar field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasCellarOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasCellar) {
+		return nil, false
+	}
+	return o.HasCellar, true
+}
+
+// HasHasCellar returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasCellar() bool {
+	if o != nil && !IsNil(o.HasCellar) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasCellar gets a reference to the given bool and assigns it to the HasCellar field.
+func (o *PropertyInput) SetHasCellar(v bool) {
+	o.HasCellar = &v
+}
+
+// GetHasFireplace returns the HasFireplace field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasFireplace() bool {
+	if o == nil || IsNil(o.HasFireplace) {
+		var ret bool
+		return ret
+	}
+	return *o.HasFireplace
+}
+
+// GetHasFireplaceOk returns a tuple with the HasFireplace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasFireplaceOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasFireplace) {
+		return nil, false
+	}
+	return o.HasFireplace, true
+}
+
+// HasHasFireplace returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasFireplace() bool {
+	if o != nil && !IsNil(o.HasFireplace) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasFireplace gets a reference to the given bool and assigns it to the HasFireplace field.
+func (o *PropertyInput) SetHasFireplace(v bool) {
+	o.HasFireplace = &v
+}
+
+// GetHasFittedKitchen returns the HasFittedKitchen field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasFittedKitchen() bool {
+	if o == nil || IsNil(o.HasFittedKitchen) {
+		var ret bool
+		return ret
+	}
+	return *o.HasFittedKitchen
+}
+
+// GetHasFittedKitchenOk returns a tuple with the HasFittedKitchen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasFittedKitchenOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasFittedKitchen) {
+		return nil, false
+	}
+	return o.HasFittedKitchen, true
+}
+
+// HasHasFittedKitchen returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasFittedKitchen() bool {
+	if o != nil && !IsNil(o.HasFittedKitchen) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasFittedKitchen gets a reference to the given bool and assigns it to the HasFittedKitchen field.
+func (o *PropertyInput) SetHasFittedKitchen(v bool) {
+	o.HasFittedKitchen = &v
+}
+
+// GetHasGarden returns the HasGarden field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasGarden() bool {
+	if o == nil || IsNil(o.HasGarden) {
+		var ret bool
+		return ret
+	}
+	return *o.HasGarden
+}
+
+// GetHasGardenOk returns a tuple with the HasGarden field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasGardenOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasGarden) {
+		return nil, false
+	}
+	return o.HasGarden, true
+}
+
+// HasHasGarden returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasGarden() bool {
+	if o != nil && !IsNil(o.HasGarden) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasGarden gets a reference to the given bool and assigns it to the HasGarden field.
+func (o *PropertyInput) SetHasGarden(v bool) {
+	o.HasGarden = &v
+}
+
+// GetHasGuestToilet returns the HasGuestToilet field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasGuestToilet() bool {
+	if o == nil || IsNil(o.HasGuestToilet) {
+		var ret bool
+		return ret
+	}
+	return *o.HasGuestToilet
+}
+
+// GetHasGuestToiletOk returns a tuple with the HasGuestToilet field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasGuestToiletOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasGuestToilet) {
+		return nil, false
+	}
+	return o.HasGuestToilet, true
+}
+
+// HasHasGuestToilet returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasGuestToilet() bool {
+	if o != nil && !IsNil(o.HasGuestToilet) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasGuestToilet gets a reference to the given bool and assigns it to the HasGuestToilet field.
+func (o *PropertyInput) SetHasGuestToilet(v bool) {
+	o.HasGuestToilet = &v
+}
+
+// GetHasLift returns the HasLift field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasLift() bool {
+	if o == nil || IsNil(o.HasLift) {
+		var ret bool
+		return ret
+	}
+	return *o.HasLift
+}
+
+// GetHasLiftOk returns a tuple with the HasLift field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasLiftOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasLift) {
+		return nil, false
+	}
+	return o.HasLift, true
+}
+
+// HasHasLift returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasLift() bool {
+	if o != nil && !IsNil(o.HasLift) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasLift gets a reference to the given bool and assigns it to the HasLift field.
+func (o *PropertyInput) SetHasLift(v bool) {
+	o.HasLift = &v
+}
+
+// GetHasPool returns the HasPool field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasPool() bool {
+	if o == nil || IsNil(o.HasPool) {
+		var ret bool
+		return ret
+	}
+	return *o.HasPool
+}
+
+// GetHasPoolOk returns a tuple with the HasPool field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasPoolOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasPool) {
+		return nil, false
+	}
+	return o.HasPool, true
+}
+
+// HasHasPool returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasPool() bool {
+	if o != nil && !IsNil(o.HasPool) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasPool gets a reference to the given bool and assigns it to the HasPool field.
+func (o *PropertyInput) SetHasPool(v bool) {
+	o.HasPool = &v
+}
+
+// GetHasSauna returns the HasSauna field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasSauna() bool {
+	if o == nil || IsNil(o.HasSauna) {
+		var ret bool
+		return ret
+	}
+	return *o.HasSauna
+}
+
+// GetHasSaunaOk returns a tuple with the HasSauna field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasSaunaOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasSauna) {
+		return nil, false
+	}
+	return o.HasSauna, true
+}
+
+// HasHasSauna returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasSauna() bool {
+	if o != nil && !IsNil(o.HasSauna) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasSauna gets a reference to the given bool and assigns it to the HasSauna field.
+func (o *PropertyInput) SetHasSauna(v bool) {
+	o.HasSauna = &v
+}
+
+// GetHasSolarPanels returns the HasSolarPanels field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasSolarPanels() bool {
+	if o == nil || IsNil(o.HasSolarPanels) {
+		var ret bool
+		return ret
+	}
+	return *o.HasSolarPanels
+}
+
+// GetHasSolarPanelsOk returns a tuple with the HasSolarPanels field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasSolarPanelsOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasSolarPanels) {
+		return nil, false
+	}
+	return o.HasSolarPanels, true
+}
+
+// HasHasSolarPanels returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasSolarPanels() bool {
+	if o != nil && !IsNil(o.HasSolarPanels) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasSolarPanels gets a reference to the given bool and assigns it to the HasSolarPanels field.
+func (o *PropertyInput) SetHasSolarPanels(v bool) {
+	o.HasSolarPanels = &v
+}
+
+// GetHasTerrace returns the HasTerrace field value if set, zero value otherwise.
+func (o *PropertyInput) GetHasTerrace() bool {
+	if o == nil || IsNil(o.HasTerrace) {
+		var ret bool
+		return ret
+	}
+	return *o.HasTerrace
+}
+
+// GetHasTerraceOk returns a tuple with the HasTerrace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetHasTerraceOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasTerrace) {
+		return nil, false
+	}
+	return o.HasTerrace, true
+}
+
+// HasHasTerrace returns a boolean if a field has been set.
+func (o *PropertyInput) HasHasTerrace() bool {
+	if o != nil && !IsNil(o.HasTerrace) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasTerrace gets a reference to the given bool and assigns it to the HasTerrace field.
+func (o *PropertyInput) SetHasTerrace(v bool) {
+	o.HasTerrace = &v
+}
+
 // GetHeatingType returns the HeatingType field value if set, zero value otherwise.
 func (o *PropertyInput) GetHeatingType() string {
 	if o == nil || IsNil(o.HeatingType) {
@@ -675,6 +1752,230 @@ func (o *PropertyInput) HasHeatingType() bool {
 // SetHeatingType gets a reference to the given string and assigns it to the HeatingType field.
 func (o *PropertyInput) SetHeatingType(v string) {
 	o.HeatingType = &v
+}
+
+// GetImages returns the Images field value if set, zero value otherwise.
+func (o *PropertyInput) GetImages() []ImageInput {
+	if o == nil || IsNil(o.Images) {
+		var ret []ImageInput
+		return ret
+	}
+	return o.Images
+}
+
+// GetImagesOk returns a tuple with the Images field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetImagesOk() ([]ImageInput, bool) {
+	if o == nil || IsNil(o.Images) {
+		return nil, false
+	}
+	return o.Images, true
+}
+
+// HasImages returns a boolean if a field has been set.
+func (o *PropertyInput) HasImages() bool {
+	if o != nil && !IsNil(o.Images) {
+		return true
+	}
+
+	return false
+}
+
+// SetImages gets a reference to the given []ImageInput and assigns it to the Images field.
+func (o *PropertyInput) SetImages(v []ImageInput) {
+	o.Images = v
+}
+
+// GetInteriorFeatures returns the InteriorFeatures field value if set, zero value otherwise.
+func (o *PropertyInput) GetInteriorFeatures() []string {
+	if o == nil || IsNil(o.InteriorFeatures) {
+		var ret []string
+		return ret
+	}
+	return o.InteriorFeatures
+}
+
+// GetInteriorFeaturesOk returns a tuple with the InteriorFeatures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetInteriorFeaturesOk() ([]string, bool) {
+	if o == nil || IsNil(o.InteriorFeatures) {
+		return nil, false
+	}
+	return o.InteriorFeatures, true
+}
+
+// HasInteriorFeatures returns a boolean if a field has been set.
+func (o *PropertyInput) HasInteriorFeatures() bool {
+	if o != nil && !IsNil(o.InteriorFeatures) {
+		return true
+	}
+
+	return false
+}
+
+// SetInteriorFeatures gets a reference to the given []string and assigns it to the InteriorFeatures field.
+func (o *PropertyInput) SetInteriorFeatures(v []string) {
+	o.InteriorFeatures = v
+}
+
+// GetIsBarrierFree returns the IsBarrierFree field value if set, zero value otherwise.
+func (o *PropertyInput) GetIsBarrierFree() bool {
+	if o == nil || IsNil(o.IsBarrierFree) {
+		var ret bool
+		return ret
+	}
+	return *o.IsBarrierFree
+}
+
+// GetIsBarrierFreeOk returns a tuple with the IsBarrierFree field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetIsBarrierFreeOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsBarrierFree) {
+		return nil, false
+	}
+	return o.IsBarrierFree, true
+}
+
+// HasIsBarrierFree returns a boolean if a field has been set.
+func (o *PropertyInput) HasIsBarrierFree() bool {
+	if o != nil && !IsNil(o.IsBarrierFree) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsBarrierFree gets a reference to the given bool and assigns it to the IsBarrierFree field.
+func (o *PropertyInput) SetIsBarrierFree(v bool) {
+	o.IsBarrierFree = &v
+}
+
+// GetIsFurnished returns the IsFurnished field value if set, zero value otherwise.
+func (o *PropertyInput) GetIsFurnished() bool {
+	if o == nil || IsNil(o.IsFurnished) {
+		var ret bool
+		return ret
+	}
+	return *o.IsFurnished
+}
+
+// GetIsFurnishedOk returns a tuple with the IsFurnished field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetIsFurnishedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsFurnished) {
+		return nil, false
+	}
+	return o.IsFurnished, true
+}
+
+// HasIsFurnished returns a boolean if a field has been set.
+func (o *PropertyInput) HasIsFurnished() bool {
+	if o != nil && !IsNil(o.IsFurnished) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsFurnished gets a reference to the given bool and assigns it to the IsFurnished field.
+func (o *PropertyInput) SetIsFurnished(v bool) {
+	o.IsFurnished = &v
+}
+
+// GetIsLeasehold returns the IsLeasehold field value if set, zero value otherwise.
+func (o *PropertyInput) GetIsLeasehold() bool {
+	if o == nil || IsNil(o.IsLeasehold) {
+		var ret bool
+		return ret
+	}
+	return *o.IsLeasehold
+}
+
+// GetIsLeaseholdOk returns a tuple with the IsLeasehold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetIsLeaseholdOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsLeasehold) {
+		return nil, false
+	}
+	return o.IsLeasehold, true
+}
+
+// HasIsLeasehold returns a boolean if a field has been set.
+func (o *PropertyInput) HasIsLeasehold() bool {
+	if o != nil && !IsNil(o.IsLeasehold) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsLeasehold gets a reference to the given bool and assigns it to the IsLeasehold field.
+func (o *PropertyInput) SetIsLeasehold(v bool) {
+	o.IsLeasehold = &v
+}
+
+// GetIsMonumentProtected returns the IsMonumentProtected field value if set, zero value otherwise.
+func (o *PropertyInput) GetIsMonumentProtected() bool {
+	if o == nil || IsNil(o.IsMonumentProtected) {
+		var ret bool
+		return ret
+	}
+	return *o.IsMonumentProtected
+}
+
+// GetIsMonumentProtectedOk returns a tuple with the IsMonumentProtected field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetIsMonumentProtectedOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsMonumentProtected) {
+		return nil, false
+	}
+	return o.IsMonumentProtected, true
+}
+
+// HasIsMonumentProtected returns a boolean if a field has been set.
+func (o *PropertyInput) HasIsMonumentProtected() bool {
+	if o != nil && !IsNil(o.IsMonumentProtected) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsMonumentProtected gets a reference to the given bool and assigns it to the IsMonumentProtected field.
+func (o *PropertyInput) SetIsMonumentProtected(v bool) {
+	o.IsMonumentProtected = &v
+}
+
+// GetKitchenType returns the KitchenType field value if set, zero value otherwise.
+func (o *PropertyInput) GetKitchenType() string {
+	if o == nil || IsNil(o.KitchenType) {
+		var ret string
+		return ret
+	}
+	return *o.KitchenType
+}
+
+// GetKitchenTypeOk returns a tuple with the KitchenType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetKitchenTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.KitchenType) {
+		return nil, false
+	}
+	return o.KitchenType, true
+}
+
+// HasKitchenType returns a boolean if a field has been set.
+func (o *PropertyInput) HasKitchenType() bool {
+	if o != nil && !IsNil(o.KitchenType) {
+		return true
+	}
+
+	return false
+}
+
+// SetKitchenType gets a reference to the given string and assigns it to the KitchenType field.
+func (o *PropertyInput) SetKitchenType(v string) {
+	o.KitchenType = &v
 }
 
 // GetLatitude returns the Latitude field value if set, zero value otherwise.
@@ -837,6 +2138,166 @@ func (o *PropertyInput) SetLongitude(v float32) {
 	o.Longitude = &v
 }
 
+// GetOfficeAreaSqm returns the OfficeAreaSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetOfficeAreaSqm() float32 {
+	if o == nil || IsNil(o.OfficeAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.OfficeAreaSqm
+}
+
+// GetOfficeAreaSqmOk returns a tuple with the OfficeAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetOfficeAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.OfficeAreaSqm) {
+		return nil, false
+	}
+	return o.OfficeAreaSqm, true
+}
+
+// HasOfficeAreaSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasOfficeAreaSqm() bool {
+	if o != nil && !IsNil(o.OfficeAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetOfficeAreaSqm gets a reference to the given float32 and assigns it to the OfficeAreaSqm field.
+func (o *PropertyInput) SetOfficeAreaSqm(v float32) {
+	o.OfficeAreaSqm = &v
+}
+
+// GetOtherAreaSqm returns the OtherAreaSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetOtherAreaSqm() float32 {
+	if o == nil || IsNil(o.OtherAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.OtherAreaSqm
+}
+
+// GetOtherAreaSqmOk returns a tuple with the OtherAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetOtherAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.OtherAreaSqm) {
+		return nil, false
+	}
+	return o.OtherAreaSqm, true
+}
+
+// HasOtherAreaSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasOtherAreaSqm() bool {
+	if o != nil && !IsNil(o.OtherAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetOtherAreaSqm gets a reference to the given float32 and assigns it to the OtherAreaSqm field.
+func (o *PropertyInput) SetOtherAreaSqm(v float32) {
+	o.OtherAreaSqm = &v
+}
+
+// GetParkingIncluded returns the ParkingIncluded field value if set, zero value otherwise.
+func (o *PropertyInput) GetParkingIncluded() bool {
+	if o == nil || IsNil(o.ParkingIncluded) {
+		var ret bool
+		return ret
+	}
+	return *o.ParkingIncluded
+}
+
+// GetParkingIncludedOk returns a tuple with the ParkingIncluded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetParkingIncludedOk() (*bool, bool) {
+	if o == nil || IsNil(o.ParkingIncluded) {
+		return nil, false
+	}
+	return o.ParkingIncluded, true
+}
+
+// HasParkingIncluded returns a boolean if a field has been set.
+func (o *PropertyInput) HasParkingIncluded() bool {
+	if o != nil && !IsNil(o.ParkingIncluded) {
+		return true
+	}
+
+	return false
+}
+
+// SetParkingIncluded gets a reference to the given bool and assigns it to the ParkingIncluded field.
+func (o *PropertyInput) SetParkingIncluded(v bool) {
+	o.ParkingIncluded = &v
+}
+
+// GetParkingSpaceCount returns the ParkingSpaceCount field value if set, zero value otherwise.
+func (o *PropertyInput) GetParkingSpaceCount() int32 {
+	if o == nil || IsNil(o.ParkingSpaceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ParkingSpaceCount
+}
+
+// GetParkingSpaceCountOk returns a tuple with the ParkingSpaceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetParkingSpaceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ParkingSpaceCount) {
+		return nil, false
+	}
+	return o.ParkingSpaceCount, true
+}
+
+// HasParkingSpaceCount returns a boolean if a field has been set.
+func (o *PropertyInput) HasParkingSpaceCount() bool {
+	if o != nil && !IsNil(o.ParkingSpaceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetParkingSpaceCount gets a reference to the given int32 and assigns it to the ParkingSpaceCount field.
+func (o *PropertyInput) SetParkingSpaceCount(v int32) {
+	o.ParkingSpaceCount = &v
+}
+
+// GetParkingType returns the ParkingType field value if set, zero value otherwise.
+func (o *PropertyInput) GetParkingType() string {
+	if o == nil || IsNil(o.ParkingType) {
+		var ret string
+		return ret
+	}
+	return *o.ParkingType
+}
+
+// GetParkingTypeOk returns a tuple with the ParkingType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetParkingTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ParkingType) {
+		return nil, false
+	}
+	return o.ParkingType, true
+}
+
+// HasParkingType returns a boolean if a field has been set.
+func (o *PropertyInput) HasParkingType() bool {
+	if o != nil && !IsNil(o.ParkingType) {
+		return true
+	}
+
+	return false
+}
+
+// SetParkingType gets a reference to the given string and assigns it to the ParkingType field.
+func (o *PropertyInput) SetParkingType(v string) {
+	o.ParkingType = &v
+}
+
 // GetPlotAreaSqm returns the PlotAreaSqm field value if set, zero value otherwise.
 func (o *PropertyInput) GetPlotAreaSqm() float32 {
 	if o == nil || IsNil(o.PlotAreaSqm) {
@@ -867,6 +2328,198 @@ func (o *PropertyInput) HasPlotAreaSqm() bool {
 // SetPlotAreaSqm gets a reference to the given float32 and assigns it to the PlotAreaSqm field.
 func (o *PropertyInput) SetPlotAreaSqm(v float32) {
 	o.PlotAreaSqm = &v
+}
+
+// GetPropertySubtype returns the PropertySubtype field value if set, zero value otherwise.
+func (o *PropertyInput) GetPropertySubtype() string {
+	if o == nil || IsNil(o.PropertySubtype) {
+		var ret string
+		return ret
+	}
+	return *o.PropertySubtype
+}
+
+// GetPropertySubtypeOk returns a tuple with the PropertySubtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetPropertySubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PropertySubtype) {
+		return nil, false
+	}
+	return o.PropertySubtype, true
+}
+
+// HasPropertySubtype returns a boolean if a field has been set.
+func (o *PropertyInput) HasPropertySubtype() bool {
+	if o != nil && !IsNil(o.PropertySubtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetPropertySubtype gets a reference to the given string and assigns it to the PropertySubtype field.
+func (o *PropertyInput) SetPropertySubtype(v string) {
+	o.PropertySubtype = &v
+}
+
+// GetPublishAddress returns the PublishAddress field value if set, zero value otherwise.
+func (o *PropertyInput) GetPublishAddress() bool {
+	if o == nil || IsNil(o.PublishAddress) {
+		var ret bool
+		return ret
+	}
+	return *o.PublishAddress
+}
+
+// GetPublishAddressOk returns a tuple with the PublishAddress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetPublishAddressOk() (*bool, bool) {
+	if o == nil || IsNil(o.PublishAddress) {
+		return nil, false
+	}
+	return o.PublishAddress, true
+}
+
+// HasPublishAddress returns a boolean if a field has been set.
+func (o *PropertyInput) HasPublishAddress() bool {
+	if o != nil && !IsNil(o.PublishAddress) {
+		return true
+	}
+
+	return false
+}
+
+// SetPublishAddress gets a reference to the given bool and assigns it to the PublishAddress field.
+func (o *PropertyInput) SetPublishAddress(v bool) {
+	o.PublishAddress = &v
+}
+
+// GetRetailAreaSqm returns the RetailAreaSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetRetailAreaSqm() float32 {
+	if o == nil || IsNil(o.RetailAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.RetailAreaSqm
+}
+
+// GetRetailAreaSqmOk returns a tuple with the RetailAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetRetailAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.RetailAreaSqm) {
+		return nil, false
+	}
+	return o.RetailAreaSqm, true
+}
+
+// HasRetailAreaSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasRetailAreaSqm() bool {
+	if o != nil && !IsNil(o.RetailAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetRetailAreaSqm gets a reference to the given float32 and assigns it to the RetailAreaSqm field.
+func (o *PropertyInput) SetRetailAreaSqm(v float32) {
+	o.RetailAreaSqm = &v
+}
+
+// GetStorageAreaSqm returns the StorageAreaSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetStorageAreaSqm() float32 {
+	if o == nil || IsNil(o.StorageAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.StorageAreaSqm
+}
+
+// GetStorageAreaSqmOk returns a tuple with the StorageAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetStorageAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.StorageAreaSqm) {
+		return nil, false
+	}
+	return o.StorageAreaSqm, true
+}
+
+// HasStorageAreaSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasStorageAreaSqm() bool {
+	if o != nil && !IsNil(o.StorageAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageAreaSqm gets a reference to the given float32 and assigns it to the StorageAreaSqm field.
+func (o *PropertyInput) SetStorageAreaSqm(v float32) {
+	o.StorageAreaSqm = &v
+}
+
+// GetSurroundings returns the Surroundings field value if set, zero value otherwise.
+func (o *PropertyInput) GetSurroundings() []string {
+	if o == nil || IsNil(o.Surroundings) {
+		var ret []string
+		return ret
+	}
+	return o.Surroundings
+}
+
+// GetSurroundingsOk returns a tuple with the Surroundings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetSurroundingsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Surroundings) {
+		return nil, false
+	}
+	return o.Surroundings, true
+}
+
+// HasSurroundings returns a boolean if a field has been set.
+func (o *PropertyInput) HasSurroundings() bool {
+	if o != nil && !IsNil(o.Surroundings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSurroundings gets a reference to the given []string and assigns it to the Surroundings field.
+func (o *PropertyInput) SetSurroundings(v []string) {
+	o.Surroundings = v
+}
+
+// GetTerraceCount returns the TerraceCount field value if set, zero value otherwise.
+func (o *PropertyInput) GetTerraceCount() int32 {
+	if o == nil || IsNil(o.TerraceCount) {
+		var ret int32
+		return ret
+	}
+	return *o.TerraceCount
+}
+
+// GetTerraceCountOk returns a tuple with the TerraceCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetTerraceCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.TerraceCount) {
+		return nil, false
+	}
+	return o.TerraceCount, true
+}
+
+// HasTerraceCount returns a boolean if a field has been set.
+func (o *PropertyInput) HasTerraceCount() bool {
+	if o != nil && !IsNil(o.TerraceCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetTerraceCount gets a reference to the given int32 and assigns it to the TerraceCount field.
+func (o *PropertyInput) SetTerraceCount(v int32) {
+	o.TerraceCount = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
@@ -901,6 +2554,38 @@ func (o *PropertyInput) SetTitle(v string) {
 	o.Title = &v
 }
 
+// GetTotalAreaSqm returns the TotalAreaSqm field value if set, zero value otherwise.
+func (o *PropertyInput) GetTotalAreaSqm() float32 {
+	if o == nil || IsNil(o.TotalAreaSqm) {
+		var ret float32
+		return ret
+	}
+	return *o.TotalAreaSqm
+}
+
+// GetTotalAreaSqmOk returns a tuple with the TotalAreaSqm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetTotalAreaSqmOk() (*float32, bool) {
+	if o == nil || IsNil(o.TotalAreaSqm) {
+		return nil, false
+	}
+	return o.TotalAreaSqm, true
+}
+
+// HasTotalAreaSqm returns a boolean if a field has been set.
+func (o *PropertyInput) HasTotalAreaSqm() bool {
+	if o != nil && !IsNil(o.TotalAreaSqm) {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalAreaSqm gets a reference to the given float32 and assigns it to the TotalAreaSqm field.
+func (o *PropertyInput) SetTotalAreaSqm(v float32) {
+	o.TotalAreaSqm = &v
+}
+
 // GetTotalRooms returns the TotalRooms field value if set, zero value otherwise.
 func (o *PropertyInput) GetTotalRooms() int32 {
 	if o == nil || IsNil(o.TotalRooms) {
@@ -931,6 +2616,38 @@ func (o *PropertyInput) HasTotalRooms() bool {
 // SetTotalRooms gets a reference to the given int32 and assigns it to the TotalRooms field.
 func (o *PropertyInput) SetTotalRooms(v int32) {
 	o.TotalRooms = &v
+}
+
+// GetTranslations returns the Translations field value if set, zero value otherwise.
+func (o *PropertyInput) GetTranslations() []Translation {
+	if o == nil || IsNil(o.Translations) {
+		var ret []Translation
+		return ret
+	}
+	return o.Translations
+}
+
+// GetTranslationsOk returns a tuple with the Translations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetTranslationsOk() ([]Translation, bool) {
+	if o == nil || IsNil(o.Translations) {
+		return nil, false
+	}
+	return o.Translations, true
+}
+
+// HasTranslations returns a boolean if a field has been set.
+func (o *PropertyInput) HasTranslations() bool {
+	if o != nil && !IsNil(o.Translations) {
+		return true
+	}
+
+	return false
+}
+
+// SetTranslations gets a reference to the given []Translation and assigns it to the Translations field.
+func (o *PropertyInput) SetTranslations(v []Translation) {
+	o.Translations = v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -995,6 +2712,38 @@ func (o *PropertyInput) HasUsableAreaSqm() bool {
 // SetUsableAreaSqm gets a reference to the given float32 and assigns it to the UsableAreaSqm field.
 func (o *PropertyInput) SetUsableAreaSqm(v float32) {
 	o.UsableAreaSqm = &v
+}
+
+// GetWindowGlazing returns the WindowGlazing field value if set, zero value otherwise.
+func (o *PropertyInput) GetWindowGlazing() string {
+	if o == nil || IsNil(o.WindowGlazing) {
+		var ret string
+		return ret
+	}
+	return *o.WindowGlazing
+}
+
+// GetWindowGlazingOk returns a tuple with the WindowGlazing field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PropertyInput) GetWindowGlazingOk() (*string, bool) {
+	if o == nil || IsNil(o.WindowGlazing) {
+		return nil, false
+	}
+	return o.WindowGlazing, true
+}
+
+// HasWindowGlazing returns a boolean if a field has been set.
+func (o *PropertyInput) HasWindowGlazing() bool {
+	if o != nil && !IsNil(o.WindowGlazing) {
+		return true
+	}
+
+	return false
+}
+
+// SetWindowGlazing gets a reference to the given string and assigns it to the WindowGlazing field.
+func (o *PropertyInput) SetWindowGlazing(v string) {
+	o.WindowGlazing = &v
 }
 
 // GetYearBuilt returns the YearBuilt field value if set, zero value otherwise.
@@ -1092,14 +2841,32 @@ func (o PropertyInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AddressStreet) {
 		toSerialize["address_street"] = o.AddressStreet
 	}
+	if !IsNil(o.AtticSqm) {
+		toSerialize["attic_sqm"] = o.AtticSqm
+	}
+	if !IsNil(o.BalconyCount) {
+		toSerialize["balcony_count"] = o.BalconyCount
+	}
+	if !IsNil(o.BalconyTerraceSqm) {
+		toSerialize["balcony_terrace_sqm"] = o.BalconyTerraceSqm
+	}
 	if !IsNil(o.Bathrooms) {
 		toSerialize["bathrooms"] = o.Bathrooms
 	}
 	if !IsNil(o.Bedrooms) {
 		toSerialize["bedrooms"] = o.Bedrooms
 	}
+	if !IsNil(o.BuildingAmenities) {
+		toSerialize["building_amenities"] = o.BuildingAmenities
+	}
+	if !IsNil(o.CellarSqm) {
+		toSerialize["cellar_sqm"] = o.CellarSqm
+	}
 	if !IsNil(o.Condition) {
 		toSerialize["condition"] = o.Condition
+	}
+	if !IsNil(o.ConstructionPhase) {
+		toSerialize["construction_phase"] = o.ConstructionPhase
 	}
 	if !IsNil(o.ConstructionType) {
 		toSerialize["construction_type"] = o.ConstructionType
@@ -1107,11 +2874,44 @@ func (o PropertyInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.DescriptionFittings) {
+		toSerialize["description_fittings"] = o.DescriptionFittings
+	}
+	if !IsNil(o.DescriptionLocation) {
+		toSerialize["description_location"] = o.DescriptionLocation
+	}
+	if !IsNil(o.DescriptionOther) {
+		toSerialize["description_other"] = o.DescriptionOther
+	}
+	if !IsNil(o.EnergyCertificateIssuedAt) {
+		toSerialize["energy_certificate_issued_at"] = o.EnergyCertificateIssuedAt
+	}
+	if !IsNil(o.EnergyCertificateType) {
+		toSerialize["energy_certificate_type"] = o.EnergyCertificateType
+	}
+	if !IsNil(o.EnergyCertificateValidUntil) {
+		toSerialize["energy_certificate_valid_until"] = o.EnergyCertificateValidUntil
+	}
+	if !IsNil(o.EnergyCo2Emissions) {
+		toSerialize["energy_co2_emissions"] = o.EnergyCo2Emissions
+	}
 	if !IsNil(o.EnergyConsumptionKwh) {
 		toSerialize["energy_consumption_kwh"] = o.EnergyConsumptionKwh
 	}
+	if !IsNil(o.EnergyDemandKwh) {
+		toSerialize["energy_demand_kwh"] = o.EnergyDemandKwh
+	}
+	if !IsNil(o.EnergyIncludesHotWater) {
+		toSerialize["energy_includes_hot_water"] = o.EnergyIncludesHotWater
+	}
 	if !IsNil(o.EnergyLabel) {
 		toSerialize["energy_label"] = o.EnergyLabel
+	}
+	if !IsNil(o.EnergyPrimaryCarrier) {
+		toSerialize["energy_primary_carrier"] = o.EnergyPrimaryCarrier
+	}
+	if !IsNil(o.ExteriorFeatures) {
+		toSerialize["exterior_features"] = o.ExteriorFeatures
 	}
 	if !IsNil(o.ExternalId) {
 		toSerialize["external_id"] = o.ExternalId
@@ -1119,14 +2919,80 @@ func (o PropertyInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Floor) {
 		toSerialize["floor"] = o.Floor
 	}
+	if !IsNil(o.Flooring) {
+		toSerialize["flooring"] = o.Flooring
+	}
 	if !IsNil(o.FloorsInBuilding) {
 		toSerialize["floors_in_building"] = o.FloorsInBuilding
+	}
+	if !IsNil(o.GardenSqm) {
+		toSerialize["garden_sqm"] = o.GardenSqm
 	}
 	if !IsNil(o.HalfBathrooms) {
 		toSerialize["half_bathrooms"] = o.HalfBathrooms
 	}
+	if !IsNil(o.HasAirConditioning) {
+		toSerialize["has_air_conditioning"] = o.HasAirConditioning
+	}
+	if !IsNil(o.HasAlarmSystem) {
+		toSerialize["has_alarm_system"] = o.HasAlarmSystem
+	}
+	if !IsNil(o.HasBalcony) {
+		toSerialize["has_balcony"] = o.HasBalcony
+	}
+	if !IsNil(o.HasCellar) {
+		toSerialize["has_cellar"] = o.HasCellar
+	}
+	if !IsNil(o.HasFireplace) {
+		toSerialize["has_fireplace"] = o.HasFireplace
+	}
+	if !IsNil(o.HasFittedKitchen) {
+		toSerialize["has_fitted_kitchen"] = o.HasFittedKitchen
+	}
+	if !IsNil(o.HasGarden) {
+		toSerialize["has_garden"] = o.HasGarden
+	}
+	if !IsNil(o.HasGuestToilet) {
+		toSerialize["has_guest_toilet"] = o.HasGuestToilet
+	}
+	if !IsNil(o.HasLift) {
+		toSerialize["has_lift"] = o.HasLift
+	}
+	if !IsNil(o.HasPool) {
+		toSerialize["has_pool"] = o.HasPool
+	}
+	if !IsNil(o.HasSauna) {
+		toSerialize["has_sauna"] = o.HasSauna
+	}
+	if !IsNil(o.HasSolarPanels) {
+		toSerialize["has_solar_panels"] = o.HasSolarPanels
+	}
+	if !IsNil(o.HasTerrace) {
+		toSerialize["has_terrace"] = o.HasTerrace
+	}
 	if !IsNil(o.HeatingType) {
 		toSerialize["heating_type"] = o.HeatingType
+	}
+	if !IsNil(o.Images) {
+		toSerialize["images"] = o.Images
+	}
+	if !IsNil(o.InteriorFeatures) {
+		toSerialize["interior_features"] = o.InteriorFeatures
+	}
+	if !IsNil(o.IsBarrierFree) {
+		toSerialize["is_barrier_free"] = o.IsBarrierFree
+	}
+	if !IsNil(o.IsFurnished) {
+		toSerialize["is_furnished"] = o.IsFurnished
+	}
+	if !IsNil(o.IsLeasehold) {
+		toSerialize["is_leasehold"] = o.IsLeasehold
+	}
+	if !IsNil(o.IsMonumentProtected) {
+		toSerialize["is_monument_protected"] = o.IsMonumentProtected
+	}
+	if !IsNil(o.KitchenType) {
+		toSerialize["kitchen_type"] = o.KitchenType
 	}
 	if !IsNil(o.Latitude) {
 		toSerialize["latitude"] = o.Latitude
@@ -1143,20 +3009,62 @@ func (o PropertyInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Longitude) {
 		toSerialize["longitude"] = o.Longitude
 	}
+	if !IsNil(o.OfficeAreaSqm) {
+		toSerialize["office_area_sqm"] = o.OfficeAreaSqm
+	}
+	if !IsNil(o.OtherAreaSqm) {
+		toSerialize["other_area_sqm"] = o.OtherAreaSqm
+	}
+	if !IsNil(o.ParkingIncluded) {
+		toSerialize["parking_included"] = o.ParkingIncluded
+	}
+	if !IsNil(o.ParkingSpaceCount) {
+		toSerialize["parking_space_count"] = o.ParkingSpaceCount
+	}
+	if !IsNil(o.ParkingType) {
+		toSerialize["parking_type"] = o.ParkingType
+	}
 	if !IsNil(o.PlotAreaSqm) {
 		toSerialize["plot_area_sqm"] = o.PlotAreaSqm
+	}
+	if !IsNil(o.PropertySubtype) {
+		toSerialize["property_subtype"] = o.PropertySubtype
+	}
+	if !IsNil(o.PublishAddress) {
+		toSerialize["publish_address"] = o.PublishAddress
+	}
+	if !IsNil(o.RetailAreaSqm) {
+		toSerialize["retail_area_sqm"] = o.RetailAreaSqm
+	}
+	if !IsNil(o.StorageAreaSqm) {
+		toSerialize["storage_area_sqm"] = o.StorageAreaSqm
+	}
+	if !IsNil(o.Surroundings) {
+		toSerialize["surroundings"] = o.Surroundings
+	}
+	if !IsNil(o.TerraceCount) {
+		toSerialize["terrace_count"] = o.TerraceCount
 	}
 	if !IsNil(o.Title) {
 		toSerialize["title"] = o.Title
 	}
+	if !IsNil(o.TotalAreaSqm) {
+		toSerialize["total_area_sqm"] = o.TotalAreaSqm
+	}
 	if !IsNil(o.TotalRooms) {
 		toSerialize["total_rooms"] = o.TotalRooms
+	}
+	if !IsNil(o.Translations) {
+		toSerialize["translations"] = o.Translations
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.UsableAreaSqm) {
 		toSerialize["usable_area_sqm"] = o.UsableAreaSqm
+	}
+	if !IsNil(o.WindowGlazing) {
+		toSerialize["window_glazing"] = o.WindowGlazing
 	}
 	if !IsNil(o.YearBuilt) {
 		toSerialize["year_built"] = o.YearBuilt
